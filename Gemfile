@@ -38,3 +38,4 @@ gem 'jquery-rails'
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
 gem 'mongoid'
+gem 'bson_ext'
