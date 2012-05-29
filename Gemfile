@@ -41,3 +41,4 @@ gem 'mongoid'
 gem 'bson_ext'
 gem "devise"
 gem 'omniauth-facebook'
+gem "twitter-bootstrap-rails"
