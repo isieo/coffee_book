@@ -55,4 +55,18 @@ class User
   
   embeds_many :reviews
   embeds_many :companies
+  
+  #def self.find_for_facebook_oauth(access_token)
+  #  User.where(:facebook_id => access_token["uid"]).first
+  #end
+  def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)
+    data = access_token.extra.raw_info
+    p '------------------------'
+    p data
+    if user = self.where(:email => data.email).first#self.find_by_email(data.email)
+      user
+    else # Create a user with a stub password. 
+      self.create(:email => data.email, :password => Devise.friendly_token[0,20]) 
+    end
+  end
 end
