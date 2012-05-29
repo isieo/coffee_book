@@ -11,6 +11,5 @@ class Company
   field :contact_mobile, :type => String
   field :contact_office, :type => String
   
-  embeds_many :reviews
   embedded_in :user
 end

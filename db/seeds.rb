@@ -33,3 +33,27 @@ company.country = "malaysia"
 company.contact_mobile = "994"
 company.contact_office = "991"
 puts company.save
+
+user2 = User.find_or_create_by(email: "final@abc.com")
+user2.password = "abcxyz"
+user2.name = "Tidus"
+user2.username = "Brother"
+user2.address_street1 = "10, Jalan gila"
+user2.address_street2 = 'taman buta'
+user2.post_code = "41200"
+user2.state = "selangor"
+user2.country = "malaysia"
+user2.contact_mobile = "016-3177489"
+user2.contact_home = "999"
+user2.dob = "11-08-1985"
+user2.gender = "male"
+user2.nationality = "Malaysian"
+user2.ic_number = "881010-10-5612"
+puts user2.save
+
+review = user.reviews.find_or_create_by(comment: "this company/person is good")
+review.post_to = user2
+review.type = "Company review"
+review.poster = company.name
+puts review.save
+
