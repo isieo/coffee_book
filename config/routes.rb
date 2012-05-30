@@ -1,4 +1,6 @@
 CoffeeBook::Application.routes.draw do
+  resources :jobs
+
   root :to => "home#show"
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   devise_scope :user do
@@ -8,4 +10,5 @@ CoffeeBook::Application.routes.draw do
   end
   resources :reviews
   resources :companies
+  match "account" => "account#index"
 end

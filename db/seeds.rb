@@ -34,6 +34,18 @@ company.contact_mobile = "994"
 company.contact_office = "991"
 puts company.save
 
+job = company.jobs.find_or_create_by(title: "games promoter")
+job.location = "Giant Kelana Jaya"
+job.salary = "RM120/day"
+job.date = "11-08-2012 to 13-08-2012"
+job.time = "10am to 10pm"
+job.requirements = "* Hardworking, Aggressive, punctuality, have road show promoter experience. (Must be Female)
+* Must able to speak English / Malay
+* Must able to attend training (training date: 30th May Weds 3pm)
+* NO blonde hair,NO ear piercing
+* Attire: Uniform shirt (provided), own black pant & black cover shoe."
+job.save
+
 user2 = User.find_or_create_by(email: "final@abc.com")
 user2.password = "abcxyz"
 user2.name = "Tidus"
@@ -51,9 +63,9 @@ user2.nationality = "Malaysian"
 user2.ic_number = "881010-10-5612"
 puts user2.save
 
+
 review = user.reviews.find_or_create_by(comment: "this company/person is good")
-review.post_to = user2.name
-review.type = "Company review"
-review.poster = company.name
+review.company = company
+review.post_to = user2.id
 puts review.save
 
