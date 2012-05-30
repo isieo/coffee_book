@@ -1,5 +1,6 @@
 class User
   include Mongoid::Document
+  include Mongoid::Timestamps
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
@@ -56,13 +57,21 @@ class User
   embeds_many :reviews
   embeds_many :companies
   
+  validates_uniqueness_of :username, :email
+  
   def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)
     data = access_token.extra.raw_info
-    if user = self.where(:email => data.email).first#self.find_by_email(data.email)
-      user.update_attributes({:name => data.name, :username => data.username, :gender => data.gender})
+    if data.username.blank?
+      user_name = data.email
+    else
+      user_name = data.username
+    end
+    user = self.where(email: data.email).first
+    if user.present?
+      user.update(name: data.name, username: user_name, gender: data.gender)
       user
     else # Create a user with a stub password. 
-      self.create(:email => data.email, :password => Devise.friendly_token[0,20]) 
+      self.create(email: data.email, password: Devise.friendly_token[0,20], name: data.name, username: user_name, gender: data.gender) 
     end
   end
 end
