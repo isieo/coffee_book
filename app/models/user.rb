@@ -56,9 +56,6 @@ class User
   embeds_many :reviews
   embeds_many :companies
   
-  #def self.find_for_facebook_oauth(access_token)
-  #  User.where(:facebook_id => access_token["uid"]).first
-  #end
   def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)
     data = access_token.extra.raw_info
     if user = self.where(:email => data.email).first#self.find_by_email(data.email)
