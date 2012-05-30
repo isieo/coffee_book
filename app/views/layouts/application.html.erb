@@ -30,11 +30,11 @@
           </a>
           <%= link_to "Part time", root_path, :class => "brand"%>
           <div class="container nav-collapse">
-            <ul class="nav">
+            <ul class="nav pull-right">
               <%if !user_signed_in?%>
                 <%= render :file => '/layouts/_login_form.html.erb'%>
               <% else %>
-                <li><%= link_to current_user.name, root_path %></li>
+                <li><%= link_to current_user.name, account_path %></li>
                 <li><%= link_to "Sign out", destroy_user_session_path%></li>
               <%end%>
             </ul>
@@ -56,7 +56,7 @@
                   <li class="nav-header">Sidebar</li>
                   <li><%= link_to "My Company", companies_path  %></li>
                   <li><%= link_to "My Review", reviews_path  %></li>
-                  <li><%= link_to "Link3", "/path3"  %></li>
+                  <li><%= link_to "List Jobs", jobs_path  %></li>
                 </ul>
               </div><!--/.well -->
             </div><!--/span-->
@@ -64,7 +64,7 @@
       </div><!--/content-->
 
       <footer>
-        <p>&copy; Company 2012</p>
+        <p>&copy; Brainbytes 2012</p>
       </footer>
 
     </div> <!-- /container -->

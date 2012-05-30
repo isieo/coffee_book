@@ -54,8 +54,8 @@ class User
   field :ic_number
 
   
-  embeds_many :reviews
-  embeds_many :companies
+  has_many :reviews
+  has_many :companies
   
   validates_uniqueness_of :username, :email
   
