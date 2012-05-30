@@ -1,6 +1,6 @@
-<h1>Listing companies</h1>
+<h1>My Companies</h1>
 
-<table>
+<table class ="table">
   <tr>
     <th>Name</th>
     <th>Address street1</th>
@@ -9,11 +9,7 @@
     <th>State</th>
     <th>Country</th>
     <th>Contact mobile</th>
-    <th>Contact home</th>
-    <th>Dob</th>
-    <th>Gender</th>
-    <th>Nationality</th>
-    <th>Ic number</th>
+    <th>Contact office</th>
     <th></th>
     <th></th>
     <th></th>
@@ -28,14 +24,10 @@
     <td><%= company.state %></td>
     <td><%= company.country %></td>
     <td><%= company.contact_mobile %></td>
-    <td><%= company.contact_home %></td>
-    <td><%= company.dob %></td>
-    <td><%= company.gender %></td>
-    <td><%= company.nationality %></td>
-    <td><%= company.ic_number %></td>
-    <td><%= link_to 'Show', company %></td>
-    <td><%= link_to 'Edit', edit_company_path(company) %></td>
-    <td><%= link_to 'Destroy', company, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= company.contact_office %></td>
+    <td><%= link_to 'Show', company, :class => "btn btn-primary" %></td>
+    <td><%= link_to 'Edit', edit_company_path(company), :class => "btn btn-info"%></td>
+    <td><%= link_to 'Destroy', company, confirm: 'Are you sure?', method: :delete, :class => "btn btn-danger" %></td>
   </tr>
 <% end %>
 </table>
