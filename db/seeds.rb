@@ -52,7 +52,7 @@ user2.ic_number = "881010-10-5612"
 puts user2.save
 
 review = user.reviews.find_or_create_by(comment: "this company/person is good")
-review.post_to = user2
+review.post_to = user2.name
 review.type = "Company review"
 review.poster = company.name
 puts review.save

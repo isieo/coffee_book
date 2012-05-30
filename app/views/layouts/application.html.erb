@@ -28,12 +28,15 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#">CoffeeBook</a>
+          <%= link_to "Part time", root_path, :class => "brand"%>
           <div class="container nav-collapse">
             <ul class="nav">
-              <li><%= link_to "Link1", "/path1"  %></li>
-              <li><%= link_to "Link2", "/path2"  %></li>
-              <li><%= link_to "Link3", "/path3"  %></li>
+              <%if !user_signed_in?%>
+                <%= render :file => '/layouts/_login_form.html.erb'%>
+              <% else %>
+                <li><%= link_to current_user.name, root_path %></li>
+                <li><%= link_to "Sign out", destroy_user_session_path%></li>
+              <%end%>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -51,8 +54,8 @@
                 <h3>Sidebar</h3>
                 <ul class="nav nav-list">
                   <li class="nav-header">Sidebar</li>
-                  <li><%= link_to "Link1", "/path1"  %></li>
-                  <li><%= link_to "Link2", "/path2"  %></li>
+                  <li><%= link_to "My Company", companies_path  %></li>
+                  <li><%= link_to "My Review", reviews_path  %></li>
                   <li><%= link_to "Link3", "/path3"  %></li>
                 </ul>
               </div><!--/.well -->

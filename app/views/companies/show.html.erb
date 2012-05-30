@@ -37,29 +37,7 @@
 
 <p>
   <b>Contact home:</b>
-  <%= @company.contact_home %>
+  <%= @company.contact_office %>
 </p>
-
-<p>
-  <b>Dob:</b>
-  <%= @company.dob %>
-</p>
-
-<p>
-  <b>Gender:</b>
-  <%= @company.gender %>
-</p>
-
-<p>
-  <b>Nationality:</b>
-  <%= @company.nationality %>
-</p>
-
-<p>
-  <b>Ic number:</b>
-  <%= @company.ic_number %>
-</p>
-
-
 <%= link_to 'Edit', edit_company_path(@company) %> |
 <%= link_to 'Back', companies_path %>
