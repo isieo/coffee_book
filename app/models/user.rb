@@ -6,6 +6,9 @@ class User
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
+  
+  attr_accessible :name, :username, :email, :password, :password_confirmation, :address_street1, :address_street2, :post_code, :state, :country, :contact_mobile, :contact_home, :dob, :gender, :nationality, :ic_number
+  
 
   ## Database authenticatable
   field :email,              :type => String, :null => false, :default => ""
@@ -39,40 +42,40 @@ class User
   ## Token authenticatable
   # field :authentication_token, :type => String
   
-  field :name, :type => String
-  field :username
-  field :address_street1
-  field :address_street2
-  field :post_code
-  field :state
-  field :country
-  field :contact_mobile
-  field :contact_home
-  field :dob
-  field :gender
-  field :nationality
-  field :ic_number
+  field :name, :type => String, :null => false
+  field :username, :type => String, :null => false
+  field :address_street1, :type => String
+  field :address_street2, :type => String
+  field :post_code, :type => Integer
+  field :state, :type => String
+  field :country, :type => String
+  field :contact_mobile, :type => String
+  field :contact_home, :type => String
+  field :dob, :type => Date
+  field :gender, :type => String
+  field :nationality, :type => String
+  field :ic_number, :type => String
 
   
   #has_many :reviews
   embeds_many :reviews
-  has_many :companies
+  has_many :companies, dependent: :delete
   
   validates_uniqueness_of :username, :email
+  validates_presence_of :name
   
   def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)
     data = access_token.extra.raw_info
-    if data.username.blank?
-      user_name = data.email
-    else
-      user_name = data.username
-    end
+    user_name = data.username
+    user_name = data.email if data.username.blank?
+    u_name = data.name
+    u_name = data.email if data.name.blank?
     user = self.where(email: data.email).first
     if user.present?
-      user.update(name: data.name, username: user_name, gender: data.gender)
+      user.update(name: u_name, username: user_name, gender: data.gender)
       user
     else # Create a user with a stub password. 
-      self.create(email: data.email, password: Devise.friendly_token[0,20], name: data.name, username: user_name, gender: data.gender) 
+      self.create(email: data.email, password: Devise.friendly_token[0,20], name: u_name, username: user_name, gender: data.gender) 
     end
   end
 end
