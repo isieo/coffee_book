@@ -35,16 +35,31 @@ company.contact_office = "991"
 puts company.save
 
 job = company.jobs.find_or_create_by(title: "games promoter")
+job.post = "Promoter"
 job.location = "Giant Kelana Jaya"
 job.salary = "RM120/day"
-job.date = "11-08-2012 to 13-08-2012"
+job.start_date = "11-08-2012"
+job.end_date = "13-08-2012"
 job.time = "10am to 10pm"
 job.requirements = "* Hardworking, Aggressive, punctuality, have road show promoter experience. (Must be Female)
 * Must able to speak English / Malay
-* Must able to attend training (training date: 30th May Weds 3pm)
+* Must able to attend training (training date: 10th Aug 3pm)
 * NO blonde hair,NO ear piercing
 * Attire: Uniform shirt (provided), own black pant & black cover shoe."
 job.save
+
+job2 = company.jobs.find_or_create_by(title: "Pamphlet Distributor")
+job2.post = "Distributor"
+job2.location = "Paradigm Mall Kelana Jaya"
+job2.salary = "RM100/day"
+job.start_date = "15-08-2012"
+job.end_date = "18-08-2012"
+job2.time = "10am to 10pm"
+job2.requirements = "* Hardworking, Aggressive, punctuality, have road show promoter experience.
+* Must able to speak English / Malay
+* Must able to attend training (training date: 10th Aug 3pm)
+* Attire: Uniform shirt (provided), own black pant & black cover shoe."
+job2.save
 
 user2 = User.find_or_create_by(email: "final@abc.com")
 user2.password = "abcxyz"

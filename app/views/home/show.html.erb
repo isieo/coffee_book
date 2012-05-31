@@ -1,14 +1,19 @@
-<div class = "row">
+<% if !user_signed_in?%>
+  <div class = "row">
+    <div class ="span5">
+      <%= render :file => '/home/list_job.html.erb'%>
+    </div>
 
-  <div class ="span5">
-    <h1>Home#show</h1>
-    
+    <div class = "span4">
+      <% unless user_signed_in? %>
+        <%= render :file => '/home/_signup_form.html.erb'%>
+      <%end%>
+    </div>
   </div>
+<%else%>
 
-  <div class = "span4">
-    <% unless user_signed_in? %>
-      <%= render :file => '/home/_signup_form.html.erb'%>
-    <%end%>
-  </div>
+  <%= render :file => '/home/list_job.html.erb'%>
 
-</div>
+<%end%>
+
+

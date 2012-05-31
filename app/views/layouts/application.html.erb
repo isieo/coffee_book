@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <%= javascript_include_tag "application" %>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= content_for?(:title) ? yield(:title) : "CoffeeBook" %></title>
@@ -31,11 +32,11 @@
           <%= link_to "Part time", root_path, :class => "brand"%>
           <div class="container nav-collapse">
             <ul class="nav pull-right">
-              <%if user_signed_in?%>
-                <li><%= link_to current_user.name, account_path %></li>
-                <li><%= link_to "Logout", destroy_user_session_path %></li>
-              <% else %>
+              <%if !user_signed_in?%>
                 <%= render :file => '/layouts/_login_form.html.erb'%>
+              <% else %>
+                <li><%= link_to current_user.name, account_path %></li>
+                <li><%= link_to "Sign out", destroy_user_session_path%></li>
               <%end%>
             </ul>
           </div><!--/.nav-collapse -->
@@ -69,10 +70,7 @@
 
     </div> <!-- /container -->
 
-    <!-- Javascripts
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <%= javascript_include_tag "application" %>
+
 
   </body>
 </html>

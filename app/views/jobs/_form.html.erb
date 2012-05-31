@@ -16,6 +16,10 @@
     <%= f.text_field :title %>
   </div>
   <div class="field">
+    <%= f.label :post %><br />
+    <%= f.text_field :post %>
+  </div>
+  <div class="field">
     <%= f.label :location %><br />
     <%= f.text_field :location %>
   </div>
@@ -24,8 +28,12 @@
     <%= f.text_field :salary %>
   </div>
   <div class="field">
-    <%= f.label :date %><br />
-    <%= f.text_field :date %>
+    <%= f.label :start_date %><br />
+    <%= f.text_field :start_date, :class => "datepickers" %>
+  </div>
+  <div class="field">
+    <%= f.label :end_date %><br />
+    <%= f.text_field :end_date, :class => "datepickers" %>
   </div>
   <div class="field">
     <%= f.label :time %><br />

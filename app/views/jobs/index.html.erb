@@ -3,9 +3,11 @@
 <table class="table">
   <tr>
     <th>Title</th>
+    <th>Post</th>
     <th>Location</th>
     <th>Salary</th>
-    <th>Date</th>
+    <th>Start Date</th>
+    <th>End Date</th>
     <th>Time</th>
     <th>Requirements</th>
     <th></th>
@@ -16,9 +18,11 @@
 <% @jobs.each do |job| %>
   <tr>
     <td><%= job.title %></td>
+    <td><%= job.post %></td>
     <td><%= job.location %></td>
     <td><%= job.salary %></td>
-    <td><%= job.date %></td>
+    <td><%= job.start_date %></td>
+    <td><%= job.end_date %></td>
     <td><%= job.time %></td>
     <td><%= job.requirements %></td>
     <td><%= link_to 'Show', job %></td>
