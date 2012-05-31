@@ -1,0 +1,20 @@
+development:
+  host: localhost
+  database: coffee_book_development
+
+test:
+  host: localhost
+  database: coffee_book_test
+
+# set these environment variables on your prod server
+production:
+  host: staff.mongohq.com
+  port: 10033
+  username: coffeebook
+  password: coffeepassword
+  database: coffee_book
+  # slaves:
+  #   - host: slave1.local
+  #     port: 27018
+  #   - host: slave2.local
+  #     port: 27019

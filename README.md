@@ -1,4 +1,9 @@
-coffee_book
+Requirements
 ===========
+    Mongo DB
+    Ruby 1.9.3
 
-part timer job finder
+Install
+=======
+
+    bundle
