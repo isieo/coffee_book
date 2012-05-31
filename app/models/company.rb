@@ -14,5 +14,6 @@ class Company
   
   belongs_to :user
   has_many :jobs
-  has_many :reviews
+  #has_many :reviews
+  embeds_many :reviews
 end

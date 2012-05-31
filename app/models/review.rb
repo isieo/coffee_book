@@ -4,6 +4,8 @@ class Review
   field :comment, :type => String
   field :post_to
   
-  belongs_to :user
-  belongs_to :company
+  #belongs_to :user
+  #belongs_to :company
+  embedded_in :user
+  embedded_in :company
 end
