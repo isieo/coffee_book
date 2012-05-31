@@ -31,11 +31,11 @@
           <%= link_to "Part time", root_path, :class => "brand"%>
           <div class="container nav-collapse">
             <ul class="nav pull-right">
-              <%if !user_signed_in?%>
-                <%= render :file => '/layouts/_login_form.html.erb'%>
-              <% else %>
+              <%if user_signed_in?%>
                 <li><%= link_to current_user.name, account_path %></li>
-                <li><%= link_to "Sign out", destroy_user_session_path%></li>
+                <li><%= link_to "Logout", destroy_user_session_path %></li>
+              <% else %>
+                <%= render :file => '/layouts/_login_form.html.erb'%>
               <%end%>
             </ul>
           </div><!--/.nav-collapse -->

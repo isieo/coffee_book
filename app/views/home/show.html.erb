@@ -2,17 +2,11 @@
 
   <div class ="span5">
     <h1>Home#show</h1>
-    <% if user_signed_in? %>
-      <%= link_to "Logout", destroy_user_session_path %>
-      <%= current_user.email %>
-    <% else %>
-      <%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %>
-      <%= link_to "Sign In", user_session_path %>
-    <% end %>
+    
   </div>
 
   <div class = "span4">
-    <% if user_signed_in? %>
+    <% unless user_signed_in? %>
       <%= render :file => '/home/_signup_form.html.erb'%>
     <%end%>
   </div>
