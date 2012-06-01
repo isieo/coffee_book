@@ -5,10 +5,11 @@ class User
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :omniauthable
+         :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :authentication_keys => [:login]
   
-  attr_accessible :name, :username, :email, :password, :password_confirmation, :address_street1, :address_street2, :post_code, :state, :country, :contact_mobile, :contact_home, :dob, :gender, :nationality, :ic_number
+  attr_accessible :name, :username, :email, :password, :password_confirmation, :address_street1, :address_street2, :post_code, :state, :country, :contact_mobile, :contact_home, :dob, :gender, :nationality, :ic_number, :login
   
+  attr_accessor :login
 
   ## Database authenticatable
   field :email,              :type => String, :null => false, :default => ""
@@ -63,6 +64,16 @@ class User
   
   validates_uniqueness_of :username, :email
   validates_presence_of :name
+  
+  # Overwrite Devise authentication method
+  def self.find_first_by_auth_conditions(warden_conditions)
+    conditions = warden_conditions.dup
+    if login = conditions.delete(:login)
+      self.any_of({ :username =>  /^#{Regexp.escape(login)}$/i }, { :email =>  /^#{Regexp.escape(login)}$/i }).first
+    else
+      super
+    end
+  end
   
   def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)
     data = access_token.extra.raw_info
