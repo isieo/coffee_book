@@ -12,7 +12,7 @@
 <% @reviews.each do |review| %>
   <tr>
     <td><%= review.comment %></td>
-    <td><%= review.post_to %></td>
+    <td><%= review.post_by %></td>
     <td><%= link_to 'Show', review %></td>
     <td><%= link_to 'Edit', edit_review_path(review) %></td>
     <td><%= link_to 'Destroy', review, confirm: 'Are you sure?', method: :delete %></td>

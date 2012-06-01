@@ -2,7 +2,7 @@ class Review
   include Mongoid::Document
   include Mongoid::Timestamps
   field :comment, :type => String
-  field :post_to
+  field :post_by
   
   #belongs_to :user
   #belongs_to :company
