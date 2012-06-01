@@ -1,4 +1,8 @@
 module ApplicationHelper
+  def resource_class
+    "User".constantize
+  end
+  
   def resource_name
     :user
   end
