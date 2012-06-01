@@ -1,13 +1,11 @@
-<%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :class => "navbar-form pull-left form-inline"}) do |f| %>
+<%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :class => "navbar-form pull-left form-inline"}) do |f| %>
   
   <%= f.text_field :login, :class => "input-small", :placeholder => "Email/Username" %>
   <%= f.text_field :password, :class => "input-small", :placeholder => "Password", :type => "password" %>
 
   <% if devise_mapping.rememberable? -%>
-    <label class="checkbox">
-      <%= f.check_box :remember_me, :checked => false %>
-      Remember Me
-    </lable>
+    <%= f.check_box :remember_me, :checked => false %>
+    Remember Me
   <% end -%>
 
   <%= f.submit "Sign in", :class => "btn btn-primary" %>

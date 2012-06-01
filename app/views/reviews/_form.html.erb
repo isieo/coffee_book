@@ -1,25 +1,7 @@
-<%= form_for(@review) do |f| %>
-  <% if @review.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@review.errors.count, "error") %> prohibited this review from being saved:</h2>
-
-      <ul>
-      <% @review.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :comment %><br />
-    <%= f.text_area :comment %>
-  </div>
-  <div class="field">
-    <%= f.label :post_by %><br />
-    <%= f.text_field :post_by %>
-  </div>
-  <div class="actions">
+<%= simple_form_for(@review, :html => { :class => "form-horizontal"}) do |f| %>
+  <%= f.input :comment, :as => :text %>
+  <%= f.input :post_by %>
+  <div class="form-actions">
     <%= f.submit %>
   </div>
 <% end %>

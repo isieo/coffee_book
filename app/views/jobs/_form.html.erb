@@ -1,49 +1,14 @@
-<%= form_for(@job) do |f| %>
-  <% if @job.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@job.errors.count, "error") %> prohibited this job from being saved:</h2>
+<%= simple_form_for(@job, :html => { :class => "form-horizontal"}) do |f| %>
+  <%= f.input :title %>
+  <%= f.input :post %>
+  <%= f.input :location %>
+  <%= f.input :salary %>
+  <%= f.input :start_date, :input_html => { :class => 'datepickers' } %>
+  <%= f.input :end_date, :input_html => { :class => 'datepickers' } %>
+  <%= f.input :time %>
+  <%= f.input :requirements %>
 
-      <ul>
-      <% @job.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :title %><br />
-    <%= f.text_field :title %>
-  </div>
-  <div class="field">
-    <%= f.label :post %><br />
-    <%= f.text_field :post %>
-  </div>
-  <div class="field">
-    <%= f.label :location %><br />
-    <%= f.text_field :location %>
-  </div>
-  <div class="field">
-    <%= f.label :salary %><br />
-    <%= f.text_field :salary %>
-  </div>
-  <div class="field">
-    <%= f.label :start_date %><br />
-    <%= f.text_field :start_date, :class => "datepickers" %>
-  </div>
-  <div class="field">
-    <%= f.label :end_date %><br />
-    <%= f.text_field :end_date, :class => "datepickers" %>
-  </div>
-  <div class="field">
-    <%= f.label :time %><br />
-    <%= f.text_field :time %>
-  </div>
-  <div class="field">
-    <%= f.label :requirements %><br />
-    <%= f.text_area :requirements %>
-  </div>
-  <div class="actions">
+  <div class="form-actions">
     <%= f.submit %>
   </div>
 <% end %>

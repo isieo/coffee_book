@@ -39,3 +39,5 @@ gem 'bson_ext'
 gem "devise"
 gem 'omniauth-facebook'
 gem "twitter-bootstrap-rails"
+gem "simple_form"
+gem "country_select"
