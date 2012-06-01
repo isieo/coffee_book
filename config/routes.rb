@@ -10,5 +10,7 @@ CoffeeBook::Application.routes.draw do
   end
   resources :reviews
   resources :companies
-  match "account" => "account#index"
+  namespace(:user) do
+    resources :accounts
+  end
 end
