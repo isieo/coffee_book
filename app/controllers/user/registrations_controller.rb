@@ -7,11 +7,19 @@ class User::RegistrationsController < Devise::RegistrationsController
 
   
   def create
-    @user = User.new(params[:user])
-    if @user.save
-      flash[:notice] = "You have signed up successfully."
-      redirect_to root_url
+    build_resource
+    if resource.save
+      if resource.active_for_authentication?
+        sign_in(resource_name, resource)
+        (render(:partial => 'thankyou', :layout => false) && return)  if request.xhr?
+        respond_with resource, :location => after_sign_up_path_for(resource)
+      else
+        expire_session_data_after_sign_in!
+        (render(:partial => 'thankyou', :layout => false) && return)  if request.xhr?
+        respond_with resource, :location => root_path
+      end
     else
+      clean_up_passwords resource
       @jobs = Job.all
       render :template => "home/show"
     end

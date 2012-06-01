@@ -3,6 +3,5 @@ class HomeController < ApplicationController
   
   def show
     @jobs = Job.all
-    @user = User.new
   end
 end
