@@ -59,8 +59,10 @@ class User
 
   
   #has_many :reviews
-  embeds_many :reviews
   has_many :companies, dependent: :delete
+  has_and_belongs_to_many :jobs
+  embeds_many :reviews
+
   
   validates_uniqueness_of :username, :email
   validates_presence_of :name

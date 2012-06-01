@@ -21,7 +21,7 @@ user.dob = "11-08-1985"
 user.gender = "male"
 user.nationality = "Malaysian"
 user.ic_number = "881010-10-5612"
-puts user.save
+puts "user save " + user.save.to_s
 
 company = user.companies.find_or_create_by(name: "abc sdn bhd")
 company.email = "abc@sdn.com"
@@ -32,7 +32,7 @@ company.state = "selangor"
 company.country = "malaysia"
 company.contact_mobile = "994"
 company.contact_office = "991"
-puts company.save
+puts "company save " + company.save.to_s
 
 job = company.jobs.find_or_create_by(title: "games promoter")
 job.post = "Promoter"
@@ -46,7 +46,7 @@ job.requirements = "* Hardworking, Aggressive, punctuality, have road show promo
 * Must able to attend training (training date: 10th Aug 3pm)
 * NO blonde hair,NO ear piercing
 * Attire: Uniform shirt (provided), own black pant & black cover shoe."
-job.save
+puts "job save " + job.save.to_s
 
 job2 = company.jobs.find_or_create_by(title: "Pamphlet Distributor")
 job2.post = "Distributor"
@@ -59,7 +59,7 @@ job2.requirements = "* Hardworking, Aggressive, punctuality, have road show prom
 * Must able to speak English / Malay
 * Must able to attend training (training date: 10th Aug 3pm)
 * Attire: Uniform shirt (provided), own black pant & black cover shoe."
-job2.save
+puts "job2 save " + job2.save.to_s
 
 user2 = User.find_or_create_by(email: "final@abc.com")
 user2.password = "abcxyz"
@@ -76,11 +76,23 @@ user2.dob = "11-08-1985"
 user2.gender = "male"
 user2.nationality = "Malaysian"
 user2.ic_number = "881010-10-5612"
-puts user2.save
+puts "user2 save " + user2.save.to_s
 
 
-review = user.reviews.find_or_create_by(comment: "this company/person is good")
-review.company = company
-review.post_to = user2.id
-puts review.save
+user_review = user.reviews.find_or_create_by(comment: "this company/person is good")
+user_review.post_by = user2.id
+puts "user review save " + user_review.save.to_s
+
+
+if user.jobs.empty?
+  user.jobs << job
+  user.jobs << job2
+  job.users << user
+  job2.users << user
+  
+  puts job.save
+  puts job2.save
+  puts user.save
+  puts "many to many (users to jobs vice versa) save"
+end
 

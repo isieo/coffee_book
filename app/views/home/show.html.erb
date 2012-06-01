@@ -5,9 +5,7 @@
     </div>
 
     <div class = "span4">
-      <% unless user_signed_in? %>
-        <%= render :partial => 'shared/signup_form' %>
-      <%end%>
+      <%= render :file => '/devise/registrations/new.html.erb' %>
     </div>
   </div>
 <%else%>

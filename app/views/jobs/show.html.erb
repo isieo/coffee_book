@@ -17,7 +17,12 @@
 
 <p>
   <b>Date:</b>
-  <%= @job.date %>
+  <%= @job.start_date %>
+</p>
+
+<p>
+  <b>Date:</b>
+  <%= @job.end_date %>
 </p>
 
 <p>
@@ -29,7 +34,12 @@
   <b>Requirements:</b>
   <%= @job.requirements %>
 </p>
-
+<p>
+  <b>Who is working here:</b>
+  <% @job.users.each do |u|%>
+    <%= u.name %>
+  <% end %>
+</p>
 
 <%= link_to 'Edit', edit_job_path(@job) %> |
 <%= link_to 'Back', jobs_path %>
