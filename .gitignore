@@ -14,3 +14,6 @@
 /log/*.log
 /tmp
 /config/mongoid.yml
+.DS_Store
+.rvmrc
+
