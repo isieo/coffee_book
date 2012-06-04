@@ -18,7 +18,7 @@ user.country = "malaysia"
 user.contact_mobile = "016-3177489"
 user.contact_home = "999"
 user.dob = "11-08-1985"
-user.gender = "male"
+user.gender = "Male"
 user.nationality = "Malaysian"
 user.ic_number = "881010-10-5612"
 puts "user save " + user.save.to_s
@@ -52,14 +52,26 @@ job2 = company.jobs.find_or_create_by(title: "Pamphlet Distributor")
 job2.post = "Distributor"
 job2.location = "Paradigm Mall Kelana Jaya"
 job2.salary = "RM100/day"
-job.start_date = "15-08-2012"
-job.end_date = "18-08-2012"
+job2.start_date = "15-08-2012"
+job2.end_date = "18-08-2012"
 job2.time = "10am to 10pm"
 job2.requirements = "* Hardworking, Aggressive, punctuality, have road show promoter experience.
 * Must able to speak English / Malay
 * Must able to attend training (training date: 10th Aug 3pm)
 * Attire: Uniform shirt (provided), own black pant & black cover shoe."
 puts "job2 save " + job2.save.to_s
+
+job3 = company.jobs.find_or_create_by(title: "Road Show Model")
+job3.post = "Road Show"
+job3.location = "Paradigm Mall Kelana Jaya"
+job3.salary = "RM300/day"
+job3.start_date = "18-08-2012"
+job3.end_date = "19-08-2012"
+job3.time = "10am to 10pm"
+job3.requirements = "* Female Only, have road show model experience.
+* Must able to attend training (training date: 10th Aug 3pm)
+* Attire: Uniform(provided)"
+puts "job3 save " + job3.save.to_s
 
 user2 = User.find_or_create_by(email: "final@abc.com")
 user2.password = "abcxyz"
@@ -87,11 +99,8 @@ puts "user review save " + user_review.save.to_s
 if user.jobs.empty?
   user.jobs << job
   user.jobs << job2
-  job.users << user
-  job2.users << user
+  user.jobs << job3
   
-  puts job.save
-  puts job2.save
   puts user.save
   puts "many to many (users to jobs vice versa) save"
 end
