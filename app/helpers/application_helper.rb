@@ -43,4 +43,24 @@ module ApplicationHelper
   
     return achievement.html_safe
   end
+  
+  def load_review(user)
+    review = "<h3>What other people think about #{@user.name} </h3>"
+    review += '<table class = "table table-condensed">'
+    review += "<tr>"
+    review += "<th>Date</th>"
+    review += "<th>Rating</th>"
+    review += "<th>Comment</th>"
+    review += "</tr>"
+    user.reviews.each do |ur|
+      review += "<tr>"
+        review += "<td>#{ur.created_at.to_date}</td>"
+        review += "<td>Put user rating here</td>"
+        review += "<td>#{ur.comment}</td>"
+      review += "</tr>"
+    end
+    review += "</table>"
+    
+    return review.html_safe
+  end
 end
