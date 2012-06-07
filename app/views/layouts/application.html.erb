@@ -30,6 +30,7 @@
             <span class="icon-bar"></span>
           </a>
           <%= link_to "Part time", root_path, :class => "brand"%>
+          <%= render :file => "layouts/_search_form.html.erb"%>
           <div class="container nav-collapse">
             <ul class="nav pull-right">
               <%if !user_signed_in?%>

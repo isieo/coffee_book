@@ -13,4 +13,6 @@ CoffeeBook::Application.routes.draw do
   namespace(:user) do
     resources :accounts
   end
+  
+  get 'search' => 'search#search', :as => :search
 end
