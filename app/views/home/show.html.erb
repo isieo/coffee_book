@@ -1,7 +1,7 @@
 <% if !user_signed_in?%>
   <div class = "row">
     <div class ="span5">
-      <%= render :file => '/home/list_job.html.erb'%>
+      <%= render 'list_job'%>
     </div>
 
     <div class = "span4">
@@ -10,7 +10,7 @@
   </div>
 <%else%>
 
-  <%= render :file => '/home/list_job.html.erb'%>
+  <%= render 'list_job'%>
 
 <%end%>
 
