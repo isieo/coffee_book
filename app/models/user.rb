@@ -1,6 +1,7 @@
 class User
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Mongoid::MultiParameterAttributes
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
@@ -65,7 +66,7 @@ class User
 
   
   validates_uniqueness_of :username, :email
-  validates_presence_of :name
+  validates_presence_of :username, :name, :gender, :dob
   
   # Overwrite Devise authentication method
   def self.find_first_by_auth_conditions(warden_conditions)

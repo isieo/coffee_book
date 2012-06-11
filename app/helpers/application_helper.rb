@@ -1,6 +1,6 @@
 module ApplicationHelper
   def resource_class
-    "User".constantize
+    devise_mapping.to
   end
   
   def resource_name

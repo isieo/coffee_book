@@ -20,7 +20,6 @@ class User::RegistrationsController < Devise::RegistrationsController
       end
     else
       clean_up_passwords resource
-      @jobs = Job.all
       render :template => "home/show"
     end
   end
