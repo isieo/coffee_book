@@ -36,6 +36,7 @@ gem 'capistrano'
 
 gem 'mongoid'
 gem 'bson_ext'
+gem 'mongoid_search'
 gem "devise"
 gem 'omniauth-facebook'
 gem "twitter-bootstrap-rails"

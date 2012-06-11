@@ -37,10 +37,10 @@ puts "company save " + company.save.to_s
 job = company.jobs.find_or_create_by(title: "games promoter")
 job.post = "Promoter"
 job.location = "Giant Kelana Jaya"
-job.salary = "RM120/day"
-job.start_date = "11-08-2012"
-job.end_date = "13-08-2012"
-job.time = "10am to 10pm"
+job.salary = 120
+job.date = "11-08-2012"
+job.day_amount = 5
+job.time = 10
 job.requirements = "* Hardworking, Aggressive, punctuality, have road show promoter experience. (Must be Female)
 * Must able to speak English / Malay
 * Must able to attend training (training date: 10th Aug 3pm)
@@ -51,10 +51,10 @@ puts "job save " + job.save.to_s
 job2 = company.jobs.find_or_create_by(title: "Pamphlet Distributor")
 job2.post = "Distributor"
 job2.location = "Paradigm Mall Kelana Jaya"
-job2.salary = "RM100/day"
-job2.start_date = "15-08-2012"
-job2.end_date = "18-08-2012"
-job2.time = "10am to 10pm"
+job2.salary = 100
+job2.date = "15-08-2012"
+job2.day_amount = 3
+job2.time = 8
 job2.requirements = "* Hardworking, Aggressive, punctuality, have road show promoter experience.
 * Must able to speak English / Malay
 * Must able to attend training (training date: 10th Aug 3pm)
@@ -64,10 +64,10 @@ puts "job2 save " + job2.save.to_s
 job3 = company.jobs.find_or_create_by(title: "Road Show Model")
 job3.post = "Road Show"
 job3.location = "Paradigm Mall Kelana Jaya"
-job3.salary = "RM300/day"
-job3.start_date = "18-08-2012"
-job3.end_date = "19-08-2012"
-job3.time = "10am to 10pm"
+job3.salary = 300
+job3.date = "18-08-2012"
+job3.day_amount = 2
+job3.time = 6
 job3.requirements = "* Female Only, have road show model experience.
 * Must able to attend training (training date: 10th Aug 3pm)
 * Attire: Uniform(provided)"

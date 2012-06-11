@@ -1,6 +1,6 @@
 CoffeeBook::Application.routes.draw do
   resources :jobs
-
+  get 'search' => 'search#search', :as => :search
   root :to => "home#show"
   devise_for :users, :controllers => { :omniauth_callbacks => "user/omniauth_callbacks", :registrations => "user/registrations", :sessions => "user/sessions" }
   devise_scope :user do
@@ -15,5 +15,5 @@ CoffeeBook::Application.routes.draw do
     resources :accounts
   end
   
-  get 'search' => 'search#search', :as => :search
+  
 end
