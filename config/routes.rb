@@ -7,6 +7,7 @@ CoffeeBook::Application.routes.draw do
     get 'sign_in', :to => 'user/sessions#new', :as => :new_user_session
     get 'sign_out', :to => 'user/sessions#destroy', :as => :destroy_user_session
     get '/users/auth/:provider' => 'user/omniauth_callbacks#passthru'
+    get '/:username' => 'user/accounts#index', :as => :loged_in
   end
   resources :reviews
   resources :companies

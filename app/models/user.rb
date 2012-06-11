@@ -68,6 +68,10 @@ class User
   validates_uniqueness_of :username, :email
   validates_presence_of :username, :name, :gender, :dob
   
+  def to_param
+    username
+  end
+  
   # Overwrite Devise authentication method
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup

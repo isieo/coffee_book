@@ -27,4 +27,13 @@ class User::RegistrationsController < Devise::RegistrationsController
   def update
     super
   end
+  
+  protected
+  def after_sign_up_path_for(resource)
+    loged_in_path(current_user)
+  end
+  
+  def after_update_path_for(resource)
+    loged_in_path(current_user)
+  end
 end
