@@ -36,7 +36,7 @@
               <%if !user_signed_in?%>
                 <%= render 'shared/login_form' %>
               <% else %>
-                <li><%= link_to current_user.name, user_accounts_path %></li>
+                <li><%= link_to current_user.name, user_accounts_path(current_user) %></li>
                 <li><%= link_to "Sign out", destroy_user_session_path%></li>
               <%end%>
             </ul>

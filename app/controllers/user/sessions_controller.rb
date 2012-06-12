@@ -6,7 +6,7 @@ class User::SessionsController < Devise::SessionsController
   def create
     resource = warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#new")
     sign_in(resource_name, resource)
-    redirect_to loged_in_path(current_user)
+    redirect_to user_accounts_path(current_user)
   end
   
   def destroy

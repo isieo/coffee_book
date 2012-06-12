@@ -1,0 +1,30 @@
+<%= render :partial => "account_menu" %>
+<h2>Edit Account</h2>
+
+<%= simple_form_for(@user, :url => user_account_path(@user), :html => { :method => :put, :class => "form-horizontal" }) do |f| %>
+
+  <%= f.input :email %>
+  <%= f.input :name %>
+  <%= f.input :username %>
+  <%= f.input :password, :hint => "leave blank if you don't want to change it" %>
+  <%= f.input :password_confirmation %>
+  <%= f.input :current_password, :hint => "we need your current password to confirm your changes" %>
+  <%= f.input :address_street1 %>
+  <%= f.input :address_street2 %>
+  <%= f.input :post_code %>
+  <%= f.input :state %>
+  <%= f.input :country %>
+  <%= f.input :contact_mobile %>
+  <%= f.input :contact_home %>
+  <%= f.input :gender, :collection => [["Male", "Male"], ["Female", "Female"]], :prompt => false %>
+  <%= f.input :dob, :label => "Date of Birth", :as => :date, :start_year => Date.today.year - 90, :end_year => Date.today.year - 12, :order => [:day, :month, :year], :prompt => {:day => 'Day', :month => 'Month', :year => 'Year'} %>
+  <%= f.input :nationality %>
+  <%= f.input :ic_number %>
+
+  <div class="form-actions">
+    <%= f.submit "Update", :class => "btn btn-primary"%>
+    <%= link_to "Back", :back, :class => "btn btn-info" %>
+  </div>
+<% end %>
+
+<%= link_to "Cancel my account", registration_path(@user), :confirm => "Are you sure?", :method => :delete, :class => "btn btn-danger" %>
