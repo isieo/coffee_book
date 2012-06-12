@@ -1,0 +1,29 @@
+<%= render :partial => "user/accounts/account_menu" %>
+<h2>Companies</h2>
+<table>
+  <tr>
+    <th></th>
+    <th>Company Name</th>
+    <th>Address</th>
+    <th>Mobile</th>
+    <th>Office</th>
+  </tr>
+  <% count_no = 1 %>
+  <% @companies.each do |c| %>
+    <tr>
+      <td><%= count_no %></td>
+      <td><%= c.name %></td>
+      <td>
+        <%= c.address_street1 %><br />
+        <%= c.address_street2 %><br />
+        <%= c.post_code %><br />
+        <%= c. state %><br />
+        <%= c.country %>
+      </td>
+      <td><%= c.contact_mobile %></td>
+      <td><%= c.contact_office %></td>
+      <td>[<%= link_to "Edit", edit_user_account_company_path(current_user, c) %> | <%= link_to "Delete", user_account_company_path(current_user, c), :confirm => "Are you sure?", :method=>:delete %>]</td>
+    </tr>
+  <% end %>
+</table>
+<%= link_to "Add Company", new_user_account_company_path(current_user) %>

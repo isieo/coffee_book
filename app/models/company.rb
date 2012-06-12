@@ -3,7 +3,6 @@ class Company
   include Mongoid::Timestamps
 
   field :name, :type => String
-  field :email
   field :address_street1, :type => String
   field :address_street2, :type => String
   field :post_code, :type => String
@@ -12,8 +11,9 @@ class Company
   field :contact_mobile, :type => String
   field :contact_office, :type => String
   
-  belongs_to :user
   has_many :jobs
-  #has_many :reviews
   embeds_many :reviews
+  embedded_in :user
+  
+  validates_presence_of :name, :address_street1, :post_code, :state, :country, :contact_mobile, :contact_office
 end
