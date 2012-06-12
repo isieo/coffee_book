@@ -67,7 +67,7 @@ class User
 
   
   validates_uniqueness_of :username, :email
-  validates_presence_of :username, :name, :gender, :dob
+  validates_presence_of :username, :name
   
   def to_param
     username
