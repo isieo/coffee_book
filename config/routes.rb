@@ -24,10 +24,12 @@ CoffeeBook::Application.routes.draw do
     match "/:username/companies/:id" => "user/companies#destroy", :as => :user_account_company, :via => "delete"
   end
   resources :reviews
+  resources :companies
   
   #namespace(:user) {
   #  resources :accounts do
   #    resources :companies
+  #    resources :reviews
   #  end
   #}
   
