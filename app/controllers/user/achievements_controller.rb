@@ -41,7 +41,7 @@ class User::AchievementsController < ApplicationController
   
   protected
   def find_user
-    @user = User.where(_id: params[:id]).first || User.where(username: params[:username]).first
+    @user = User.where(_id: params[:id]).first || User.where(username: params[:account_id]).first
   end
   
   def find_achievement

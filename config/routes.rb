@@ -7,31 +7,32 @@ CoffeeBook::Application.routes.draw do
     get "sign_in", :to => "user/sessions#new", :as => :new_user_session
     get "sign_out", :to => "user/sessions#destroy", :as => :destroy_user_session
     get "/users/auth/:provider" => "user/omniauth_callbacks#passthru"
-    get "/:username" => "user/accounts#index", :as => :user_accounts
-    match "/:username/edit" => 'user/accounts#edit', :as => :edit_user_account
-    match "/:username" => 'user/accounts#update', :as => :user_account
-    match "/:username/achievements" => "user/achievements#index", :as => :user_account_achievements, :via => "get"
-    match "/:username/achievements" => "user/achievements#create", :as => :user_account_achievements, :via => "post"
-    match "/:username/achievements/new" => "user/achievements#new", :as => :new_user_account_achievement, :via => "get"
-    match "/:username/achievements/:id/edit" => "user/achievements#edit", :as => :edit_user_account_achievement, :via => "get"
-    match "/:username/achievements/:id" => "user/achievements#update", :as => :user_account_achievement, :via => "put"
-    match "/:username/achievements/:id" => "user/achievements#destroy", :as => :user_account_achievement, :via => "delete"
-    match "/:username/companies" => "user/companies#index", :as => :user_account_companies, :via => "get"
-    match "/:username/companies" => "user/companies#create", :as => :user_account_companies, :via => "post"
-    match "/:username/companies/new" => "user/companies#new", :as => :new_user_account_company, :via => "get"
-    match "/:username/companies/:id/edit" => "user/companies#edit", :as => :edit_user_account_company, :via => "get"
-    match "/:username/companies/:id" => "user/companies#update", :as => :user_account_company, :via => "put"
-    match "/:username/companies/:id" => "user/companies#destroy", :as => :user_account_company, :via => "delete"
   end
   resources :reviews
   resources :companies
   
-  #namespace(:user) {
-  #  resources :accounts do
-  #    resources :companies
+  namespace(:user) {
+    resources :accounts do
+      resources :achievements, :except => :show
+      get "/:username/achievements" => "user/achievements#index", :as => :user_account_achievements
+      get "/:username/achievements/new" => "user/achievements#new", :as => :new_user_account_achievement
+      get "/:username/achievements/:id/edit" => "user/achievements#edit", :as => :edit_user_account_achievement
+      post "/:username/achievements" => "user/achievements#create", :as => :user_account_achievements
+      put "/:username/achievements/:id" => "user/achievements#update", :as => :user_account_achievement
+      delete "/:username/achievements/:id" => "user/achievements#destroy", :as => :user_account_achievement
+      resources :companies, :except => :show
+      get "/:username/companies" => "user/companies#index", :as => :user_account_companies
+      post "/:username/companies" => "user/companies#create", :as => :user_account_companies
+      get "/:username/companies/new" => "user/companies#new", :as => :new_user_account_company
+      get "/:username/companies/:id/edit" => "user/companies#edit", :as => :edit_user_account_company
+      put "/:username/companies/:id" => "user/companies#update", :as => :user_account_company
+      delete "/:username/companies/:id" => "user/companies#destroy", :as => :user_account_company
   #    resources :reviews
-  #  end
-  #}
+    end
+  }
+  get "/:username" => "user/accounts#index", :as => :user_accounts
+  get "/:username/edit" => 'user/accounts#edit', :as => :edit_user_account
+  put "/:username" => 'user/accounts#update', :as => :user_account
   
   
 end
