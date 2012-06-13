@@ -1,6 +1,6 @@
 <h1>Search result</h1>
 
-<%if @search_job.count != 0 %>
+<% if @search_job.present? %>
   <table class="table table-condensed">
     <tr>
       <th>Title</th>
@@ -36,7 +36,7 @@
     <% @search_user.each do |user| %>
       <tr>
         <td><%= user.name %></td>
-        <td><%= link_to '?????????', root_path, :class => "btn btn-primary" %></td>
+        <td><%= link_to 'Show', user_accounts_path(user.username), :class => "btn btn-primary" %></td>
       </tr>
     <% end %>
   </table>
