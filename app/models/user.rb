@@ -61,7 +61,7 @@ class User
 
   
   #has_many :reviews
-  embeds_many :companies
+  has_many :companies
   has_and_belongs_to_many :jobs
   embeds_many :achievements
   embeds_many :reviews

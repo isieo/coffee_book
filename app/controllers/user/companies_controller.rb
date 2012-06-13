@@ -34,7 +34,7 @@ class User::CompaniesController < ApplicationController
   
   def destroy
     if @company.destroy
-      flash[:notice] = "Archievement destroyed successfully."
+      flash[:notice] = "Company destroyed successfully."
       redirect_to user_account_companies_url
     end
   end
