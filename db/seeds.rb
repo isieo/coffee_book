@@ -24,7 +24,6 @@ user.ic_number = "881010-10-5612"
 puts "user save " + user.save.to_s
 
 company = user.companies.find_or_create_by(name: "abc sdn bhd")
-company.email = "abc@sdn.com"
 company.address_street1 = "10, Jalan wahhahaa"
 company.address_street2 = 'taman wohohoho'
 company.post_code = "55500"

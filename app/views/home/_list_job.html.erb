@@ -16,7 +16,7 @@
         <% if job.salary == 0 || job.salary.nil? %>
           N/A
         <% else %>
-          <%= number_to_currency(job.salary, :format => "RM %n") %>
+          <%= number_to_currency(job.salary, :format => "RM %n") %> Per day
         <% end %>
     </td>
     <td><%= job.date.to_date %></td>

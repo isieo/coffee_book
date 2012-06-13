@@ -70,6 +70,8 @@ class User
   validates_uniqueness_of :username, :email
   validates_presence_of :username, :name
   
+  search_in :name, :email,:username
+  
   def to_param
     username
   end
