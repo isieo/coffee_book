@@ -3,7 +3,7 @@
   <tr>
     <th>Title</th>
     <th>Location</th>
-    <th>Salary</th>
+    <th>Salary Per day</th>
     <th>Start Date</th>
     <th>How Many Days</th>
     <th></th>
@@ -16,12 +16,12 @@
         <% if job.salary == 0 || job.salary.nil? %>
           N/A
         <% else %>
-          <%= number_to_currency(job.salary, :format => "RM %n") %> Per day
+          <%= number_to_currency(job.salary, :format => "RM %n") %>
         <% end %>
     </td>
     <td><%= job.date.to_date %></td>
     <td><%= job.day_amount %> Days</td>
-    <td><%= link_to 'Apply', job, :class => "btn btn-primary" %></td>
+    <td><%= link_to 'See More', job, :class => "btn btn-primary" %></td>
   </tr>
 <% end %>
 </table>

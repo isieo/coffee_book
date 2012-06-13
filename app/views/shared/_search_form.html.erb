@@ -4,5 +4,7 @@
 
 <%= form_tag search_path, :class => "navbar-search pull-left", :method => "get" do %>
   <%= text_field_tag :job, nil ,:class => 'search-query span2', :placeholder => 'Find Job' %>
+<% end %>
+<%= form_tag search_path, :class => "navbar-search pull-left", :method => "get" do %>
   <%= text_field_tag :user, nil ,:class => 'search-query span2', :placeholder => 'Find User' %>
 <% end %>
