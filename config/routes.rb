@@ -25,10 +25,19 @@ CoffeeBook::Application.routes.draw do
   post "/:username/companies" => "user/companies#create", :as => :user_account_companies
   get "/:username/companies/new" => "user/companies#new", :as => :new_user_account_company
   get "/:username/companies/:id/edit" => "user/companies#edit", :as => :edit_user_account_company
+  get "/:username/companies/:id" => "user/companies#show", :as => :user_account_company
   put "/:username/companies/:id" => "user/companies#update", :as => :user_account_company
   delete "/:username/companies/:id" => "user/companies#destroy", :as => :user_account_company
   # Overwrite reviews route /user/reviews to /:username/reviews
   get "/:username/reviews" => "user/reviews#index", :as => :user_account_reviews
   post "/:username/reviews" => "user/reviews#create", :as => :user_account_reviews
   get "/:username/reviews/new" => "user/reviews#new", :as => :new_user_account_review
+  # Jobs route
+  get "/:username/companies/:company_id/jobs" => "user/jobs#index", :as => :user_account_company_jobs
+  post "/:username/companies/:company_id/jobs" => "user/jobs#create", :as => :user_account_company_jobs
+  get "/:username/ompanies/:company_id/jobs/new" => "user/jobs#new", :as => :new_user_account_company_job
+  get "/:username/companies/:company_id/jobs/:id/edit" => "user/jobs#edit", :as => :edit_user_account_company_job
+  get "/:username/companies/:company_id/jobs/:id" => "user/jobs#show", :as => :user_account_company_job
+  put "/:username/companies/:company_id/jobs/:id" => "user/jobs#update", :as => :user_account_company_job
+  delete "/:username/companies/:company_id/jobs/:id" => "user/jobs#destroy", :as => :user_account_company_job
 end
