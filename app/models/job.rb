@@ -14,9 +14,15 @@ class Job
   field :start_date, :type => Date
   field :end_date, :type => Date
   field :expired, :type => Boolean
+  field :company_name, :type => String
+  field :address_street1, :type => String
+  field :address_street2, :type => String
+  field :post_code, :type => String
+  field :state, :type => String
+  field :country, :type => String
   
   belongs_to :company
   has_and_belongs_to_many :users
   
-  search_in :title, :position,:location,:salary,:date
+  search_in :title, :position, :location, :salary, :date, :company_name, :address_street1, :address_street2, :post_code, :state, :country
 end
