@@ -22,7 +22,7 @@
       </td>
       <td><%= c.contact_mobile %></td>
       <td><%= c.contact_office %></td>
-      <td>[<%= link_to "Edit", edit_user_account_company_path(current_user, c) %> | <%= link_to "Delete", user_account_company_path(current_user, c), :confirm => "Are you sure?", :method=>:delete %>]</td>
+      <td>[<%= link_to "View", user_account_company_path(current_user, c) %> | <%= link_to "Edit", edit_user_account_company_path(current_user, c) %> | <%= link_to "Delete", user_account_company_path(current_user, c), :confirm => "Are you sure?", :method=>:delete %>]</td>
     </tr>
   <% end %>
 </table>

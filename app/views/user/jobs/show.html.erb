@@ -1,0 +1,46 @@
+<%= render :partial => "user/accounts/account_menu" %>
+<table class = "table table-condensed">
+  <tr>
+    <th>Title:</th>
+    <td><%= @job.title %></td>
+  </tr>
+  <tr>
+    <th>Post:</th>
+    <td><%= @job.position %></td>
+  </tr>
+  <tr>
+    <th>Location:</th>
+    <td><%= @job.location %></td>
+  </tr>
+  <tr>
+    <th>Salary Per day:</th>
+    <td><%= number_to_currency(@job.salary, :format => "RM %n") %></td>
+  </tr>
+  <tr>
+    <th>Start Date:</th>
+    <td><%= @job.start_date %></td>
+  </tr>
+  <tr>
+    <th>End Date:</th>
+    <td><%= @job.end_date %></td>
+  </tr>
+  <tr>
+    <th>Work Time (Hours):</th>
+    <td><%= @job.time %></td>
+  </tr>
+  <tr>
+    <th>Requirements:</th>
+    <td><%= @job.requirements %></td>
+  </tr>
+  <tr>
+    <th>Who is working here:</th>
+    <td>
+      <% @job.users.each do |u|%>
+        <%= u.name %>
+      <% end %>
+    </td>
+  </tr>
+</table>
+
+<%= link_to 'Edit', edit_user_account_company_job_path(@user, @company, @job) %> |
+<%= link_to 'Back', user_account_company_jobs_path(@user, @company) %>
