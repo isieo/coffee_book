@@ -1,6 +1,6 @@
 class User::CompaniesController < ApplicationController
   before_filter :find_user
-  before_filter :find_company, :only => [:edit, :update, :destroy]
+  before_filter :find_company, :only => [:show, :edit, :update, :destroy]
   
   def index
     @companies = @user.companies
@@ -18,6 +18,9 @@ class User::CompaniesController < ApplicationController
     else
       render :action => :new
     end
+  end
+  
+  def show
   end
   
   def edit

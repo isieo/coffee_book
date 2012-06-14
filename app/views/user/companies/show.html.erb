@@ -1,0 +1,37 @@
+<%= render :partial => "user/accounts/account_menu" %>
+<h2>Company Details</h2>
+<table class = "table table-condensed">
+  <tr>
+    <th>Company Name</th>
+    <td><%= @company.name %></td>
+  </tr>
+  <tr>
+    <th>Address</th>
+    <td>
+      <%= @company.address_street1 %><br />
+      <%= @company.address_street2 %>
+    </td>
+  </tr>
+  <tr>
+    <th>Post Code</th>
+    <td><%= @company.post_code %></td>
+  </tr>
+  <tr>
+    <th>State</th>
+    <td><%= @company.state %></td>
+  </tr>
+  <tr>
+    <th>Country</th>
+    <td><%= @company.country %></td>
+  </tr>
+  <tr>
+    <th>Mobile</th>
+    <td><%= @company.contact_mobile %></td>
+  </tr>
+  <tr>
+    <th>Office</th>
+    <td><%= @company.contact_office %></td>
+  </tr>
+</table>
+
+<%= link_to "Jobs", user_account_company_jobs_path(current_user, @company) %>
