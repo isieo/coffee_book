@@ -14,7 +14,7 @@ class User::ReviewsController < ApplicationController
     @review = @user.reviews.new(params[:review].merge({:post_by => @user.username}))
     if @review.save
       flash[:notice] = "Review created successfully."
-      redirect_to user_account_reviews_url
+      redirect_to user_accounts_url(@user)
     else
       render :action => :new
     end

@@ -53,3 +53,26 @@
   </tr>
   
 </table>
+
+<table class="table table-condensed">
+  <tr>
+    <th>Date</th>
+    <th>Rating</th>
+    <th>Comment</th>
+  </tr>
+  <% @job.company.reviews.each do |r| %>
+    <tr>
+      <td><%= r.created_at.strftime('%d-%m-%Y') %></td>
+      <td>Put user rating here</td>
+      <td><%= r.comment %></td>
+    </tr>
+  <% end %>
+</table>
+
+<%= form_tag(reviews_path) do %>
+  <%= text_field_tag :comment, nil %>
+  <%= hidden_field_tag :username, current_user.username %>
+  <%= hidden_field_tag :company_id, @job.company_id %>
+  <%= hidden_field_tag :job_id, @job.id %>
+  <%= button_tag "Comment" %>
+<% end %>

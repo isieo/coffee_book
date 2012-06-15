@@ -48,3 +48,12 @@
 
 <%= load_achievement(@user)%>
 <%= load_review(@user)%>
+
+<% if @user != current_user %>
+  <%= form_tag(reviews_path) do %>
+    <%= text_field_tag :comment, nil %>
+    <%= hidden_field_tag :username, current_user.username %>
+    <%= hidden_field_tag :user_id, @user.id %>
+    <%= button_tag "Comment" %>
+  <% end %>
+<% end %>
