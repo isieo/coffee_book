@@ -50,8 +50,10 @@
 <%= load_review(@user)%>
 
 <% if @user != current_user %>
-  <%= form_tag(user_account_reviews_path(@user)) do %>
-    <%= text_field_tag "review[comment]", nil %>
+  <%= form_tag(reviews_path) do %>
+    <%= text_field_tag :comment, nil %>
+    <%= hidden_field_tag :username, current_user.username %>
+    <%= hidden_field_tag :user_id, @user.id %>
     <%= button_tag "Comment" %>
   <% end %>
 <% end %>

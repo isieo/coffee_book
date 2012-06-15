@@ -8,6 +8,7 @@ CoffeeBook::Application.routes.draw do
     get "/users/auth/:provider" => "user/omniauth_callbacks#passthru"
   end
   resources :companies
+  resources :reviews, :only => :create
   resources :jobs, :only => [:index, :show] do
     get :apply, :on => :member
     get :apply_a, :on => :collection
