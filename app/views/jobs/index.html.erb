@@ -3,35 +3,26 @@
 <table class="table">
   <tr>
     <th>Title</th>
-    <th>Post</th>
     <th>Location</th>
-    <th>Salary</th>
+    <th>Salary Per day</th>
     <th>Start Date</th>
     <th>How Many Days</th>
-    <th>Time</th>
-    <th>Requirements</th>
-    <th></th>
-    <th></th>
     <th></th>
   </tr>
-
 <% @jobs.each do |job| %>
   <tr>
     <td><%= job.title %></td>
-    <td><%= job.position %></td>
     <td><%= job.location %></td>
-    <td><%= job.salary %></td>
-    <td><%= job.date %></td>
-    <td><%= job.day_amount %></td>
-    <td><%= job.time %></td>
-    <td><%= job.requirements %></td>
-    <td><%= link_to 'Show', job %></td>
-    <td><%= link_to 'Edit', edit_job_path(job) %></td>
-    <td><%= link_to 'Destroy', job, confirm: 'Are you sure?', method: :delete %></td>
+    <td>
+        <% if job.salary == 0 || job.salary.nil? %>
+          N/A
+        <% else %>
+          <%= number_to_currency(job.salary, :format => "RM %n") %>
+        <% end %>
+    </td>
+    <td><%= job.date.to_date %></td>
+    <td><%= job.day_amount %> Days</td>
+    <td><%= link_to 'See More', job, :class => "btn btn-primary" %></td>
   </tr>
 <% end %>
 </table>
-
-<br />
-
-<%= link_to 'New Job', new_job_path %>

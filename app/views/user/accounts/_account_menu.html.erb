@@ -1,9 +1,10 @@
-<ul>
-  Navigation Menu
-  <% if @user == current_user %>
-    <li><%=link_to "Edit my details", edit_user_account_path(@user), :class => "btn btn-primary" %></li>
-    <li><%= link_to "Company", user_account_companies_path(@user), :class => "btn btn-primary" %></li>
-  <% end %>
-  <li><%= link_to "Achivement", user_account_achievements_path(@user), :class => "btn btn-primary" %></li>
-  <li><%= link_to "Review", user_account_reviews_path(@user), :class => "btn btn-primary" %></li>
-</ul>
+<div class ="well">
+  <ul>
+    Navigation Menu
+    <% if @user == current_user %>
+      <li><%=link_to "Edit my details", edit_user_account_path(@user), :class => "btn btn-primary" %></li>
+      <li><%= link_to "Company", user_account_companies_path(@user), :class => "btn btn-primary" %></li>
+    <% end %>
+    <li><%= link_to "Review", user_account_reviews_path(@user), :class => "btn btn-primary" %></li>
+  </ul>
+</div>

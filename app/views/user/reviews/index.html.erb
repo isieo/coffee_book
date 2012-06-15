@@ -1,15 +1,14 @@
 <%= render :partial => "user/accounts/account_menu" %>
 <h2>Reviews</h2>
-<table>
+<table class = "table table-condensed">
   <tr>
     <th>Post By</th>
     <th>Comment</th>
   </tr>
   <% @reviews.each do |r| %>
     <tr>
-      <td><%= r.post_by %></td>
+      <td><%= r.created_at.to_date %></td>
       <td><%= r.comment %></td>
     </tr>
   <% end %>
 </table>
-<%= link_to "Add Review", new_user_account_review_path(current_user) %>

@@ -18,12 +18,12 @@ module ApplicationHelper
   def load_achievement(user)
     achievement = "<h3>My Experience Achievement</h3>"
 
-    job_post_type_array = ["Road Show","Promoter","Distributor"]
+    job_position_type_array = ["Road Show","Promoter","Distributor"]
     counter = 1
     limit = 4
     achievement += "<table>"
-      job_post_type_array.each do |jp|
-        ujc = user.jobs.where(post: jp).count
+      job_position_type_array.each do |jp|
+        ujc = user.jobs.where(position: jp).count
         if ujc != 0
           if counter == 1
             achievement += "<tr>"
@@ -45,7 +45,7 @@ module ApplicationHelper
   end
   
   def load_review(user)
-    review = "<h3>What other people think about #{@user.name} </h3>"
+    review = "<h3>What other people think about #{user.name} </h3>"
     review += '<table class = "table table-condensed">'
     review += "<tr>"
     review += "<th>Date</th>"

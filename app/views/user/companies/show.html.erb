@@ -1,5 +1,6 @@
 <%= render :partial => "user/accounts/account_menu" %>
 <h2>Company Details</h2>
+<%= link_to "Add new job under this company", user_account_company_jobs_path(@user, @company), :class => "btn btn-info btn-large" %>
 <table class = "table table-condensed">
   <tr>
     <th>Company Name</th>
@@ -34,4 +35,7 @@
   </tr>
 </table>
 
-<%= link_to "Jobs", user_account_company_jobs_path(@user, @company) %>
+Review to this company
+<%= load_review(@company)%>
+
+

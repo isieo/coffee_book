@@ -1,43 +1,36 @@
 <p id="notice"><%= notice %></p>
+<table class = "table table-condensed">
+  <tr>
+    <th>Company Name</th>
+    <td><%= @company.name %></td>
+  </tr>
+  <tr>
+    <th>Address</th>
+    <td>
+      <%= @company.address_street1 %><br />
+      <%= @company.address_street2 %>
+    </td>
+  </tr>
+  <tr>
+    <th>Post Code</th>
+    <td><%= @company.post_code %></td>
+  </tr>
+  <tr>
+    <th>State</th>
+    <td><%= @company.state %></td>
+  </tr>
+  <tr>
+    <th>Country</th>
+    <td><%= @company.country %></td>
+  </tr>
+  <tr>
+    <th>Mobile</th>
+    <td><%= @company.contact_mobile %></td>
+  </tr>
+  <tr>
+    <th>Office</th>
+    <td><%= @company.contact_office %></td>
+  </tr>
+</table>
 
-<p>
-  <b>Name:</b>
-  <%= @company.name %>
-</p>
-
-<p>
-  <b>Address street1:</b>
-  <%= @company.address_street1 %>
-</p>
-
-<p>
-  <b>Address street2:</b>
-  <%= @company.address_street2 %>
-</p>
-
-<p>
-  <b>Post code:</b>
-  <%= @company.post_code %>
-</p>
-
-<p>
-  <b>State:</b>
-  <%= @company.state %>
-</p>
-
-<p>
-  <b>Country:</b>
-  <%= @company.country %>
-</p>
-
-<p>
-  <b>Contact mobile:</b>
-  <%= @company.contact_mobile %>
-</p>
-
-<p>
-  <b>Contact home:</b>
-  <%= @company.contact_office %>
-</p>
-<%= link_to 'Edit', edit_company_path(@company) %> |
-<%= link_to 'Back', companies_path %>
+<%= load_review(@company)%>

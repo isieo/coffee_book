@@ -27,7 +27,7 @@
       </tr>
     <% end %>
   </table>
-<% else %>
+<% elsif @search_user.present? %>
   <table class="table table-condensed">
     <tr>
       <th>Name</th>
@@ -40,5 +40,7 @@
       </tr>
     <% end %>
   </table>
+<%else%>
+Your search did not match any documents. Please try different keywords
 <% end %>
 

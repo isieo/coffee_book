@@ -7,7 +7,7 @@
   </tr>
   <tr>
     <th>Post:</th>
-    <td><%= @job.post %></td>
+    <td><%= @job.position %></td>
   </tr>
   <tr>
     <th>Location:</th>
@@ -33,16 +33,20 @@
     <th>Who is working here:</th>
     <td>
       <% @job.users.each do |u|%>
-        <%= u.name %>
+        <%=link_to u.name, user_accounts_path(u) %>
       <% end %>
     </td>
   </tr>
+  
+  <tr>
+    <th>Company Link:</th>
+    <td><%= link_to 'Company Link', @job.company, :class => "btn btn-primary" %></td>
+  </tr>
+  
   <tr>
     <th></th>
-    <td><%= link_to 'Apply', root_path, :class => "btn btn-primary" %> </td>
+    <td><%= link_to 'Apply', root_path, :class => "btn btn-primary" %> <%= link_to 'Back', jobs_path, :class => "btn" %></td>
   </tr>
   
 </table>
 
-<%= link_to 'Edit', edit_job_path(@job) %> |
-<%= link_to 'Back', jobs_path %>

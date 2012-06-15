@@ -54,14 +54,31 @@
               <%= yield %>
             </div>
             <div class="span3">
+              
               <div class="well sidebar-nav">
                 <h3>Sidebar</h3>
                 <ul class="nav nav-list">
                   <li class="nav-header">Sidebar</li>
-                  <li><%= link_to "My Company", companies_path  %></li>
+                  <% if user_signed_in? %>
+                    <li><%= link_to "My Account", user_accounts_path(current_user)  %></li>
+                  <% end %>
                   <li><%= link_to "List Jobs", jobs_path  %></li>
                 </ul>
               </div><!--/.well -->
+              <% if user_signed_in? %>
+                <% if current_page?(user_accounts_path(current_user))%>
+                  <div class="well sidebar-nav">
+                    <h3>Navigation Menu</h3>
+                    <ul class="nav nav-list">
+                      <li class="nav-header">Menu</li>
+                      <li><%=link_to "Edit my details", edit_user_account_path(@user) %></li>
+                      <li><%= link_to "Company", user_account_companies_path(@user) %></li>
+                      <li><%= link_to "Review", user_account_reviews_path(@user) %></li>
+                    </ul>
+                  </div><!--/.well -->
+                <% end %>
+              <% end %>
+              
             </div><!--/span-->
         </div><!--/row-->
       </div><!--/content-->

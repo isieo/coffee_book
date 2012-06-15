@@ -11,15 +11,15 @@ class Job
   field :day_amount, :type => Integer
   field :time, :type => Integer
   field :requirements, :type => String
-  field :start_date, :type => Date
-  field :end_date, :type => Date
-  field :expired, :type => Boolean
   field :company_name, :type => String
+  field :contact_mobile, :type => String
+  field :contact_office, :type => String
   field :address_street1, :type => String
   field :address_street2, :type => String
   field :post_code, :type => String
   field :state, :type => String
   field :country, :type => String
+  field :applicant, :type => Array
   
   belongs_to :company
   has_and_belongs_to_many :users

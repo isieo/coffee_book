@@ -14,14 +14,6 @@ CoffeeBook::Application.routes.draw do
   get "/:username" => "user/accounts#index", :as => :user_accounts
   get "/:username/edit" => 'user/accounts#edit', :as => :edit_user_account
   put "/:username" => 'user/accounts#update', :as => :user_account
-  # Overwrite achievement route /user/achievements to /:username/achievements
-  get "/:username/achievements" => "user/achievements#index", :as => :user_account_achievements
-  get "/:username/achievements/new" => "user/achievements#new", :as => :new_user_account_achievement
-  get "/:username/achievements/:id/edit" => "user/achievements#edit", :as => :edit_user_account_achievement
-  post "/:username/achievements" => "user/achievements#create", :as => :user_account_achievements
-  put "/:username/achievements/:id" => "user/achievements#update", :as => :user_account_achievement
-  delete "/:username/achievements/:id" => "user/achievements#destroy", :as => :user_account_achievement
-  # Overwrite companies route /user/companies to /:username/companies
   get "/:username/companies" => "user/companies#index", :as => :user_account_companies
   post "/:username/companies" => "user/companies#create", :as => :user_account_companies
   get "/:username/companies/new" => "user/companies#new", :as => :new_user_account_company

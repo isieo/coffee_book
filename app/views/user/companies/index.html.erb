@@ -1,12 +1,15 @@
 <%= render :partial => "user/accounts/account_menu" %>
-<h2>Companies</h2>
-<table>
+<h2>Companies under <%= current_user.name %></h2>
+<table class ="table table-condensed">
   <tr>
     <th></th>
     <th>Company Name</th>
     <th>Address</th>
     <th>Mobile</th>
     <th>Office</th>
+    <th></th>
+    <th></th>
+    <th></th>
   </tr>
   <% count_no = 1 %>
   <% @companies.each do |c| %>
@@ -18,12 +21,15 @@
         <%= c.address_street2 %><br />
         <%= c.post_code %><br />
         <%= c. state %><br />
-        <%= c.country %>
+        <%= c.country%>
       </td>
       <td><%= c.contact_mobile %></td>
       <td><%= c.contact_office %></td>
-      <td>[<%= link_to "View", user_account_company_path(current_user, c) %> | <%= link_to "Edit", edit_user_account_company_path(current_user, c) %> | <%= link_to "Delete", user_account_company_path(current_user, c), :confirm => "Are you sure?", :method=>:delete %>]</td>
+      <td><%= link_to "View", user_account_company_path(current_user, c), :class => "btn btn-primary" %></td>
+      <td><%= link_to "Edit", edit_user_account_company_path(current_user, c), :class => "btn btn-primary" %></td>
+      <td><%= link_to "Delete", user_account_company_path(current_user, c), :confirm => "Are you sure?", :method=>:delete, :class => "btn btn-primary" %></td>
     </tr>
+    <%count_no = count_no + 1%>
   <% end %>
 </table>
-<%= link_to "Add Company", new_user_account_company_path(current_user) if @user == current_user %>
+<%= link_to "Add New Company", new_user_account_company_path(current_user), :class => "btn btn-primary" if @user == current_user %>
