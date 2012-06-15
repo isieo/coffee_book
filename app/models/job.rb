@@ -25,4 +25,13 @@ class Job
   has_and_belongs_to_many :users
   
   search_in :title, :position, :location, :salary, :date, :company_name, :address_street1, :address_street2, :post_code, :state, :country
+  
+  before_validation :initialize_applicant
+  
+  protected
+  def initialize_applicant
+    if self.applicant == nil
+      self.applicant = []
+    end
+  end
 end

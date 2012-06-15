@@ -14,12 +14,16 @@
     <td><%= @job.location %></td>
   </tr>
   <tr>
-    <th>Salary Per day:</th>
-    <td><%= number_to_currency(@job.salary, :format => "RM %n") %></td>
+    <th>Date:</th>
+    <td><%= @job.date %></td>
   </tr>
   <tr>
-    <th>How Many Days:</th>
+    <th>Working Days:</th>
     <td><%= @job.day_amount %></td>
+  </tr>
+  <tr>
+    <th>Salary Per day:</th>
+    <td><%= number_to_currency(@job.salary, :format => "RM %n") %></td>
   </tr>
   <tr>
     <th>Work Time (Hours):</th>
@@ -45,7 +49,7 @@
   
   <tr>
     <th></th>
-    <td><%= link_to 'Apply', root_path, :class => "btn btn-primary" %> <%= link_to 'Back', jobs_path, :class => "btn" %></td>
+    <td><%= link_to 'Apply', apply_job_path(@job) , :class => "btn btn-primary" %></td>
   </tr>
   
 </table>

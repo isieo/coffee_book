@@ -10,7 +10,7 @@ class User::JobsController < ApplicationController
    end
    
    def create
-     @job = @company.jobs.new(params[:job].merge({:company_name => @company.name, :address_street1 => @company.address_street1, :address_street2 => @company.address_street2, :post_code => @company.post_code, :state => @company.state, :country => @company.country, :contact_mobile => @company.contact_mobile, :contact_office.contact_office}))
+     @job = @company.jobs.new(params[:job].merge({:company_name => @company.name, :address_street1 => @company.address_street1, :address_street2 => @company.address_street2, :post_code => @company.post_code, :state => @company.state, :country => @company.country, :contact_mobile => @company.contact_mobile, :contact_office => @company.contact_office}))
      if @job.save
        flash[:notice] = "Job created successfully."
        redirect_to user_account_company_job_url(@user, @company, @job)

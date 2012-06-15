@@ -1,6 +1,5 @@
 <%= render :partial => "user/accounts/account_menu" %>
 <h2>Company Details</h2>
-<%= link_to "Add new job under this company", user_account_company_jobs_path(@user, @company), :class => "btn btn-info btn-large" %>
 <table class = "table table-condensed">
   <tr>
     <th>Company Name</th>
@@ -35,6 +34,34 @@
   </tr>
 </table>
 
+<h2>Jobs created by this company</h2>
+<%= link_to "Add new job under this company", user_account_company_jobs_path(@user, @company), :class => "btn btn-info" %>
+<table class = "table table-condensed">
+  <tr>
+    <th>Title</th>
+    <th>Location</th>
+    <th>Salary Per day</th>
+    <th>Start Date</th>
+    <th>How Many Days</th>
+    <th></th>
+  </tr>
+  <% @company.jobs.each do |job|%>
+      <tr>
+        <td><%= job.title %></td>
+        <td><%= job.location %></td>
+        <td>
+            <% if job.salary == 0 || job.salary.nil? %>
+              N/A
+            <% else %>
+              <%= number_to_currency(job.salary, :format => "RM %n") %>
+            <% end %>
+        </td>
+        <td><%= job.date.to_date %></td>
+        <td><%= job.day_amount %> Days</td>
+        <td><%= link_to 'See More', job, :class => "btn btn-primary" %></td>
+      </tr>
+  <% end %>
+</table>
 Review to this company
 <%= load_review(@company)%>
 
