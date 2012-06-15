@@ -1,0 +1,3 @@
+<%= form_tag users_path, :class => "navbar-search pull-left", :method => "get" do %>
+  <%= text_field_tag :user, params[:user] ,:class => 'search-query span2', :placeholder => 'Find User' %>
+<% end %>

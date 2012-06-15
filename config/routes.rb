@@ -8,7 +8,8 @@ CoffeeBook::Application.routes.draw do
     get "/users/auth/:provider" => "user/omniauth_callbacks#passthru"
   end
   resources :companies
-  resources :jobs
+  resources :jobs, :only => [:index, :show]
+  resources :users, :only => :index
   # Overwrite account route /user/accounts to /:username
   get "/:username" => "user/accounts#index", :as => :user_accounts
   get "/:username/edit" => 'user/accounts#edit', :as => :edit_user_account

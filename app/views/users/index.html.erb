@@ -1,0 +1,25 @@
+<h1>Listing Users</h1>
+
+<table class="table">
+  <tr>
+    <th>Name</th>
+    <th>Mobile</th>
+    <th>Home</th>
+    <th>Gender</th>
+    <th>Nationality</th>
+    <th></th>
+  </tr>
+
+<% @users.each do |u| %>
+  <tr>
+    <td><%= u.name %></td>
+    <td><%= u.contact_mobile %></td>
+    <td><%= u.contact_home %></td>
+    <td><%= u.gender %></td>
+    <td><%= u.nationality %></td>
+    <td>
+      <%= link_to "Details", user_accounts_path(u) %>
+    </td>
+  </tr>
+<% end %>
+</table>

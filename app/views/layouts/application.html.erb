@@ -30,7 +30,8 @@
             <span class="icon-bar"></span>
           </a>
           <%= link_to "Part time", root_path, :class => "brand"%>
-          <%= render "shared/search_form"%>
+          <%= render :partial => "shared/job_search_form"%>
+          <%= render :partial => "shared/user_search_form"%>
           <div class="container nav-collapse">
             <ul class="nav pull-right">
               <%if !user_signed_in?%>
