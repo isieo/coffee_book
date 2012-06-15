@@ -1,6 +1,6 @@
 class User::JobsController < ApplicationController
   before_filter :find_user, :find_company
-  before_filter :find_job_posted, :only => [:show, :edit, :update, :destroy]
+  before_filter :find_job_posted, :only => [:show, :edit, :update, :destroy, :approve]
    def index
      @jobs = @company.jobs
    end
@@ -36,9 +36,26 @@ class User::JobsController < ApplicationController
    
    def destroy
      if @job.destroy
-       flash[:notice] = "Job deleted successfullly."
+       flash[:notice] = "Job deleted successfully."
        redirect_to user_account_company_jobs_url(@user, @company)
      end
+   end
+   
+   def approve
+    array_location = 0
+    @job.applicant.each do |ja|
+      if ja[0] == params[:applicant]
+        u = User.where(:username => params[:applicant]).first
+        u.jobs << @job
+        u.save
+        @job.applicant.delete_at(array_location)
+        @job.save
+      end
+      array_location += 1
+    end
+
+    flash[:notice] = "User approved"
+    redirect_to user_account_company_job_path(@user, @company, @job)
    end
    
    protected

@@ -18,7 +18,7 @@
   </tr>
   <tr>
     <th>Start Date:</th>
-    <td><%= @job.date.strftime('%d-%d-%Y) %></td>
+    <td><%= @job.date.strftime('%d-%m-%Y') %></td>
   </tr>
   <tr>
     <th>Work Time (Hours):</th>
@@ -32,10 +32,21 @@
     <th>Who is working here:</th>
     <td>
       <% @job.users.each do |u|%>
-        <%= u.name %>
+        <%=link_to u.name, user_accounts_path(u) %>
       <% end %>
     </td>
   </tr>
+  
+  <tr>
+    <th>Who applied:</th>
+    <td>
+      <% @job.applicant.each do |a|%>
+        <%= link_to a[0], user_accounts_path(a[0]), :target => "_blank" %> applied on <%= a[1].strftime('%d-%m-%Y')%>
+        <%= link_to "Approve", approve_user_account_company_job_path(@user, @company, @job, :applicant => a[0]), :class => "btn btn-primary"%>
+      <% end %>
+    </td>
+  </tr>
+  
 </table>
 
 <%= link_to 'Edit', edit_user_account_company_job_path(@user, @company, @job) %> |

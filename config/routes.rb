@@ -29,6 +29,7 @@ CoffeeBook::Application.routes.draw do
   post "/:username/reviews" => "user/reviews#create", :as => :user_account_reviews
   get "/:username/reviews/new" => "user/reviews#new", :as => :new_user_account_review
   # Jobs route
+  get "/:username/companies/:company_id/jobs/:id/approve" => 'user/jobs#approve', :as => :approve_user_account_company_job
   get "/:username/companies/:company_id/jobs" => "user/jobs#index", :as => :user_account_company_jobs
   post "/:username/companies/:company_id/jobs" => "user/jobs#create", :as => :user_account_company_jobs
   get "/:username/ompanies/:company_id/jobs/new" => "user/jobs#new", :as => :new_user_account_company_job

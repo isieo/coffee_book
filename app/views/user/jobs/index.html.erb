@@ -5,12 +5,12 @@
     <th>Title</th>
     <th>Position</th>
     <th>Location</th>
-    <th>Salary</th>
-    <th>Time</th>
-    <th>Requirements</th>
-    <th>Start Date</th>
-    <th>End Date</th>
-    <th>Action</th>
+    <th>Salary (RM)</th>
+    <th>Working Time (Hours)</th>
+    <th>Date</th>
+    <th></th>
+    <th></th>
+    <th></th>
   </tr>
   <% @jobs.each do |j| %>
     <tr>
@@ -19,14 +19,10 @@
       <td><%= j.location %></td>
       <td><%= j.salary %></td>
       <td><%= j.time %></td>
-      <td><%= j.requirements %></td>
       <td><%= j.date %></td>
-      <td>
-        <%= link_to "View", user_account_company_job_path(@user, @company, j) %> | 
-        <%= link_to "Edit", edit_user_account_company_job_path(@user, @company, j) %> | 
-        <%= link_to "Delete", user_account_company_job_path(@user, @company, j), :confirm => "Are you sure?", :method=>:delete %>
-      </td>
-    </tr>
+      <td><%= link_to "View", user_account_company_job_path(@user, @company, j), :class => "btn btn-primary" %></td>
+      <td><%= link_to "Edit", edit_user_account_company_job_path(@user, @company, j), :class => "btn btn-info" %></td>
+      <td><%= link_to "Delete", user_account_company_job_path(@user, @company, j), :confirm => "Are you sure?", :method=>:delete, :class => "btn btn-danger" %></td></tr>
   <% end %>
 </table>
-<%= link_to "New Job", new_user_account_company_job_path(@user, @company) %>
+<%= link_to "New Job", new_user_account_company_job_path(@user, @company), :class => "btn btn-primary" %>
