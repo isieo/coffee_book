@@ -3,7 +3,7 @@
 <table class="table">
   <tr>
     <th>Title</th>
-    <th>Post</th>
+    <th>Position</th>
     <th>Location</th>
     <th>Salary</th>
     <th>Start Date</th>
@@ -11,25 +11,27 @@
     <th>Time</th>
     <th>Requirements</th>
     <th></th>
-    <th></th>
-    <th></th>
   </tr>
 
-<% @jobs.each do |job| %>
-  <tr>
-    <td><%= job.title %></td>
-    <td><%= job.position %></td>
-    <td><%= job.location %></td>
-    <td><%= job.salary %></td>
-    <td><%= job.date %></td>
-    <td><%= job.day_amount %></td>
-    <td><%= job.time %></td>
-    <td><%= job.requirements %></td>
-    <td><%= link_to 'Show', job %></td>
-    <td><%= link_to 'Edit', edit_job_path(job) %></td>
-    <td><%= link_to 'Destroy', job, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
+  <% if @jobs.present? %>
+    <% @jobs.each do |job| %>
+      <tr>
+        <td><%= job.title %></td>
+        <td><%= job.position %></td>
+        <td><%= job.location %></td>
+        <td><%= job.salary %></td>
+        <td><%= job.date %></td>
+        <td><%= job.day_amount %></td>
+        <td><%= job.time %></td>
+        <td><%= job.requirements %></td>
+        <td><%= link_to 'Show', job %></td>
+      </tr>
+    <% end %>
+  <% else %>
+    <tr>
+      <td colspan="9">Sorry No Results Found.</td>
+    </tr>
+  <% end %>
 </table>
 
 <br />

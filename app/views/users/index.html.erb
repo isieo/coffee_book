@@ -10,16 +10,22 @@
     <th></th>
   </tr>
 
-<% @users.each do |u| %>
-  <tr>
-    <td><%= u.name %></td>
-    <td><%= u.contact_mobile %></td>
-    <td><%= u.contact_home %></td>
-    <td><%= u.gender %></td>
-    <td><%= u.nationality %></td>
-    <td>
-      <%= link_to "Details", user_accounts_path(u) %>
-    </td>
-  </tr>
-<% end %>
+  <% if @users.present? %>
+    <% @users.each do |u| %>
+      <tr>
+        <td><%= u.name %></td>
+        <td><%= u.contact_mobile %></td>
+        <td><%= u.contact_home %></td>
+        <td><%= u.gender %></td>
+        <td><%= u.nationality %></td>
+        <td>
+          <%= link_to "Details", user_accounts_path(u) %>
+        </td>
+      </tr>
+    <% end %>
+  <% else %>
+    <tr>
+      <td colspan="9">Sorry No Results Found.</td>
+    </tr>
+  <% end %>
 </table>
