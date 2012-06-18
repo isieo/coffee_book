@@ -21,7 +21,7 @@
           <%= number_to_currency(job.salary, :format => "RM %n") %>
         <% end %>
     </td>
-    <td><%= job.date.to_date %></td>
+    <td><%= job.date.strftime('%d-%m-%Y') if job.date.present? %></td>
     <td><%= job.day_amount %> Days</td>
     <td><%= link_to 'See More', job, :class => "btn btn-primary" %></td>
   </tr>
