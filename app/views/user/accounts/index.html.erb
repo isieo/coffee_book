@@ -49,6 +49,13 @@
 <%= load_achievement(@user)%>
 <%= load_review(@user)%>
 
+My experience
+<ul>
+  <% @user.jobs.each do |uj| %>
+    <li><%=uj.title%></li>
+  <% end %>
+</ul>
+
 <% if @user != current_user %>
   <%= form_tag(reviews_path) do %>
     <%= text_field_tag :comment, nil %>
