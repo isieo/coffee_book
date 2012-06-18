@@ -17,6 +17,7 @@ class User::AccountsController < ApplicationController
       params[:user].delete(:current_password)
     end
     if @user.update_attributes(params[:user])
+      sign_in @user, :bypass => true
       flash[:notice] = "User profile updated successfully."
       redirect_to user_accounts_url(@user)
     else
