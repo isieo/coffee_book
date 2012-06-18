@@ -15,6 +15,7 @@ before_filter :find_job, :only => [:show, :apply]
   def apply
     @job.applicant << [current_user.username,Time.now]
     @job.save
+    Delayed::Job.enqueue NotifyJob.new(@job.company.user.id, current_user.id, @job.id)
     flash[:notice] = "Job applied successfully, please wait for approval or contact"
     redirect_to jobs_path
   end

@@ -42,3 +42,4 @@ gem 'omniauth-facebook'
 gem "twitter-bootstrap-rails"
 gem "simple_form"
 gem "country_select"
+gem 'delayed_job_mongoid'
