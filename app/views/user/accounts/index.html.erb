@@ -44,6 +44,8 @@
   <tr>
     <th>Nationality</th><td><%= @user.nationality %></td>
   </tr>
+  <tr>
+    <th>Photo</th><td><%= image_tag @user.cover_image.thumb('100x100').url if @user.cover_image_uid %></td>
 </table>
 
 <%= load_achievement(@user)%>

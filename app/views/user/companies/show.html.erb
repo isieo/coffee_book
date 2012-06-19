@@ -32,7 +32,12 @@
     <th>Office</th>
     <td><%= @company.contact_office %></td>
   </tr>
+  <tr>
+    <th>Photo</th>
+    <td><%= image_tag @company.cover_image.thumb('100x100').url if @company.cover_image_uid %></td>
+  </tr>
 </table>
+<%= link_to "Edit", edit_user_account_company_path(current_user, @company), :class => "btn btn-primary" %>
 
 <h2>Jobs created by this company</h2>
 <%= link_to "View all job", user_account_company_jobs_path(@user, @company), :class => "btn btn-primary" %>

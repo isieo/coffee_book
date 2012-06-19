@@ -9,9 +9,9 @@ class User
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :authentication_keys => [:login]
   
-  attr_accessible :name, :username, :email, :password, :password_confirmation, :address_street1, :address_street2, :post_code, :state, :country, :contact_mobile, :contact_home, :dob, :gender, :nationality, :ic_number, :login
+  attr_accessible :name, :username, :email, :password, :password_confirmation, :address_street1, :address_street2, :post_code, :state, :country, :contact_mobile, :contact_home, :dob, :gender, :nationality, :ic_number, :login, :cover_image
   
-  attr_accessor :login
+  attr_accessor :login, :image
 
   ## Database authenticatable
   field :email,              :type => String, :null => false, :default => ""
@@ -58,6 +58,7 @@ class User
   field :gender, :type => String
   field :nationality, :type => String
   field :ic_number, :type => String
+  field :cover_image_uid, :type => String
 
   
   #has_many :reviews
@@ -70,6 +71,8 @@ class User
   validates_presence_of :username, :name
   
   search_in :name, :email, :username
+  
+  image_accessor :cover_image
   
   def to_param
     username

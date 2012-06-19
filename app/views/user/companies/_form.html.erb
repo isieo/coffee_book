@@ -6,3 +6,10 @@
 <%= f.input :country, :priority => ["Malaysia"] %>
 <%= f.input :contact_mobile %>
 <%= f.input :contact_office %>
+<% if f.object.cover_image_uid %>
+  <%= image_tag f.object.cover_image.thumb('100x100').url %>
+<% end %>
+<div class="control-group string optional">
+  <%= f.label :cover_image, "Photo", :class => "string optional control-label", :for=>"user_contact_mobile" %>
+  <div class="controls"><%= f.file_field :cover_image, :class => "string optional" %></div>
+</div>

@@ -1,7 +1,7 @@
 <%= render :partial => "account_menu" %>
 <h2>Edit Account</h2>
 
-<%= simple_form_for(@user, :url => user_account_path(@user), :html => { :method => :put, :class => "form-horizontal" }) do |f| %>
+<%= simple_form_for(@user, :url => user_account_path(@user), :html => { :method => :put, :multipart => true, :class => "form-horizontal" }) do |f| %>
 
   <%= f.input :email %>
   <%= f.input :name %>
@@ -20,6 +20,13 @@
   <%= f.input :dob, :label => "Date of Birth", :as => :date, :start_year => Date.today.year - 90, :end_year => Date.today.year - 12, :order => [:day, :month, :year], :prompt => {:day => 'Day', :month => 'Month', :year => 'Year'} %>
   <%= f.input :nationality %>
   <%= f.input :ic_number %>
+  <% if f.object.cover_image_uid %>
+    <%= image_tag f.object.cover_image.thumb('100x100').url %>
+  <% end %>
+  <div class="control-group string optional">
+    <%= f.label :cover_image, "Photo", :class => "string optional control-label", :for=>"user_contact_mobile" %>
+    <div class="controls"><%= f.file_field :cover_image, :class => "string optional" %></div>
+  </div>
 
   <div class="form-actions">
     <%= f.submit "Update", :class => "btn btn-primary"%>

@@ -43,3 +43,5 @@ gem "twitter-bootstrap-rails"
 gem "simple_form"
 gem "country_select"
 gem 'delayed_job_mongoid'
+gem 'rack-cache', :require => 'rack/cache'
+gem 'dragonfly', '~>0.9.12'
