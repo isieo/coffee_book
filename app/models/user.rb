@@ -61,8 +61,9 @@ class User
   field :cover_image_uid, :type => String
 
   
-  #has_many :reviews
-  has_many :companies
+#  has_many :companies
+  has_and_belongs_to_many :admin_of, class_name: "Company"
+  has_and_belongs_to_many :member_of, class_name: "Company"
   has_and_belongs_to_many :jobs
   embeds_many :reviews
 
@@ -101,5 +102,10 @@ class User
     else # Create a user with a stub password. 
       self.create(email: data.email, password: Devise.friendly_token[0,20], name: u_name, username: user_name, gender: data.gender) 
     end
+  end
+  
+  # Company admin valification
+  def is_company_admin?(company_id)
+    @is_company_admin = self.admin_of_ids.include?(company_id)
   end
 end

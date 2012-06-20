@@ -18,6 +18,7 @@ CoffeeBook::Application.routes.draw do
   get "/:username" => "user/accounts#index", :as => :user_accounts
   get "/:username/edit" => 'user/accounts#edit', :as => :edit_user_account
   put "/:username" => 'user/accounts#update', :as => :user_account
+  # Overwrite company nested routes /user/:user_id/companies to /:username/companies
   get "/:username/companies" => "user/companies#index", :as => :user_account_companies
   post "/:username/companies" => "user/companies#create", :as => :user_account_companies
   get "/:username/companies/new" => "user/companies#new", :as => :new_user_account_company
@@ -25,11 +26,14 @@ CoffeeBook::Application.routes.draw do
   get "/:username/companies/:id" => "user/companies#show", :as => :user_account_company
   put "/:username/companies/:id" => "user/companies#update", :as => :user_account_company
   delete "/:username/companies/:id" => "user/companies#destroy", :as => :user_account_company
-  # Overwrite reviews route /user/reviews to /:username/reviews
+  get "/:username/companies/:id/new_member" => "user/companies#new_member", :as => :new_member_user_account_company
+  put "/:username/companies/:id/create_member" => "user/companies#create_member", :as => :create_member_user_account_company
+  delete "/:username/companies/:id/delete_member" => "user/companies#delete_member", :as => :delete_member_user_account_company
+  # Overwrite reviews nested routes /user/:user_id/reviews to /:username/reviews
   get "/:username/reviews" => "user/reviews#index", :as => :user_account_reviews
   post "/:username/reviews" => "user/reviews#create", :as => :user_account_reviews
   get "/:username/reviews/new" => "user/reviews#new", :as => :new_user_account_review
-  # Jobs route
+  # Overwrite jobs nested routes /user/:user_id/companies/:company_id/jobs to /:username/companies/:company_id/jobs
   get "/:username/companies/:company_id/jobs/:id/approve" => 'user/jobs#approve', :as => :approve_user_account_company_job
   get "/:username/companies/:company_id/jobs" => "user/jobs#index", :as => :user_account_company_jobs
   post "/:username/companies/:company_id/jobs" => "user/jobs#create", :as => :user_account_company_jobs

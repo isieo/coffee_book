@@ -3,6 +3,7 @@ class Company
   include Mongoid::Timestamps
 
   field :name, :type => String
+  field :company_name, :type => String
   field :address_street1, :type => String
   field :address_street2, :type => String
   field :post_code, :type => String
@@ -12,11 +13,13 @@ class Company
   field :contact_office, :type => String
   field :cover_image_uid, :type => String
   
-  attr_accessor :image
+  attr_accessor :image, :group_user
   
   has_many :jobs
   embeds_many :reviews
-  belongs_to :user
+#  belongs_to :user
+  has_and_belongs_to_many :admins,  class_name: "User"
+  has_and_belongs_to_many :members, class_name: "User"
   
   image_accessor :cover_image
   

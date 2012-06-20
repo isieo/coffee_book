@@ -39,6 +39,25 @@
 </table>
 <%= link_to "Edit", edit_user_account_company_path(current_user, @company), :class => "btn btn-primary" %>
 
+<h2>Members</h2>
+<table class = "table table-condensed">
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Contact</th>
+    <th>Action</th>
+  </tr>
+  <% @company.members.each do |m| %>
+    <tr>
+      <td><%= m.name %></td>
+      <td><%= m.email %></td>
+      <td><%= m.contact_mobile %></td>
+      <td><%= link_to "Delete", delete_member_user_account_company_path(@user, @company, :member => m.username), :confirm => "Are you sure?", :method=>:delete if current_user.is_company_admin?(@company._id) %></td>
+    </tr>
+  <% end %>
+</table>
+<%= link_to "Add Member", new_member_user_account_company_path(current_user, @company), :class => "btn btn-primary" if @user.is_company_admin?(@company._id) %>
+
 <h2>Jobs created by this company</h2>
 <%= link_to "View all job", user_account_company_jobs_path(@user, @company), :class => "btn btn-primary" %>
 <%= link_to "New Job", new_user_account_company_job_path(@user, @company), :class => "btn btn-info" %>

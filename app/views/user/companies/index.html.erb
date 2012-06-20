@@ -10,6 +10,7 @@
     <th></th>
     <th></th>
     <th></th>
+    <th></th>
   </tr>
   <% count_no = 1 %>
   <% @companies.each do |c| %>
@@ -28,6 +29,7 @@
       <td><%= link_to "View", user_account_company_path(current_user, c), :class => "btn btn-primary" %></td>
       <td><%= link_to "Edit", edit_user_account_company_path(current_user, c), :class => "btn btn-primary" %></td>
       <td><%= link_to "Delete", user_account_company_path(current_user, c), :confirm => "Are you sure?", :method=>:delete, :class => "btn btn-primary" %></td>
+      <td><%= link_to "Add Member", new_member_user_account_company_path(current_user, c) if @user.is_company_admin?(c._id) %></td>
     </tr>
     <%count_no = count_no + 1%>
   <% end %>

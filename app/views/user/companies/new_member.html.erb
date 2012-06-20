@@ -1,0 +1,10 @@
+<%= render :partial => "user/accounts/account_menu" %>
+<%= simple_form_for(@company, :url => create_member_user_account_company_path(current_user, @company), :html => { :class => "form-horizontal" }) do |f| %>
+  
+  <%= f.input :group_user %>
+  
+  <div class="form-actions">
+    <%= f.submit "Add", :class => "btn btn-primary"%>
+    <%= link_to "Back", :back, :class => "btn btn-info" %>
+  </div>
+<% end %>
