@@ -28,6 +28,7 @@ CoffeeBook::Application.routes.draw do
   delete "/:username/companies/:id" => "user/companies#destroy", :as => :user_account_company
   get "/:username/companies/:id/new_member" => "user/companies#new_member", :as => :new_member_user_account_company
   put "/:username/companies/:id/create_member" => "user/companies#create_member", :as => :create_member_user_account_company
+  get "/:username/companies/:id/create_member" => "user/companies#create_member", :as => :create_member_user_account_company
   delete "/:username/companies/:id/delete_member" => "user/companies#delete_member", :as => :delete_member_user_account_company
   # Overwrite reviews nested routes /user/:user_id/reviews to /:username/reviews
   get "/:username/reviews" => "user/reviews#index", :as => :user_account_reviews

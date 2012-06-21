@@ -1,5 +1,14 @@
 <%= render :partial => "account_menu" %>
-<h2>My Details</h2>
+
+<div class="row">
+  <div class ="span5">
+    <h2>My Details</h2>
+  </div>
+
+  <div class ="span4" align="right">
+    <%= image_tag @user.cover_image.thumb('200x250#').url if @user.cover_image_uid %>
+  </div>
+</div>
 
 <table class = "table table-condensed">
   <tr>
@@ -44,8 +53,6 @@
   <tr>
     <th>Nationality</th><td><%= @user.nationality %></td>
   </tr>
-  <tr>
-    <th>Photo</th><td><%= image_tag @user.cover_image.thumb('100x100').url if @user.cover_image_uid %></td>
 </table>
 
 <%= load_achievement(@user)%>

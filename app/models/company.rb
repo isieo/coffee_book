@@ -24,4 +24,5 @@ class Company
   image_accessor :cover_image
   
   validates_presence_of :name, :address_street1, :post_code, :state, :country, :contact_mobile, :contact_office
+  
 end
