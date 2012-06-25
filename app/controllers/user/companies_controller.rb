@@ -79,5 +79,9 @@ class User::CompaniesController < ApplicationController
     else
       @member = User.where(username: params[:member]).first
     end
+    if @member.blank?
+      flash[:notice] = "Sorry invalid username or email."
+      redirect_to user_account_companies_url(@user)
+    end
   end
 end
