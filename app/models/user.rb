@@ -59,6 +59,7 @@ class User
   field :nationality, :type => String
   field :ic_number, :type => String
   field :cover_image_uid, :type => String
+  field :fb_profile_pic, :type => String
 
   
 #  has_many :companies
@@ -97,11 +98,14 @@ class User
     u_name = data.email if data.name.blank?
     user = self.where(email: data.email).first
     if user.present?
-      user.update(name: u_name, username: user_name, gender: data.gender)
+      user.update_attributes(name: u_name, username: user_name, gender: data.gender)
+      user.fb_profile_pic = "http://graph.facebook.com/#{data.id}/picture"
+      user.save
       user
     else # Create a user with a stub password. 
       self.create(email: data.email, password: Devise.friendly_token[0,20], name: u_name, username: user_name, gender: data.gender) 
     end
+    
   end
   
   # Company admin valification
