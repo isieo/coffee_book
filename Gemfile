@@ -46,4 +46,4 @@ gem 'delayed_job_mongoid'
 gem 'rack-cache', :require => 'rack/cache'
 gem 'dragonfly', '~>0.9.12'
 
-gem "geocoder"
+gem "geocoder", :git => "git@github.com:SailorMercury/geocoder.git"
