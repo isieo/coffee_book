@@ -1,6 +1,6 @@
 <%= render :partial => "user/accounts/account_menu" %>
 <h2>Edit Job</h2>
-<%= simple_form_for(@job, :url => user_account_company_job_path(@user, @company, @job), :html => { :mothod => :put, :class => "form-horizontal" }) do |f| %>
+<%= simple_form_for(@job, :url => user_account_company_job_path(@user, @company, @job), :html => { :method => :put, :class => "form-horizontal" }) do |f| %>
   
   <%= render :partial => 'form', :locals => {:f => f} %>
   

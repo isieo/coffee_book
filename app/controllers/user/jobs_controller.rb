@@ -6,7 +6,19 @@ class User::JobsController < ApplicationController
    end
    
    def new
-     @job = @company.jobs.new
+    @job = @company.jobs.new
+
+    geo_data = Geocoder.search("118.107.243.154")
+    if !geo_data.blank?
+      geo_data = geo_data.first
+    else
+      raise "no geo data found"
+    end
+    @job.city = geo_data.city
+    @job.state = geo_data.data['region_name']
+    @job.country = geo_data.data['country_name']
+    @coordinates_longitude = geo_data.data['longitude']
+    @coordinates_latitude = geo_data.data['latitude']
    end
    
    def create
@@ -23,6 +35,9 @@ class User::JobsController < ApplicationController
    end
    
    def edit
+    @job = Job.find(params[:id])
+    @coordinates_longitude = @job.coordinates_longitude
+    @coordinates_latitude = @job.coordinates_latitude
    end
    
    def update

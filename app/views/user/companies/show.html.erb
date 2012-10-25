@@ -7,22 +7,7 @@
   </tr>
   <tr>
     <th>Address</th>
-    <td>
-      <%= @company.address_street1 %><br />
-      <%= @company.address_street2 %>
-    </td>
-  </tr>
-  <tr>
-    <th>Post Code</th>
-    <td><%= @company.post_code %></td>
-  </tr>
-  <tr>
-    <th>State</th>
-    <td><%= @company.state %></td>
-  </tr>
-  <tr>
-    <th>Country</th>
-    <td><%= @company.country %></td>
+    <td><%= @company.address %></td>
   </tr>
   <tr>
     <th>Mobile</th>
@@ -64,7 +49,7 @@
 <table class = "table table-condensed">
   <tr>
     <th>Title</th>
-    <th>Location</th>
+    <th>Address</th>
     <th>Salary Per day</th>
     <th>Start Date</th>
     <th>How Many Days</th>
@@ -74,7 +59,7 @@
   <% @company.jobs.each do |job|%>
       <tr>
         <td><%= job.title %></td>
-        <td><%= job.location %></td>
+        <td><%= job.address %></td>
         <td>
             <% if job.salary == 0 || job.salary.nil? %>
               N/A
@@ -92,4 +77,8 @@
 
 <%= load_review(@company)%>
 
+
+
+<h2>Map</h2>
+<%= image_tag "http://maps.google.com/maps/api/staticmap?size=450x300&sensor=false&zoom=16&markers=#{@company.coordinates[0]}%2C#{@company.coordinates[1]}" %>
 

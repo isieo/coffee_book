@@ -19,13 +19,7 @@
     <tr>
       <td><%= count_no %></td>
       <td><%= c.name %></td>
-      <td>
-        <%= c.address_street1 %><br />
-        <%= c.address_street2 %><br />
-        <%= c.post_code %><br />
-        <%= c. state %><br />
-        <%= c.country%>
-      </td>
+      <td><%= c.address.truncate(30) %></td>
       <td><%= c.contact_mobile %></td>
       <td><%= c.contact_office %></td>
       <td><%= link_to "View", user_account_company_path(current_user, c), :class => "btn btn-primary" %></td>

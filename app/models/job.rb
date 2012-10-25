@@ -2,21 +2,44 @@ class Job
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Search
+  include Geocoder::Model::Mongoid
+  
+  geocoded_by :address do |obj,results|
+    if geo = results.first
+      obj.address = geo.address
+      obj.city = geo.city
+      obj.state = geo.state
+      obj.country = geo.country
+      obj.coordinates_latitude = geo.coordinates[0]
+      obj.coordinates_longitude = geo.coordinates[1]
+    end
+  end
+  
+  reverse_geocoded_by :coordinates do |obj,results|
+    if geo = results.first
+      obj.address = geo.address
+      obj.city = geo.city
+      obj.state = geo.state
+      obj.country = geo.country
+      obj.coordinates_latitude = geo.coordinates[0]
+      obj.coordinates_longitude = geo.coordinates[1]
+    end
+  end
+  
+  after_validation :geocode, :reverse_geocode, :if => (:address_changed? || :coordinates_changed?)
+  attr_accessible :address, :coordinates_latitude,:coordinates_longitude, :title, :position, :salary, :date, :day_amount, :time, :requirements, :city, :state, :country
   
   field :title, :type => String
   field :position, :type => String
-  field :location, :type => String
   field :salary, :type => BigDecimal
   field :date, :type => Date
   field :day_amount, :type => Integer
   field :time, :type => Integer
   field :requirements, :type => String
-  field :company_name, :type => String
-  field :contact_mobile, :type => String
-  field :contact_office, :type => String
-  field :address_street1, :type => String
-  field :address_street2, :type => String
-  field :post_code, :type => String
+  field :address
+  field :city
+  field :coordinates_latitude
+  field :coordinates_longitude
   field :state, :type => String
   field :country, :type => String
   field :applicant, :type => Array
@@ -24,9 +47,11 @@ class Job
   belongs_to :company
   has_and_belongs_to_many :users
   
-  search_in :title, :position, :location, :salary, :date, :company_name, :address_street1, :address_street2, :post_code, :state, :country
+  search_in :title, :position, :city, :salary, :date, :company_name, :address, :state, :country
   
   before_validation :initialize_applicant
+  
+  validates_presence_of :title, :address
   
   protected
   def initialize_applicant

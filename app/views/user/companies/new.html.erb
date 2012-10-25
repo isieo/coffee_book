@@ -1,4 +1,5 @@
 <%= render :partial => "user/accounts/account_menu" %>
+New Company
 <%= simple_form_for(@company, :url => user_account_companies_path(current_user), :html => { :class => "form-horizontal" }) do |f| %>
   
   <%= render :partial => 'form', :locals => {:f => f} %>

@@ -3,13 +3,39 @@ class User
   include Mongoid::Timestamps
   include Mongoid::MultiParameterAttributes
   include Mongoid::Search
+  include Geocoder::Model::Mongoid
+  
+  geocoded_by :address do |obj,results|
+    if geo = results.first
+      obj.address = geo.address
+      obj.city = geo.city
+      obj.state = geo.state
+      obj.country = geo.country
+      obj.coordinates_latitude = geo.coordinates[0]
+      obj.coordinates_longitude = geo.coordinates[1]
+    end
+  end
+  
+  reverse_geocoded_by :coordinates do |obj,results|
+    if geo = results.first
+      obj.address = geo.address
+      obj.city = geo.city
+      obj.state = geo.state
+      obj.country = geo.country
+      obj.coordinates_latitude = geo.coordinates[0]
+      obj.coordinates_longitude = geo.coordinates[1]
+    end
+  end
+  
+  after_validation :geocode, :reverse_geocode, :if => (:address_changed? || :coordinates_latitude_changed? || :coordinates_longitude_changed?)
+  
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :authentication_keys => [:login]
   
-  attr_accessible :name, :username, :email, :password, :password_confirmation, :address_street1, :address_street2, :post_code, :state, :country, :contact_mobile, :contact_home, :dob, :gender, :nationality, :ic_number, :login, :cover_image
+  attr_accessible :name, :username, :email, :password, :password_confirmation, :address,:coordinates_latitude,:coordinates_longitude ,:city, :state, :country, :contact_mobile, :contact_home, :dob, :gender, :nationality, :ic_number, :login, :cover_image
   
   attr_accessor :login, :image
 
@@ -47,9 +73,10 @@ class User
   
   field :name, :type => String, :null => false
   field :username, :type => String, :null => false
-  field :address_street1, :type => String
-  field :address_street2, :type => String
-  field :post_code, :type => Integer
+  field :address, :type => String
+  field :coordinates_latitude
+  field :coordinates_longitude
+  field :city
   field :state, :type => String
   field :country, :type => String
   field :contact_mobile, :type => String

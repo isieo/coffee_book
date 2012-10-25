@@ -11,3 +11,8 @@
  *= require_self
  *= require_tree .
 */
+
+/*to prevent google map marker distortion*/
+div#map_canvas img {
+  max-width:none;
+}

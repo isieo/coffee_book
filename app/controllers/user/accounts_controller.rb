@@ -4,6 +4,9 @@ class User::AccountsController < ApplicationController
   end
   
   def edit
+    @user = User.search(params[:username]).all.first
+    @coordinates_longitude = @user.coordinates_longitude
+    @coordinates_latitude = @user.coordinates_latitude
   end
   
   def update

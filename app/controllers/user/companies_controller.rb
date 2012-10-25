@@ -11,6 +11,19 @@ class User::CompaniesController < ApplicationController
   
   def new
     @company = @user.admin_of.new
+    
+    geo_data = Geocoder.search("118.107.243.154")
+    if !geo_data.blank?
+      geo_data = geo_data.first
+    else
+      raise "no geo data found"
+    end
+    @company.city = geo_data.city
+    @company.state = geo_data.data['region_name']
+    @company.country = geo_data.data['country_name']
+    @coordinates_longitude = geo_data.data['longitude']
+    @coordinates_latitude = geo_data.data['latitude']
+    
   end
   
   def create
@@ -29,6 +42,9 @@ class User::CompaniesController < ApplicationController
   end
   
   def edit
+    @company = Company.find(params[:id])
+    @coordinates_longitude = @company.coordinates_longitude
+    @coordinates_latitude = @company.coordinates_latitude
   end
   
   def update

@@ -3,9 +3,8 @@
 <table class ="table">
   <tr>
     <th>Name</th>
-    <th>Address street1</th>
-    <th>Address street2</th>
     <th>Post code</th>
+    <th>Address</th>
     <th>State</th>
     <th>Country</th>
     <th>Contact mobile</th>
@@ -18,8 +17,7 @@
 <% @companies.each do |company| %>
   <tr>
     <td><%= company.name %></td>
-    <td><%= company.address_street1 %></td>
-    <td><%= company.address_street2 %></td>
+    <td><%= company.address %></td>
     <td><%= company.post_code %></td>
     <td><%= company.state %></td>
     <td><%= company.country %></td>
