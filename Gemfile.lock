@@ -1,3 +1,9 @@
+GIT
+  remote: git@github.com:SailorMercury/geocoder.git
+  revision: 0652aedbafcffed13dd462b63fd8e792bc251ca2
+  specs:
+    geocoder (1.1.4)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -67,7 +73,6 @@ GEM
     faraday (0.8.1)
       multipart-post (~> 1.1)
     fast-stemmer (1.0.1)
-    geocoder (1.1.3)
     hashie (1.2.0)
     highline (1.6.12)
     hike (1.2.1)
@@ -195,7 +200,7 @@ DEPENDENCIES
   delayed_job_mongoid
   devise
   dragonfly (~> 0.9.12)
-  geocoder
+  geocoder!
   jquery-rails
   mongoid
   mongoid_search
