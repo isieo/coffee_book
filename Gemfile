@@ -34,7 +34,7 @@ gem 'capistrano'
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
-gem 'mongoid'
+gem 'mongoid', '2.4.10'
 gem 'bson_ext'
 gem 'mongoid_search'
 gem "devise"
@@ -46,4 +46,4 @@ gem 'delayed_job_mongoid'
 gem 'rack-cache', :require => 'rack/cache'
 gem 'dragonfly', '~>0.9.12'
 
-gem "geocoder", :git => "git@github.com:SailorMercury/geocoder.git"
+gem "geocoder", :git => 'git://github.com/SailorMercury/geocoder.git'
