@@ -26,7 +26,7 @@ class Job
     end
   end
   
-  after_validation :geocode, :reverse_geocode, :if => (:address_changed? || :coordinates_changed?)
+  after_validation :geocode, :reverse_geocode, :if => (:address_changed? || :coordinates_latitude_changed? || :coordinates_longitude_changed?)
   attr_accessible :address, :coordinates_latitude,:coordinates_longitude, :title, :position, :salary, :date, :day_amount, :time, :requirements, :city, :state, :country
   
   field :title, :type => String
@@ -38,6 +38,7 @@ class Job
   field :requirements, :type => String
   field :address
   field :city
+  field :coordinates
   field :coordinates_latitude
   field :coordinates_longitude
   field :state, :type => String
@@ -49,7 +50,7 @@ class Job
   
   search_in :title, :position, :city, :salary, :date, :company_name, :address, :state, :country
   
-  before_validation :initialize_applicant
+  before_validation :initialize_applicant, :initialize_coordinates
   
   validates_presence_of :title, :address
   
@@ -58,5 +59,9 @@ class Job
     if self.applicant == nil
       self.applicant = []
     end
+  end
+  
+  def initialize_coordinates
+    self.coordinates = [self.coordinates_latitude, self.coordinates_longitude]
   end
 end

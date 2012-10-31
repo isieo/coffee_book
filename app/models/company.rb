@@ -4,6 +4,7 @@ class Company
   include Geocoder::Model::Mongoid
  
   field :name, :type => String
+  field :coordinates
   field :coordinates_latitude
   field :coordinates_longitude
   field :address
@@ -51,5 +52,10 @@ class Company
   image_accessor :cover_image
   
   validates_presence_of :name, :address, :contact_mobile, :contact_office
+  before_validation :initialize_coordinates
   
+  protected
+  def initialize_coordinates
+    self.coordinates = [self.coordinates_latitude, self.coordinates_longitude]
+  end
 end

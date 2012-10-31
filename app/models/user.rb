@@ -28,6 +28,7 @@ class User
   end
   
   after_validation :geocode, :reverse_geocode, :if => (:address_changed? || :coordinates_latitude_changed? || :coordinates_longitude_changed?)
+  before_validation :initialize_coordinates
   
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
@@ -74,6 +75,7 @@ class User
   field :name, :type => String, :null => false
   field :username, :type => String, :null => false
   field :address, :type => String
+  field :coordinates
   field :coordinates_latitude
   field :coordinates_longitude
   field :city
@@ -138,5 +140,9 @@ class User
   # Company admin valification
   def is_company_admin?(company_id)
     @is_company_admin = self.admin_of_ids.include?(company_id)
+  end
+  
+  def initialize_coordinates
+    self.coordinates = [self.coordinates_latitude, self.coordinates_longitude]
   end
 end
