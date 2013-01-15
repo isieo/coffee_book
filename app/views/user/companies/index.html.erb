@@ -1,57 +1,50 @@
-<%= render :partial => "user/accounts/account_menu" %>
-<h2>Companies under <%= current_user.name %></h2>
-<table class ="table table-condensed">
-  <tr>
-    <th></th>
-    <th>Company Name</th>
-    <th>Address</th>
-    <th>Mobile</th>
-    <th>Office</th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-  <% count_no = 1 %>
-  <% @companies.each do |c| %>
-  
-    <tr>
-      <td><%= count_no %></td>
-      <td><%= c.name %></td>
-      <td><%= c.address.truncate(30) %></td>
-      <td><%= c.contact_mobile %></td>
-      <td><%= c.contact_office %></td>
-      <td><%= link_to "View", user_account_company_path(current_user, c), :class => "btn btn-primary" %></td>
-      <td><%= link_to "Edit", edit_user_account_company_path(current_user, c), :class => "btn btn-primary" %></td>
-      <td><%= link_to "Delete", user_account_company_path(current_user, c), :confirm => "Are you sure?", :method=>:delete, :class => "btn btn-primary" %></td>
-      <td><%= link_to "Add Member", new_member_user_account_company_path(current_user, c) if @user.is_company_admin?(c._id) %></td>
-      <td><a class="btn btn-danger" href="#myModal" data-toggle="modal">add member modal testing</a></td>
+<%= render :partial => "shared/left_navigator" %>
+<div class="content-section">
+	<h1 class="content-title tbrowse"> <i>&nbsp;</i> Companies under <%= current_user.name %></h1>
+	<hr class="divider">
+	<div>
+		<table class="browse-data">
+			<tr>
+				<th class="number">&nbsp;</th>
+				<th>Company Name</th>
+				<th>Address</th>
+				<th>Mobile</th>
+				<th>Office</th>
+				<th>&nbsp;</th>
+				<th>&nbsp;</th>
+				<th>&nbsp;</th>
+				<th>&nbsp;</th>
+			</tr>
+      <% count_no = 1 %>
+      <% @companies.each do |c| %>
       
-    </tr>
-    <%count_no = count_no + 1%>
-
-    <div class="modal hide" id="myModal">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">×</button>
-          <h3>Who you want to add?</h3>
-        </div>
-        <div class="modal-body">
-          <%= simple_form_for(c, :url => create_member_user_account_company_path(current_user, c), :html => { :class => "form-horizontal" }) do |f| %>
-            
-            <%= f.input :group_user,:input_html => { :data => {autocomplete_source: User.all.order(:name).map(&:name)} } %>
-            
-            <div class="form-actions modal-footer">
-              <%= f.submit "Add", :class => "btn btn-primary"%>
-              <a href="#" class="btn" data-dismiss="modal">Close</a>
-            </div>
-          <% end %>
-        </div>
-    </div>
-
-  <% end %>
-</table>
-<%= link_to "Add New Company", new_user_account_company_path(current_user), :class => "btn btn-primary" if @user == current_user %>
+        <tr>
+          <td><%= count_no %></td>
+          <td><%= c.name %></td>
+          <td><%= c.address.truncate(30) %></td>
+          <td><%= c.contact_mobile %></td>
+          <td><%= c.contact_office %></td>
+          <td class="tools"><%= link_to "View", user_account_company_path(current_user, c) %></td>
+          <td class="tools"><%= link_to "Edit", edit_user_account_company_path(current_user, c) %></td>
+          <td class="tools"><%= link_to "Add Member", new_member_user_account_company_path(current_user, c) if @user.is_company_admin?(c._id) %></td>
+          <td class="tools delete"><%= link_to "Delete", user_account_company_path(current_user, c), :confirm => "Are you sure?", :method=>:delete %></td>
+        </tr>
+        <%count_no = count_no + 1%>
+      <% end %>
+		</table>
+		<hr style="height:20px;">
+		<%= link_to raw("<span>Add new company</span>"), new_user_account_company_path(current_user), :class => "btn company" if @user == current_user %>
 
 
+		<div class="pagination fright">
+			<p class="sortby">Sort by Ratings</p>
+			<span class="page-numbers current">1</span>
+			<a class="page-numbers" href="browse.html">2</a>
+			<span class="page-numbers dots">…</span>
+			<a class="page-numbers" href="browse.html">15</a>
+			<a class="next page-numbers" href="browse.html">Next »</a>
+		</div>
 
+	</div>	
+
+</div>

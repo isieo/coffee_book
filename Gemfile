@@ -39,7 +39,6 @@ gem 'bson_ext'
 gem 'mongoid_search'
 gem "devise"
 gem 'omniauth-facebook'
-gem "twitter-bootstrap-rails", :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 gem "simple_form"
 gem "country_select"
 gem 'delayed_job_mongoid'

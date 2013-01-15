@@ -18,6 +18,8 @@ CoffeeBook::Application.routes.draw do
   get "/:username" => "user/accounts#index", :as => :user_accounts
   get "/:username/edit" => 'user/accounts#edit', :as => :edit_user_account
   put "/:username" => 'user/accounts#update', :as => :user_account
+  get "/:username/experience" => "user/accounts#experience", :as => :user_experience
+  get "/:username/map" => "user/accounts#map", :as => :user_map
   # Overwrite company nested routes /user/:user_id/companies to /:username/companies
   get "/:username/companies" => "user/companies#index", :as => :user_account_companies
   post "/:username/companies" => "user/companies#create", :as => :user_account_companies

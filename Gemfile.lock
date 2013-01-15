@@ -4,16 +4,6 @@ GIT
   specs:
     geocoder (1.1.4)
 
-GIT
-  remote: git://github.com/seyhunak/twitter-bootstrap-rails.git
-  revision: 24981d6c611466ca7afe87080f07702ed6113e31
-  specs:
-    twitter-bootstrap-rails (2.1.4)
-      actionpack (>= 3.1)
-      less-rails (~> 2.2.3)
-      railties (>= 3.1)
-      therubyracer (>= 0.10.2)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -63,7 +53,6 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.4.0)
-    commonjs (0.2.6)
     country_select (1.0.1)
     delayed_job (3.0.3)
       activesupport (~> 3.0)
@@ -96,11 +85,6 @@ GEM
     jwt (0.1.5)
       multi_json (>= 1.0)
     kgio (2.7.4)
-    less (2.2.2)
-      commonjs (~> 0.2.6)
-    less-rails (2.2.6)
-      actionpack (>= 3.1)
-      less (~> 2.2.0)
     libv8 (3.3.10.4)
     mail (2.4.4)
       i18n (>= 0.4.0)
@@ -219,6 +203,5 @@ DEPENDENCIES
   sass-rails (~> 3.2.3)
   simple_form
   therubyracer
-  twitter-bootstrap-rails!
   uglifier (>= 1.0.3)
   unicorn

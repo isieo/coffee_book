@@ -21,73 +21,53 @@
   </head>
   <body>
 
-    <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <%= link_to "Part time", root_path, :class => "brand"%>
+    <div id="header"><div class="section">
+	    <div class="logo">
+        <%= link_to image_tag("8dvice.png", :size => "100x45", :alt => "8vice"), root_path%>
+	    </div>
+
+	    <div class="header-bar">
+		    <div class="searchform fleft">
           <%= render :partial => "shared/job_search_form"%>
-          <%= render :partial => "shared/user_search_form"%>
-          <div class="container nav-collapse">
-            <ul class="nav pull-right">
-              <%if !user_signed_in?%>
-                <%= render 'shared/login_form' %>
-              <% else %>
-                <li><%= link_to current_user.name, user_accounts_path(current_user) %></li>
-                <li><%= link_to "Sign out", destroy_user_session_path%></li>
-              <%end%>
-            </ul>
-          </div><!--/.nav-collapse -->
+		    </div>
+        <%if !user_signed_in?%>
+			    <%- if devise_mapping.omniauthable? %>
+            <%- resource_class.omniauth_providers.each do |provider| %>
+             <%= link_to raw("<i> &nbsp; </i><span>Login</span>"), omniauth_authorize_path(resource_name, provider), :class => "btn login" %>
+            <% end -%>
+          <% end -%>
+        <% else %>
+          <%= link_to raw("<i> &nbsp; </i><span>Logout</span>"), destroy_user_session_path, :class => "btn logout"%>
+		      <div class="userprofile">
+		        <% if !current_user.cover_image_uid.nil? %>
+		        <% elsif !current_user.fb_profile_pic.nil? %>
+		        <% else %>
+		          <%= image_tag("default-profile-photo.png", :size => "40x40", :class => "user-img")%>
+		        <% end %>
+			      <p class="username"> <%=link_to current_user.name.truncate(10), user_accounts_path(current_user) %></p>
+		      </div>
+        <% end %>
+	    </div>
+    </div></div>
+
+
+
+    <%= render 'layouts/flash_message' %>
+
+    <div id="container">
+      <div class="section">
+        <div class="content-area">
+          <%= yield %>
+        
+
+          <div id="footer" class="clear">
+
+	          <p class="copyrights">© 2012 8vice. All rights reserved. </p>
+	
+          </div>
         </div>
       </div>
     </div>
-    <%= render 'layouts/flash_message' %>
-
-    <div class="container">
-      <div class="content">
-        <div class="row">
-           <div class="span9">
-              <%= yield %>
-            </div>
-            <div class="span3">
-              
-              <div class="well sidebar-nav">
-                <h3>Sidebar</h3>
-                <ul class="nav nav-list">
-                  <li class="nav-header">Sidebar</li>
-                  <% if user_signed_in? %>
-                    <li><%= link_to "My Account", user_accounts_path(current_user)  %></li>
-                  <% end %>
-                  <li><%= link_to "List Jobs", jobs_path  %></li>
-                </ul>
-              </div><!--/.well -->
-              <% if user_signed_in? %>
-                <% if current_page?(user_accounts_path(current_user))%>
-                  <div class="well sidebar-nav">
-                    <h3>Navigation Menu</h3>
-                    <ul class="nav nav-list">
-                      <li class="nav-header">Menu</li>
-                      <li><%=link_to "Edit my details", edit_user_account_path(@user) %></li>
-                      <li><%= link_to "Company", user_account_companies_path(@user) %></li>
-                      <li><%= link_to "Review", user_account_reviews_path(@user) %></li>
-                    </ul>
-                  </div><!--/.well -->
-                <% end %>
-              <% end %>
-              
-            </div><!--/span-->
-        </div><!--/row-->
-      </div><!--/content-->
-
-      <footer>
-        <p>&copy; Brainbytes 2012</p>
-      </footer>
-
-    </div> <!-- /container -->
 
 
 

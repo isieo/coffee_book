@@ -1,18 +1,128 @@
-<% unless user_signed_in? %>
-  <div class = "row">
-    <div class ="span5">
-      Introduction for website.
+<% if !user_signed_in?%>
+  <%= render 'shared/login_form' %>
+<% else %>
+  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBKCYyYFzM8EnWRKrX62dXCoaY4qjJNN0U&sensor=true">
+  </script>
+  <script type="text/javascript">
+    function initialize() {
+      var myLatlng = new google.maps.LatLng(<%= current_user.coordinates_latitude %>, <%= current_user.coordinates_longitude %>);
+      var mapOptions = {
+        center: new google.maps.LatLng(<%= current_user.coordinates_latitude %>, <%= current_user.coordinates_longitude %>),
+        zoom: 10,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+      var infowindow = new google.maps.InfoWindow();
+      var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
       
-    </div>
+      var image = new google.maps.MarkerImage('/assets/house_icon.png');
+      var marker = new google.maps.Marker({
+          position: myLatlng,
+          map: map,
+          icon: image,
+          title:"You are here!"
+      });
+      var job = <%=raw @marker_array.to_json %>;
+      
+      var marker, i;
 
-    <div class = "span4">
-      <%= render :file => '/devise/registrations/new.html.erb' %>
-    </div>
-  </div>
-<%else%>
+      for (i = (job.length-1); i <= 1; i--) {  
+        marker = new google.maps.Marker({
+          position: new google.maps.LatLng(job[i][1], job[i][2]),
+          map: map
+        });
+        
+        google.maps.event.addListener(marker, 'click', (function(marker, i) {
+          return function() {
+            var contentString = '<h3>'+job[i][3]+'</h3>' + '<b>Salary : </b> RM' + job[i][4] + "</br><b>Date : </b>" + job[i][5] ;
+            infowindow.setContent(contentString);
+            infowindow.open(map, marker);
+          }
+        })(marker, i));
+        
+        var contentString = '<h3>'+job[i][3]+'</h3>' + '<b>Salary : </b> RM' + job[i][4] + "</br><b>Date : </b>" + job[i][5] ;
+        infowindow.setContent(contentString);
+        infowindow.open(map, marker);
+      }
+   
+     }
+    
+    
+    $(function ()
+      {
+          initialize();
+      }
+    )
+    
+    
+  </script>
+<% end %>
+<div class="content-area">
+	<div class="search_section ">
+		<div class="search-col">
+		  <span class="inputtitle _block ">What you want to work ?:</span>
+		  <input type="text" class="inputfield" name="keyword" value="Enter the keyword">
+		</div>
 
-  Introduction for website.
- <%= render 'list_job'%>
-<%end%>
+		<div class="search-col">
+			 <span class="inputtitle _block ">Select field of work</span>
+ 			<select name="fieldlist" form="fieldform">
+			  <option value="Car">Car</option>
+			  <option value="Jewelly">Jewelly</option>
+			  <option value="Food">Food</option>
+			  <option value="Drink">Drink</option>
+			</select>
+		</div>
+
+		<div class="search-col">
+			<span class="inputtitle _block ">Select State</span>
+			<select name="statelist" form="stateform">
+			  <option value="Kuala Lumpur">Kuala Lumpur</option>
+			  <option value="Selangor">Selangor</option>
+			  <option value="Petaling Jaya">Petaling Jaya</option>
+			  <option value="Subang Jaya">Subang Jaya</option>
+			</select>
+		</div>
+
+  	<a class="btn search " href="welcome.html">
+		  <span>Search</span>
+    </a>
+
+	</div>
+
+	<div class="video_section shadow-border">
+		<div class="video-player">
+		  <div id="map_canvas" class="map-container" style="width:680px; height:390px;"></div>
+		</div>
+
+		<div class="opt-signup">
+			<p><strong>Lorem Ipsum is simply dummy text of the printing and type</strong></p>
+			<hr style="height:20px;">
+			<span class="inputtitle">Enter Your Name</span>
+			<input type="text" class="inputfield" name="name" value="Your name ...">
+			<span class="inputtitle">Enter Your E-mail</span>
+			<input type="text" class="inputfield" name="email" value="Your email address ...">
+			<%- if devise_mapping.omniauthable? %>
+        <%- resource_class.omniauth_providers.each do |provider| %>
+         <span class="facebook-btn"><%= link_to "", omniauth_authorize_path(resource_name, provider) %></span><br />
+        <% end -%>
+      <% end -%>
+		</div>
+	</div>	
+
+	<div class="ads_section">
+		<div class="_col _left">
+      <%= link_to image_tag("ads-banner-01.jpg", :size =>"290x200", :class => "img left shadow-border"), root_path %>
+		</div>
+
+		<div class="_col _middle">
+      <%= link_to image_tag("ads-banner-02.jpg", :size =>"290x200", :class => "img center shadow-border"), root_path %>
+		</div>
+		<div class="_col _right">
+      <%= link_to image_tag("ads-banner-03.jpg", :size =>"290x200", :class => "img right shadow-border"), root_path %>
+		</div>
+
+	</div>
+
+</div>
 
 

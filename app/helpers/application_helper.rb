@@ -45,22 +45,42 @@ module ApplicationHelper
   end
   
   def load_review(user)
-    review = "<h3>What other people think about #{user.name} </h3>"
-    review += '<table class = "table table-condensed">'
-    review += "<tr>"
-    review += "<th>Date</th>"
-    review += "<th>Rating</th>"
-    review += "<th>Comment</th>"
-    review += "</tr>"
+    review = "<div class='rating-section clear'>"
+    review += "<h2 class='content-title trating'><i>&nbsp;</i>What other people think about #{user.name} </h2>"
+    review += '<hr class="divider dashed">'
     user.reviews.each do |ur|
-      review += "<tr>"
-        review += "<td>#{ur.created_at.to_date}</td>"
-        review += "<td>Put user rating here</td>"
-        review += "<td>#{ur.comment}</td>"
-      review += "</tr>"
+      count = 0
+      review += "<div class='reviews'>"
+      review += '' + image_tag("default-profile-photo.png", :size => "40x40", :class => "reviews-img") + ""
+      review += "<div class='reviews-details'>"
+      review += "<h5>" + ur.post_by + "</h5>"
+      review += '<span class="reviews-date">' + ur.created_at.to_date.to_s + '</span>'
+      review += '<span class="reviews-rating">'
+      
+      while (count != 5)
+        while (count < ur.rating)
+          review += '' + image_tag("ratings-on.png", :title => "#{ur.rating}", :size => "15x15", :class => "rating-star") + ''
+          count = count + 1
+        end
+        review += '' + image_tag("ratings-off.png", :title => "#{ur.rating}", :size => "15x15", :class => "rating-star") + ''
+        count = count + 1
+      end
+      review += '</span>'
+      review += '<p class="reviews-comment">' + ur.comment + '</p>'
+      review += "</div>"
+      review += "</div>"
+      review += '<hr class="divider dashed">'
     end
-    review += "</table>"
+    review += "</div>"
     
     return review.html_safe
   end
+  
+  def load_nearest_job_map
+    nearest_job_map = ''
+    
+    return nearest_job_map.html_safe
+
+  end
+  
 end

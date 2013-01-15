@@ -1,35 +1,93 @@
-<h1>Listing jobs</h1>
+<%= render :partial => "shared/left_navigator" %>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBKCYyYFzM8EnWRKrX62dXCoaY4qjJNN0U&sensor=true">
+</script>
+<script type="text/javascript">
+  function initialize() {
+    var myLatlng = new google.maps.LatLng(<%= current_user.coordinates_latitude %>, <%= current_user.coordinates_longitude %>);
+    var mapOptions = {
+      center: new google.maps.LatLng(<%= current_user.coordinates_latitude %>, <%= current_user.coordinates_longitude %>),
+      zoom: 10,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    var infowindow = new google.maps.InfoWindow();
+    var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+    
+    var image = new google.maps.MarkerImage('/assets/house_icon.png');
+    var marker = new google.maps.Marker({
+        position: myLatlng,
+        map: map,
+        icon: image,
+        title:"You are here!"
+    });
+    var job = <%=raw @marker_array.to_json %>;
+    
+    var marker, i;
 
-<% if @jobs.present? %>
-  <table class="table">
-    <tr>
-      <th>Title</th>
-      <th>Address</th>
-      <th>Salary Per day</th>
-      <th>Start Date</th>
-      <th>How Many Days</th>
-      <th></th>
-    </tr>
-  <% @jobs.each do |job| %>
-    <tr>
-      <td><%= job.title %></td>
-      <td><%= job.address.truncate(30) %></td>
-      <td>
-          <% if job.salary == 0 || job.salary.nil? %>
-            N/A
-          <% else %>
-            <%= number_to_currency(job.salary, :format => "RM %n") %>
-          <% end %>
-      </td>
-      <td><%= job.date.to_date %></td>
-      <td><%= job.day_amount %> Days</td>
-      <td><%= link_to 'See More', job, :class => "btn btn-primary" %></td>
-    </tr>
-  <% end %>
-
-<% else %>
-  <tr>
-    <td colspan="9">Sorry No Results Found.</td>
-  </tr>
-<% end %>
-</table>
+    for (i = (job.length-1); i <= 1; i--) {  
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(job[i][1], job[i][2]),
+        map: map
+      });
+      
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          var contentString = '<h3>'+job[i][3]+'</h3>' + '<b>Salary : </b> RM' + job[i][4] + "</br><b>Date : </b>" + job[i][5] ;
+          infowindow.setContent(contentString);
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
+      
+      var contentString = '<h3>'+job[i][3]+'</h3>' + '<b>Salary : </b> RM' + job[i][4] + "</br><b>Date : </b>" + job[i][5] ;
+      infowindow.setContent(contentString);
+      infowindow.open(map, marker);
+    }
+ 
+   }
+  
+  
+  $(function ()
+    {
+        initialize();
+    }
+  )
+  
+  
+</script>
+<div class="content-section">
+	<h1 class="content-title tjob"> <i>&nbsp;</i> Jobs Listing</h1>
+	<hr class="divider">
+		<div class="map-details"> 
+      <div id="map_canvas" class="shadow-border" style="width:900px; height:330px;"></div>
+		</div>	
+		<hr style="height:20px">
+	<div>
+		<table class="joblisting">
+			<tr>
+				<th class="recommend">&nbsp;</th>
+				<th>Title</th>
+				<th>Address</th>
+				<th>Salary Per Day</th>
+				<th>Start Date</th>
+				<th>How Many Days</th>
+				<th>Details</th>
+			</tr>
+			<% @jobs.each do |job| %>
+        <tr>
+          <td class="recommend"><%= image_tag('recommend-on.png', :size => "25x25")%></td>
+          <td><%= job.title %></td>
+          <td><%= job.address.truncate(30) %></td>
+          <td>
+              <% if job.salary == 0 || job.salary.nil? %>
+                N/A
+              <% else %>
+                <%= number_to_currency(job.salary, :format => "RM %n") %>
+              <% end %>
+          </td>
+          <td><%= job.date.strftime('%d-%m-%Y') if job.date.present? %></td>
+          <td><%= job.day_amount %> Days</td>
+          <td class='details-more'><%= link_to 'See More »', job%></td>
+        </tr>
+      <% end %>
+		</table>
+	</div>	
+</div>	

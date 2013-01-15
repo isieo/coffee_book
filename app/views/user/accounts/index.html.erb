@@ -1,57 +1,80 @@
-<%= render :partial => "account_menu" %>
+<%= render :partial => "shared/left_navigator" %>
 
-<div class="row">
-  <div class ="span5">
-    <h2>My Details</h2>
-  </div>
+<div class="content-section">
 
-  <div class ="span4" align="right">
-    <%= image_tag @user.cover_image.thumb('200x250#').url if @user.cover_image_uid %>
-  </div>
-</div>
+	<h1 class="content-title tprofile"> <i>&nbsp;</i> My Details</h1>
+	<div class="profile-section">
 
-<table class = "table table-condensed">
-  <tr>
-    <th>Username</th><td><%= @user.username %></td>
-  </tr>
-  <tr>
-    <th>Name</th><td><%= @user.name %></td>
-  </tr>
-  <tr>
-    <th>Email</th><td><%= @user.email %></td>
-  </tr>
-  <tr>
-    <th>DOB</th><td><%= @user.dob %></td>
-  </tr>
-  <tr>
-    <th>Gender</th><td><%= @user.gender %></td>
-  </tr>
-  <tr>
-    <th>Mobile No</th><td><%= @user.contact_mobile %></td>
-  </tr>
-  <tr>
-    <th>Country</th><td><%= @user.country %></td>
-  </tr>
-  <tr>
-    <th>Nationality</th><td><%= @user.nationality %></td>
-  </tr>
-</table>
+	<%= image_tag("default-profile-photo.png", :size => "68x64", :class => "profile-img")%>
+	  <h2 class="profile-title"><%= @user.name%></h2>
+		<hr class="divider">
+			<p class="profile-details">User Name : <span><%= @user.username%></span></p>
 
-<%= load_achievement(@user)%>
-<%= load_review(@user)%>
+			<p class="profile-details">Name : <span><%= @user.name%></span></p>
 
-My experience
-<ul>
-  <% @user.jobs.each do |uj| %>
-    <li><%=uj.title%></li>
-  <% end %>
-</ul>
+			<p class="profile-details">Email : <span><%= @user.email%></span></p>
 
-<% if @user != current_user %>
-  <%= form_tag(reviews_path) do %>
-    <%= text_field_tag :comment, nil %>
-    <%= hidden_field_tag :username, current_user.username %>
-    <%= hidden_field_tag :user_id, @user.id %>
-    <%= button_tag "Comment" %>
-  <% end %>
-<% end %>
+			<p class="profile-details">DOB : <span><%= @user.dob%></span></p>
+
+			<p class="profile-details">Gender : <span><%= @user.gender%></span></p>
+
+			<p class="profile-details">Phone : <span><%= @user.contact_mobile%></span></p>
+
+			<p class="profile-details">Country : <span><%= @user.country%></span></p>
+
+			<p class="profile-details">Nationality : <span><%= @user.nationality%></span></p>
+		<hr class="divider">
+	</div>
+
+	<div class="profile-ads">
+	  <%= link_to image_tag("cnt-ads.jpg", :size => "415x345", :class => "ads-border"), root_path%>
+	</div>	
+
+	<div class="rating-section clear">
+		<h1 class="content-title trating"> <i>&nbsp;</i> User Reviews</h1>
+		<% @user.reviews.each do |r|%>
+		  <div class="reviews">
+		    <%= image_tag("default-profile-photo.png", :size => "40x40", :class => "reviews-img")%>
+			  <div class="reviews-details">	
+
+				  <h5><%=r.post_by%></h5>	
+
+				  <span class="reviews-date"><%=r.created_at%></span>
+
+				  <span class="reviews-rating">
+				    <%= image_tag("ratings-on.png", :title => "Bad", :size => "15x15", :class => "rating-star")%>
+				    <%= image_tag("ratings-on.png", :title => "Poor", :size => "15x15", :class => "rating-star")%>
+				    <%= image_tag("ratings-off.png", :title => "Regular", :size => "15x15", :class => "rating-star")%>
+				    <%= image_tag("ratings-off.png", :title => "Good", :size => "15x15", :class => "rating-star")%>
+				    <%= image_tag("ratings-off.png", :title => "Awesome", :size => "15x15", :class => "rating-star")%>	
+				  </span>	
+
+				  <p class="reviews-comment"><%= r.comment %></p>
+
+			  </div>
+
+		  </div>	
+
+		  <hr class="divider dashed">
+		<% end %>
+
+
+<div class="pagination fright">
+			<p class="sortby">Sort by Ratings</p>
+			<span class="page-numbers current">1</span>
+			<a class="page-numbers" href="browse.html">2</a>
+			<span class="page-numbers dots">…</span>
+			<a class="page-numbers" href="browse.html">15</a>
+			<a class="next page-numbers" href="browse.html">Next »</a>
+		</div>
+
+	</div>
+
+	
+
+
+
+	</div>	
+
+
+

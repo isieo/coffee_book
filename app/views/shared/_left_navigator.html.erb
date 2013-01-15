@@ -1,0 +1,17 @@
+<div class="sidebar-section">
+
+	<ul class="sidebar">
+		<li><%=link_to "My Account", user_accounts_path(current_user) %><span>&nbsp;</span></li>
+		<li><%=link_to "Edit my details", edit_user_account_path(current_user) %><span>&nbsp;</span></li>
+		<li><%=link_to "List Jobs", jobs_path %></li>
+		<li><%= link_to "Company", user_account_companies_path(current_user) %><span>&nbsp;</span></li>
+		<li><%= link_to "Review", user_account_reviews_path(current_user) %><span>&nbsp;</span></li>
+		<li><a href="wizard.html">SEARCH</a><span>&nbsp;</span></li>
+		<li class="logout"><%= link_to ("Logout"), destroy_user_session_path %><span>&nbsp;</span></li>
+	</ul>
+
+	<div class="side-ads">
+	  <%= link_to image_tag('side-ads.jpg', :size => "200x390", :class => "ads-border")%>
+	</div>	
+
+</div>

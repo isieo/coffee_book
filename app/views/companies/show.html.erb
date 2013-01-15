@@ -1,9 +1,8 @@
-<p id="notice"><%= notice %></p>
-<table class = "table table-condensed">
-  <tr>
-    <th>Company Name</th>
-    <td><%= @company.name %></td>
-  </tr>
+<%= render :partial => "shared/left_navigator" %>
+<div class="content-section">
+	<h1 class="content-title tjob"> <i>&nbsp;</i> <%= @company.name %></h1>
+
+  <table class="joblisting">
   <tr>
     <th>Address</th>
     <td>
@@ -28,9 +27,9 @@
   </tr>
 </table>
 
-<h3>Jobs Created by this company</h3>
+<h2 class="content-title tjob"><i>&nbsp;</i> Jobs Created by this company</h2>
 <% if @jobs.present? %>
-  <table class="table">
+  <table class="joblisting">
     <tr>
       <th>Title</th>
       <th>Address</th>
@@ -52,15 +51,15 @@
       </td>
       <td><%= job.date.to_date %></td>
       <td><%= job.day_amount %> Days</td>
-      <td><%= link_to 'See More', job, :class => "btn btn-primary" %></td>
+      <td class='details-more'><%= link_to 'See More', job %></td>
     </tr>
   <% end %>
 
 <% else %>
-  <tr>
-    <td colspan="9">Sorry No Results Found.</td>
-  </tr>
+  This company has no jobs listed.
 <% end %>
 </table>
 
 <%= load_review(@company)%>
+
+</div>

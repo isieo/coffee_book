@@ -5,31 +5,6 @@ class User
   include Mongoid::Search
   include Geocoder::Model::Mongoid
   
-  geocoded_by :address do |obj,results|
-    if geo = results.first
-      obj.address = geo.address
-      obj.city = geo.city
-      obj.state = geo.state
-      obj.country = geo.country
-      obj.coordinates_latitude = geo.coordinates[0]
-      obj.coordinates_longitude = geo.coordinates[1]
-    end
-  end
-  
-  reverse_geocoded_by :coordinates do |obj,results|
-    if geo = results.first
-      obj.address = geo.address
-      obj.city = geo.city
-      obj.state = geo.state
-      obj.country = geo.country
-      obj.coordinates_latitude = geo.coordinates[0]
-      obj.coordinates_longitude = geo.coordinates[1]
-    end
-  end
-  
-  after_validation :geocode, :reverse_geocode, :if => (:address_changed? || :coordinates_latitude_changed? || :coordinates_longitude_changed?)
-  before_validation :initialize_coordinates
-  
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
@@ -89,21 +64,44 @@ class User
   field :ic_number, :type => String
   field :cover_image_uid, :type => String
   field :fb_profile_pic, :type => String
-
   
-#  has_many :companies
+  before_validation :initialize_coordinates
+  after_validation :geocode, :reverse_geocode, :if => (:address_changed? || :coordinates_latitude_changed? || :coordinates_longitude_changed?)
+  
+  #  has_many :companies
   has_and_belongs_to_many :admin_of, class_name: "Company"
   has_and_belongs_to_many :member_of, class_name: "Company"
   has_and_belongs_to_many :jobs
   embeds_many :reviews
 
-  
   validates_uniqueness_of :username, :email
   validates_presence_of :username, :name
   
   search_in :name, :email, :username
   
   image_accessor :cover_image
+  
+  geocoded_by :address do |obj,results|
+    if geo = results.first
+      obj.address = geo.address
+      obj.city = geo.city
+      obj.state = geo.state
+      obj.country = geo.country
+      obj.coordinates_latitude = geo.coordinates[0]
+      obj.coordinates_longitude = geo.coordinates[1]
+    end
+  end
+  
+  reverse_geocoded_by :coordinates do |obj,results|
+    if geo = results.first
+      obj.address = geo.address
+      obj.city = geo.city
+      obj.state = geo.state
+      obj.country = geo.country
+      obj.coordinates_latitude = geo.coordinates[0]
+      obj.coordinates_longitude = geo.coordinates[1]
+    end
+  end
   
   def to_param
     username
@@ -137,12 +135,13 @@ class User
     
   end
   
+  
   # Company admin valification
   def is_company_admin?(company_id)
     @is_company_admin = self.admin_of_ids.include?(company_id)
   end
   
   def initialize_coordinates
-    self.coordinates = [self.coordinates_latitude, self.coordinates_longitude]
+    self.coordinates = [self.coordinates_longitude.to_f, self.coordinates_latitude.to_f]
   end
 end

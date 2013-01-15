@@ -1,11 +1,16 @@
-<%= render :partial => "user/accounts/account_menu" %>
-New Company
-<%= simple_form_for(@company, :url => user_account_companies_path(current_user), :html => { :class => "form-horizontal" }) do |f| %>
-  
-  <%= render :partial => 'form', :locals => {:f => f} %>
-  
-  <div class="form-actions">
-    <%= f.submit "Create", :class => "btn btn-primary"%>
-    <%= link_to "Back", :back, :class => "btn btn-info" %>
-  </div>
-<% end %>
+<%= render :partial => "shared/left_navigator" %>
+<div class="content-section">
+		<h1 class="content-title tadd"> <i>&nbsp;</i> Add Company</h1>
+		<hr class="divider">
+		<div class="company-details">
+		<%= simple_form_for(@company, :url => user_account_companies_path(current_user)) do |f| %>
+		  <%= render :partial => 'form', :locals => {:f => f} %>
+		  <hr style="height:20px;">
+		  <%= f.submit 'save', :class => "btn save"%>
+		  <%= link_to raw('<span>back</span>'), :back, :class => "btn back" %>
+		<% end %>
+	</div>	
+</div>
+
+
+

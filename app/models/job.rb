@@ -4,6 +4,36 @@ class Job
   include Mongoid::Search
   include Geocoder::Model::Mongoid
   
+  field :title, :type => String
+  field :position, :type => String
+  field :salary, :type => BigDecimal
+  field :date, :type => Date
+  field :day_amount, :type => Integer
+  field :time, :type => Integer
+  field :requirements, :type => String
+  field :address
+  field :city
+  field :coordinates
+  field :coordinates_latitude
+  field :coordinates_longitude
+  field :state, :type => String
+  field :country, :type => String
+  field :applicant, :type => Array
+  
+  before_validation :initialize_coordinates
+  after_validation :geocode, :reverse_geocode, :if => (:address_changed? || :coordinates_latitude_changed? || :coordinates_longitude_changed?)
+  
+  attr_accessible :address, :coordinates_latitude,:coordinates_longitude, :title, :position, :salary, :date, :day_amount, :time, :requirements, :city, :state, :country, :summary
+  
+  belongs_to :company
+  has_and_belongs_to_many :users
+  
+  search_in :title, :position, :city, :salary, :date, :company_name, :address, :state, :country
+  
+  before_validation :initialize_applicant, :initialize_coordinates
+  
+  validates_presence_of :title, :address
+  
   geocoded_by :address do |obj,results|
     if geo = results.first
       obj.address = geo.address
@@ -26,33 +56,9 @@ class Job
     end
   end
   
-  after_validation :geocode, :reverse_geocode, :if => (:address_changed? || :coordinates_latitude_changed? || :coordinates_longitude_changed?)
-  attr_accessible :address, :coordinates_latitude,:coordinates_longitude, :title, :position, :salary, :date, :day_amount, :time, :requirements, :city, :state, :country
-  
-  field :title, :type => String
-  field :position, :type => String
-  field :salary, :type => BigDecimal
-  field :date, :type => Date
-  field :day_amount, :type => Integer
-  field :time, :type => Integer
-  field :requirements, :type => String
-  field :address
-  field :city
-  field :coordinates
-  field :coordinates_latitude
-  field :coordinates_longitude
-  field :state, :type => String
-  field :country, :type => String
-  field :applicant, :type => Array
-  
-  belongs_to :company
-  has_and_belongs_to_many :users
-  
-  search_in :title, :position, :city, :salary, :date, :company_name, :address, :state, :country
-  
-  before_validation :initialize_applicant, :initialize_coordinates
-  
-  validates_presence_of :title, :address
+  def summary
+    "#{title}, salary RM#{'%.2f' % salary} "
+  end
   
   protected
   def initialize_applicant
@@ -62,6 +68,6 @@ class Job
   end
   
   def initialize_coordinates
-    self.coordinates = [self.coordinates_latitude, self.coordinates_longitude]
+    self.coordinates = [self.coordinates_longitude.to_f, self.coordinates_latitude.to_f]
   end
 end

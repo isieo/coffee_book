@@ -1,19 +1,16 @@
-<%= f.input :name %>
-<%= f.input :address, :hint => "Your address must be readable by google"  %>
-<%= f.input :contact_mobile %>
-<%= f.input :contact_office %>
-<%= f.input :coordinates_latitude %>
-<%= f.input :coordinates_longitude %>
+<%= f.input :name, :input_html => { :class => 'inputdetails' }, :wrapper => false %>
+<%= f.input :address, :hint => "Your address must be readable by google", :input_html => { :class => 'inputdetails' }  %>
+<%= f.input :contact_mobile, :input_html => { :class => 'inputdetails' } %>
+<%= f.input :contact_office, :input_html => { :class => 'inputdetails' } %>
+<%= f.input :coordinates_latitude, :input_html => { :class => 'inputdetails' } %>
+<%= f.input :coordinates_longitude, :input_html => { :class => 'inputdetails' } %>
 
 <% if f.object.cover_image_uid %>
   <%= image_tag f.object.cover_image.thumb('100x100').url %>
 <% end %>
-<div class="control-group string optional">
-  <%= f.label :cover_image, "Photo", :class => "string optional control-label", :for=>"user_contact_mobile" %>
-  <div class="controls"><%= f.file_field :cover_image, :class => "string optional" %></div>
-</div>
 
-
+<%= f.label :cover_image, "Photo", :for=>"user_contact_mobile" %>
+<%= f.file_field :cover_image %>
 
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBKCYyYFzM8EnWRKrX62dXCoaY4qjJNN0U&sensor=true">
 </script>

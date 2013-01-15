@@ -3,6 +3,7 @@ class Review
   include Mongoid::Timestamps
   field :comment, :type => String
   field :post_by, :type => String
+  field :rating, :type => Integer
   
   #belongs_to :user
   #belongs_to :company

@@ -71,7 +71,7 @@ user2 = User.find_or_create_by(email: "final@abc.com")
 user2.password = "abcxyz"
 user2.name = "Tidus"
 user2.username = "Brother"
-user2.address = "Times Square Kuala Lumpur"
+user2.address = "Giant Bukit Tinggi"
 user2.contact_mobile = "016-3177489"
 user2.contact_home = "999"
 user2.dob = "11-08-1985"
@@ -83,11 +83,13 @@ puts "user2 save " + user2.save.to_s
 
 user_review = user.reviews.find_or_create_by(comment: "this person is hardworking")
 user_review.post_by = user2.username
+user_review.rating = 3
 puts "user review save " + user_review.save.to_s
 
 company_review = company.reviews.find_or_create_by(comment: "this company pay salary in time!")
 company_review.post_by = user2.username
-puts "company review save " + user_review.save.to_s
+company_review.rating = 3
+puts "company review save " + company_review.save.to_s
 
 if user.jobs.empty?
   user.jobs << job

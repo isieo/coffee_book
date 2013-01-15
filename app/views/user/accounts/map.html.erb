@@ -1,0 +1,84 @@
+<%= render :partial => "shared/left_navigator" %>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBKCYyYFzM8EnWRKrX62dXCoaY4qjJNN0U&sensor=true">
+</script>
+<script type="text/javascript">
+  function initialize() {
+    var myLatlng = new google.maps.LatLng(<%= current_user.coordinates_latitude %>, <%= current_user.coordinates_longitude %>);
+    var mapOptions = {
+      center: new google.maps.LatLng(<%= current_user.coordinates_latitude %>, <%= current_user.coordinates_longitude %>),
+      zoom: 10,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    var infowindow = new google.maps.InfoWindow();
+    var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+    
+    var image = new google.maps.MarkerImage('/assets/house_icon.png');
+    var marker = new google.maps.Marker({
+        position: myLatlng,
+        map: map,
+        icon: image,
+        title:"You are here!",
+    });
+    var infowindow = new google.maps.InfoWindow();
+    infowindow.setContent('<h2 class="profile-title">You are here!</h2>');
+    infowindow.open(map, marker);
+   }
+  
+  
+  $(function ()
+    {
+        initialize();
+    }
+  )
+  
+  
+</script>
+<div class="content-section">
+  <%= render :partial => "user/accounts/account_menu", :locals =>{ :step => 'map'} %>
+	<div class="map-section clear">
+		<div class="map-details"> 
+			<div id="map_canvas" class="shadow-border" style="width:372px; height:372px;"></div>
+		</div>	
+		<div class="map-address"> 
+		  <%= image_tag('direction-icon.png', :size => '40x40', :class => "direction-icon")%>
+			<h1 class="address-place"><%= current_user.city%></h1>
+			<p class="address-road"><%= current_user.address%></p>
+			<hr class="divider">
+			<p class="contacts cemail"><i>&nbsp;</i> <%= current_user.email%> </p>
+			<p class="contacts cphone"><i>&nbsp;</i> <%= current_user.contact_mobile%> </p>
+			<p class="contacts cperson"><i>&nbsp;</i> <%= current_user.name%> </p>
+		</div>				
+	</div>
+
+	<hr style="height:20px">
+
+	<h1 class="content-title tnearby"> <i>&nbsp;</i> Near By</h1>
+	<div>
+		<table class="nearby">
+			<tr>
+				<th>Title</th>
+				<th>Address</th>
+				<th>Salary Per Day</th>
+				<th>Start Date</th>
+				<th>How Many Days</th>
+				<th>Details</th>
+			</tr>
+			<% @jobs.each do |job| %>
+        <tr>
+          <td><%= job.title %></td>
+          <td><%= job.address.truncate(30) %></td>
+          <td>
+              <% if job.salary == 0 || job.salary.nil? %>
+                N/A
+              <% else %>
+                <%= number_to_currency(job.salary, :format => "RM %n") %>
+              <% end %>
+          </td>
+          <td><%= job.date.strftime('%d-%m-%Y') if job.date.present? %></td>
+          <td><%= job.day_amount %> Days</td>
+          <td class='details-more'><%= link_to 'See More »', job%></td>
+        </tr>
+      <% end %>
+		</table>
+	</div>
+</div>
