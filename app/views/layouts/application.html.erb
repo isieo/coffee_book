@@ -28,7 +28,7 @@
 
 	    <div class="header-bar">
 		    <div class="searchform fleft">
-          <%= render :partial => "shared/job_search_form"%>
+          <%= render :partial => "shared/search_form"%>
 		    </div>
         <%if !user_signed_in?%>
 			    <%- if devise_mapping.omniauthable? %>
@@ -40,7 +40,9 @@
           <%= link_to raw("<i> &nbsp; </i><span>Logout</span>"), destroy_user_session_path, :class => "btn logout"%>
 		      <div class="userprofile">
 		        <% if !current_user.cover_image_uid.nil? %>
+		          <%= image_tag (current_user.cover_image.url), :size => "40x40", :class => "user-img" %>
 		        <% elsif !current_user.fb_profile_pic.nil? %>
+		          <%= image_tag (current_user.fb_profile_pic), :size => "40x40", :class => "user-img" %>
 		        <% else %>
 		          <%= image_tag("default-profile-photo.png", :size => "40x40", :class => "user-img")%>
 		        <% end %>

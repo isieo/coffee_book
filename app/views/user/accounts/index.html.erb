@@ -1,80 +1,36 @@
 <%= render :partial => "shared/left_navigator" %>
 
 <div class="content-section">
-
 	<h1 class="content-title tprofile"> <i>&nbsp;</i> My Details</h1>
 	<div class="profile-section">
-
-	<%= image_tag("default-profile-photo.png", :size => "68x64", :class => "profile-img")%>
+    <% if !@user.cover_image_uid.nil? %>
+      <%= image_tag @user.cover_image.url, :size => "68x64", :class => "profile-img" %>
+    <% elsif !@user.fb_profile_pic.nil? %>
+      <%= image_tag @user.fb_profile_pic, :size => "68x64", :class => "profile-img" %>
+    <% else %>
+      <%= image_tag "default-profile-photo.png", :size => "68x64", :class => "profile-img"%>
+    <% end %>
 	  <h2 class="profile-title"><%= @user.name%></h2>
 		<hr class="divider">
 			<p class="profile-details">User Name : <span><%= @user.username%></span></p>
-
 			<p class="profile-details">Name : <span><%= @user.name%></span></p>
-
 			<p class="profile-details">Email : <span><%= @user.email%></span></p>
-
 			<p class="profile-details">DOB : <span><%= @user.dob%></span></p>
-
 			<p class="profile-details">Gender : <span><%= @user.gender%></span></p>
-
 			<p class="profile-details">Phone : <span><%= @user.contact_mobile%></span></p>
-
 			<p class="profile-details">Country : <span><%= @user.country%></span></p>
-
 			<p class="profile-details">Nationality : <span><%= @user.nationality%></span></p>
 		<hr class="divider">
 	</div>
-
 	<div class="profile-ads">
 	  <%= link_to image_tag("cnt-ads.jpg", :size => "415x345", :class => "ads-border"), root_path%>
 	</div>	
-
-	<div class="rating-section clear">
-		<h1 class="content-title trating"> <i>&nbsp;</i> User Reviews</h1>
-		<% @user.reviews.each do |r|%>
-		  <div class="reviews">
-		    <%= image_tag("default-profile-photo.png", :size => "40x40", :class => "reviews-img")%>
-			  <div class="reviews-details">	
-
-				  <h5><%=r.post_by%></h5>	
-
-				  <span class="reviews-date"><%=r.created_at%></span>
-
-				  <span class="reviews-rating">
-				    <%= image_tag("ratings-on.png", :title => "Bad", :size => "15x15", :class => "rating-star")%>
-				    <%= image_tag("ratings-on.png", :title => "Poor", :size => "15x15", :class => "rating-star")%>
-				    <%= image_tag("ratings-off.png", :title => "Regular", :size => "15x15", :class => "rating-star")%>
-				    <%= image_tag("ratings-off.png", :title => "Good", :size => "15x15", :class => "rating-star")%>
-				    <%= image_tag("ratings-off.png", :title => "Awesome", :size => "15x15", :class => "rating-star")%>	
-				  </span>	
-
-				  <p class="reviews-comment"><%= r.comment %></p>
-
-			  </div>
-
-		  </div>	
-
-		  <hr class="divider dashed">
-		<% end %>
-
-
-<div class="pagination fright">
-			<p class="sortby">Sort by Ratings</p>
-			<span class="page-numbers current">1</span>
-			<a class="page-numbers" href="browse.html">2</a>
-			<span class="page-numbers dots">…</span>
-			<a class="page-numbers" href="browse.html">15</a>
-			<a class="next page-numbers" href="browse.html">Next »</a>
-		</div>
-
+  <%= render :partial => "shared/reviews", :locals =>{ :reviews => @reviews} %>
+	<div class="pagination fright">
+		<%= paginate @reviews %>
 	</div>
-
-	
-
-
-
-	</div>	
+	<%= render :partial => "shared/add_comment_form", :locals =>{ :post_to => @user} %> 
+</div>	
 
 
 

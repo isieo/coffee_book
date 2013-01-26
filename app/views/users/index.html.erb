@@ -1,31 +1,33 @@
-<h1>Listing Users</h1>
-
-<table class="table">
-  <tr>
-    <th>Name</th>
-    <th>Mobile</th>
-    <th>Home</th>
-    <th>Gender</th>
-    <th>Nationality</th>
-    <th></th>
-  </tr>
-
-  <% if @users.present? %>
-    <% @users.each do |u| %>
+<%= render :partial => "shared/left_navigator" %>
+<div class="content-section">
+	<h1 class="content-title tjob"> <i>&nbsp;</i> Users Listing</h1>
+	<hr class="divider">
+  <div>
+    <table class="joblisting">
       <tr>
-        <td><%= u.name %></td>
-        <td><%= u.contact_mobile %></td>
-        <td><%= u.contact_home %></td>
-        <td><%= u.gender %></td>
-        <td><%= u.nationality %></td>
-        <td>
-          <%= link_to "Details", user_accounts_path(u) %>
-        </td>
+        <th>Name</th>
+        <th>Mobile</th>
+        <th>Home</th>
+        <th>Gender</th>
+        <th>Nationality</th>
+        <th></th>
       </tr>
-    <% end %>
-  <% else %>
-    <tr>
-      <td colspan="9">Sorry No Results Found.</td>
-    </tr>
-  <% end %>
-</table>
+      <% if @users.present? %>
+        <% @users.each do |u| %>
+          <tr>
+            <td><%= u.name %></td>
+            <td><%= u.contact_mobile %></td>
+            <td><%= u.contact_home %></td>
+            <td><%= u.gender %></td>
+            <td><%= u.nationality %></td>
+            <td class='details-more'><%= link_to "Details", user_accounts_path(u) %></td>
+          </tr>
+        <% end %>
+      <% else %>
+        <tr>
+          <td>Sorry No Results Found.</td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

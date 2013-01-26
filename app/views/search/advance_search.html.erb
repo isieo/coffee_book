@@ -1,0 +1,60 @@
+<%= render :partial => "shared/left_navigator" %>
+<div class="content-section">
+	<h1 class="content-title tjob"> <i>&nbsp;</i> Advance Search</h1>
+	<% if params[:job_title].nil? %>
+	  Search Jobs
+    <%= simple_form_for advance_search_path, :method => "get" do |f| %>
+      <%= f.input :job_title, :input_html => { :class => 'inputdetails' }, :placeholder => 'Search...', :required => false, :class => "inputtitle _block" %>
+      <%= submit_tag("Search", :class => "btn search")%>
+    <% end %>
+	<% else %>
+	  <hr class="divider">
+	  <hr style="height:20px">
+    <div>
+      <% if @search_job.present? %>
+        <table class="joblisting">
+          <tr>
+            <th>Title</th>
+            <th>Location</th>
+            <th>Salary Per Day</th>
+            <th>Start Date</th>
+            <th>How Many Days</th>
+            <th></th>
+          </tr>
+          <% @search_job.each do |job| %>
+            <tr>
+              <td><%= job.title %></td>
+              <td><%= job.address.truncate(50) %></td>
+              <td>
+                  <% if job.salary == 0 || job.salary.nil? %>
+                    N/A
+                  <% else %>
+                    <%= number_to_currency(job.salary, :format => "RM %n") %>
+                  <% end %>
+              </td>
+              <td><%= job.date.to_date %></td>
+              <td><%= job.day_amount %> Days</td>
+              <td class='details-more'><%= link_to 'Apply', job %></td>
+            </tr>
+          <% end %>
+        </table>
+      <% elsif @search_user.present? %>
+        <table class="joblisting">
+          <tr>
+            <th>Name</th>
+            <th></th>
+          </tr>
+          <% @search_user.each do |user| %>
+            <tr>
+              <td><%= user.name %></td>
+              <td class='details-more'><%= link_to 'Show', user_accounts_path(user.username) %></td>
+            </tr>
+          <% end %>
+        </table>
+      <%else%>
+        Your search <b><%= params[:search] %></b> did not match any documents. Please try different keywords.
+      <% end %>
+    </div>
+   <% end %>
+</div>
+

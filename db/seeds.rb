@@ -82,12 +82,32 @@ puts "user2 save " + user2.save.to_s
 
 
 user_review = user.reviews.find_or_create_by(comment: "this person is hardworking")
-user_review.post_by = user2.username
+user_review.poster = user2
 user_review.rating = 3
 puts "user review save " + user_review.save.to_s
 
+user_review = user.reviews.find_or_create_by(comment: "test2")
+user_review.poster = user2
+user_review.rating = 2
+puts "user review save " + user_review.save.to_s
+
+user_review = user.reviews.find_or_create_by(comment: "test23")
+user_review.poster = user2
+user_review.rating = 1
+puts "user review save " + user_review.save.to_s
+
+user_review = user.reviews.find_or_create_by(comment: "test24")
+user_review.poster = user2
+user_review.rating = 4
+puts "user review save " + user_review.save.to_s
+
+user_review = user.reviews.find_or_create_by(comment: "test25")
+user_review.poster = user2
+user_review.rating = 5
+puts "user review save " + user_review.save.to_s
+
 company_review = company.reviews.find_or_create_by(comment: "this company pay salary in time!")
-company_review.post_by = user2.username
+company_review.poster = user2
 company_review.rating = 3
 puts "company review save " + company_review.save.to_s
 

@@ -1,0 +1,54 @@
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBKCYyYFzM8EnWRKrX62dXCoaY4qjJNN0U&sensor=true">
+</script>
+<script type="text/javascript">
+  function initialize() {
+    var myLatlng = new google.maps.LatLng(<%= user.coordinates_latitude %>, <%= user.coordinates_longitude %>);
+    var mapOptions = {
+      center: new google.maps.LatLng(<%= user.coordinates_latitude %>, <%= user.coordinates_longitude %>),
+      zoom: 10,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    var infowindow = new google.maps.InfoWindow();
+    var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+    
+    var image = new google.maps.MarkerImage('/assets/house_icon.png');
+    var marker = new google.maps.Marker({
+        position: myLatlng,
+        map: map,
+        icon: image,
+        title:"You are here!"
+    });
+    var job = <%=raw @marker_array.to_json %>;
+    
+    var marker, i;
+
+    for (i = (job.length-1); i <= 1; i--) {  
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(job[i][1], job[i][2]),
+        map: map
+      });
+      
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          var contentString = '<h3>'+job[i][3]+'</h3>' + '<b>Salary : </b> RM' + job[i][4] + "</br><b>Date : </b>" + job[i][5] ;
+          infowindow.setContent(contentString);
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
+      
+      var contentString = '<h3>'+job[i][3]+'</h3>' + '<b>Salary : </b> RM' + job[i][4] + "</br><b>Date : </b>" + job[i][5] ;
+      infowindow.setContent(contentString);
+      infowindow.open(map, marker);
+    }
+ 
+   }
+  
+  
+  $(function ()
+    {
+        initialize();
+    }
+  )
+  
+  
+</script>

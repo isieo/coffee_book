@@ -7,6 +7,7 @@ class CompaniesController < ApplicationController
   def show
     @company = Company.find(params[:id])
     @jobs = @company.jobs
+    @reviews = @company.reviews.all.page(params[:page]).per(3)
   end
   
 end

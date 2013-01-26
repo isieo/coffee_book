@@ -1,0 +1,10 @@
+<%= form_tag(reviews_path) do %>
+  <%= text_field_tag :comment, nil %>
+  <%= select_tag(:rating, options_for_select([['Bad', '1'], ['Poor', '2'], ['Regular', '3'], ['Good', '4'], ['Awesome', '5']])) %>
+  <% if post_to.class == Company%>
+    <%= hidden_field_tag :company_id, post_to.id %>
+  <% else %>
+    <%= hidden_field_tag :user_id, post_to.id %>
+  <% end %>
+  <%= button_tag "Comment" %>
+<% end %>

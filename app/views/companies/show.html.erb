@@ -1,65 +1,59 @@
 <%= render :partial => "shared/left_navigator" %>
 <div class="content-section">
 	<h1 class="content-title tjob"> <i>&nbsp;</i> <%= @company.name %></h1>
-
-  <table class="joblisting">
-  <tr>
-    <th>Address</th>
-    <td>
-      <%= @company.address %>
-    </td>
-  </tr>
-  <tr>
-    <th>State</th>
-    <td><%= @company.state %></td>
-  </tr>
-  <tr>
-    <th>Country</th>
-    <td><%= @company.country %></td>
-  </tr>
-  <tr>
-    <th>Mobile</th>
-    <td><%= @company.contact_mobile %></td>
-  </tr>
-  <tr>
-    <th>Office</th>
-    <td><%= @company.contact_office %></td>
-  </tr>
-</table>
-
-<h2 class="content-title tjob"><i>&nbsp;</i> Jobs Created by this company</h2>
-<% if @jobs.present? %>
   <table class="joblisting">
     <tr>
-      <th>Title</th>
-      <th>Address</th>
-      <th>Salary Per day</th>
-      <th>Start Date</th>
-      <th>How Many Days</th>
-      <th></th>
+      <th>Address</th><td><%= @company.address %></td>
     </tr>
-  <% @jobs.each do |job| %>
     <tr>
-      <td><%= job.title %></td>
-      <td><%= job.address.truncate(50) %></td>
-      <td>
-          <% if job.salary == 0 || job.salary.nil? %>
-            N/A
-          <% else %>
-            <%= number_to_currency(job.salary, :format => "RM %n") %>
-          <% end %>
-      </td>
-      <td><%= job.date.to_date %></td>
-      <td><%= job.day_amount %> Days</td>
-      <td class='details-more'><%= link_to 'See More', job %></td>
+      <th>State</th><td><%= @company.state %></td>
     </tr>
+    <tr>
+      <th>Country</th><td><%= @company.country %></td>
+    </tr>
+    <tr>
+      <th>Mobile</th><td><%= @company.contact_mobile %></td>
+    </tr>
+    <tr>
+      <th>Office</th><td><%= @company.contact_office %></td>
+    </tr>
+  </table>
+
+  <h2 class="content-title tjob"><i>&nbsp;</i> Jobs Created by this company</h2>
+  <% if @jobs.present? %>
+    <table class="joblisting">
+      <tr>
+        <th>Title</th>
+        <th>Address</th>
+        <th>Salary Per day</th>
+        <th>Start Date</th>
+        <th>How Many Days</th>
+        <th></th>
+      </tr>
+    <% @jobs.each do |job| %>
+      <tr>
+        <td><%= job.title %></td>
+        <td><%= job.address.truncate(50) %></td>
+        <td>
+            <% if job.salary == 0 || job.salary.nil? %>
+              N/A
+            <% else %>
+              <%= number_to_currency(job.salary, :format => "RM %n") %>
+            <% end %>
+        </td>
+        <td><%= job.date.to_date %></td>
+        <td><%= job.day_amount %> Days</td>
+        <td class='details-more'><%= link_to 'See More', job %></td>
+      </tr>
+    <% end %>
+  <% else %>
+    This company has no jobs listed.
   <% end %>
+  </table>
 
-<% else %>
-  This company has no jobs listed.
-<% end %>
-</table>
-
-<%= load_review(@company)%>
-
+  <%= render :partial => "shared/reviews", :locals =>{ :reviews => @reviews} %>
+	<div class="pagination fright">
+		<%= paginate @reviews %>
+	</div>
+  <%= render :partial => "shared/add_comment_form", :locals =>{ :post_to => @company} %> 
 </div>

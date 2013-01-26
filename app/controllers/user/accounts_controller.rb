@@ -1,6 +1,7 @@
 class User::AccountsController < ApplicationController
   before_filter :find_user, :only => [:index, :edit, :update]
   def index
+    @reviews = @user.reviews.all.page(params[:page]).per(3)
   end
   
   def edit

@@ -84,6 +84,9 @@ GEM
     json (1.7.5)
     jwt (0.1.5)
       multi_json (>= 1.0)
+    kaminari (0.14.0)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
     kgio (2.7.4)
     libv8 (3.3.10.4)
     mail (2.4.4)
@@ -195,6 +198,7 @@ DEPENDENCIES
   dragonfly (~> 0.9.12)
   geocoder!
   jquery-rails
+  kaminari
   mongoid (= 2.4.10)
   mongoid_search
   omniauth-facebook

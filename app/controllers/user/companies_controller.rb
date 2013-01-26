@@ -7,6 +7,7 @@ class User::CompaniesController < ApplicationController
     @companies = []
     @user.admin_of.collect {|a| @companies.push(a)}
     @user.member_of.collect {|m| @companies.push(m)}
+    @user = User.all
   end
   
   def new

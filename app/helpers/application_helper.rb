@@ -49,20 +49,29 @@ module ApplicationHelper
     review += "<h2 class='content-title trating'><i>&nbsp;</i>What other people think about #{user.name} </h2>"
     review += '<hr class="divider dashed">'
     user.reviews.each do |ur|
-      count = 0
       review += "<div class='reviews'>"
-      review += '' + image_tag("default-profile-photo.png", :size => "40x40", :class => "reviews-img") + ""
+      posted_by = User.where(:username => ur.post_by).all.first
+      if user.is_a?(User)
+        if !posted_by.cover_image_uid.nil?
+          review += image_tag(posted_by.cover_image.url, :size => "40x40", :class => "reviews-img")
+        elsif !posted_by.fb_profile_pic.nil?
+          review += image_tag(posted_by.fb_profile_pic, :size => "40x40", :class => "reviews-img")
+        else
+          review += image_tag("default-profile-photo.png", :size => "40x40", :class => "reviews-img")
+        end
+      end
       review += "<div class='reviews-details'>"
       review += "<h5>" + ur.post_by + "</h5>"
       review += '<span class="reviews-date">' + ur.created_at.to_date.to_s + '</span>'
       review += '<span class="reviews-rating">'
-      
+      rating_title = ["Bad", "Poor", "Regular","Good","Awesome"]
+      count = 0
+      while (count < (ur.rating||0))
+        review += image_tag("ratings-on.png", :title => "#{rating_title[count]}", :size => "15x15", :class => "rating-star")
+        count = count + 1
+      end
       while (count != 5)
-        while (count < ur.rating)
-          review += '' + image_tag("ratings-on.png", :title => "#{ur.rating}", :size => "15x15", :class => "rating-star") + ''
-          count = count + 1
-        end
-        review += '' + image_tag("ratings-off.png", :title => "#{ur.rating}", :size => "15x15", :class => "rating-star") + ''
+        review += image_tag("ratings-off.png", :title => "#{rating_title[count]}", :size => "15x15", :class => "rating-star")
         count = count + 1
       end
       review += '</span>'

@@ -1,0 +1,38 @@
+<div class='rating-section clear'>
+  <h2 class='content-title trating'><i>&nbsp;</i>What other people think about this? </h2>
+  <hr class="divider dashed">
+  <% if reviews.count != 0 %>
+    <% reviews.each do |review| %>
+       <div class='reviews'>
+        <% if !review.poster.cover_image_uid.nil? %>
+           <%= image_tag(review.poster.cover_image.reviewl, :size => "40x40", :class => "reviews-img") %>
+        <% elsif !review.poster.fb_profile_pic.nil? %>
+           <%= image_tag(review.poster.fb_profile_pic, :size => "40x40", :class => "reviews-img") %>
+        <% else %>
+           <%=  image_tag("default-profile-photo.png", :size => "40x40", :class => "reviews-img") %>
+        <% end %>
+        <div class='reviews-details'>
+          <h5><%= review.poster.name %></h5>
+          <span class="reviews-date"> <%= review.created_at.to_date.to_s %></span>
+          <span class="reviews-rating">
+            <% rating_title = ["Bad", "Poor", "Regular","Good","Awesome"] %>
+            <% count = 0 %>
+            <% while (count < (review.rating||0)) %>
+               <%= image_tag("ratings-on.png", :title => "#{rating_title[count]}", :size => "15x15", :class => "rating-star") %>
+              <% count = count + 1 %>
+            <% end %>
+            <% while (count != 5) %>
+              <%= image_tag("ratings-off.png", :title => "#{rating_title[count]}", :size => "15x15", :class => "rating-star") %>
+              <% count = count + 1 %>
+            <% end %>
+          </span>
+          <p class="reviews-comment"><%= review.comment %></p>
+        </div>
+       </div>
+       <hr class="divider dashed">
+    <% end %>
+   <% else %>
+    This user/company got no review yet.
+    <hr class="divider dashed">
+   <% end %>
+</div>

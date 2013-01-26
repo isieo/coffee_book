@@ -7,3 +7,4 @@ Install
 =======
 
     bundle
+    rake db:mongoid:create_indexes

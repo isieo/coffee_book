@@ -1,78 +1,60 @@
-<p id="notice"><%= notice %></p>
+<%= render :partial => "shared/left_navigator" %>
+<div class="content-section">
+	<h1 class="content-title tjob"> <i>&nbsp;</i> <%= @job.title %></h1>
+	<hr class="divider">
+	<hr style="height:20px">
+  <div>
+	  <table class="joblisting">
+      <tr>
+        <th>Position:</th><td><%= @job.position %></td>
+      </tr>
+      <tr>
+        <th>Address:</th><td><%= @job.address %></td>
+      </tr>
+      <tr>
+        <th>Date:</th><td><%= @job.date %></td>
+      </tr>
+      <tr>
+        <th>Working Days:</th><td><%= @job.day_amount %></td>
+      </tr>
+      <tr>
+        <th>Salary Per day:</th><td><%= number_to_currency(@job.salary, :format => "RM %n") %></td>
+      </tr>
+      <tr>
+        <th>Work Time (Hours):</th><td><%= @job.time %></td>
+      </tr>
+      <tr>
+        <th>Requirements:</th><td><%= @job.requirements %></td>
+      </tr>
+      <tr>
+        <th>Who is working here:</th>
+        <td>
+          <% @job.users.each do |u|%>
+            <%=link_to u.name, user_accounts_path(u) %>
+          <% end %>
+        </td>
+      </tr>
+      
+      <tr>
+        <th>Company Link:</th>
+        <td><%= link_to 'Company Link', @job.company %></td>
+      </tr>
+      
+      <tr>
+        <th></th>
+        <td><%= link_to 'Apply', apply_job_path(@job) %></td>
+      </tr>
+      
+	  </table>
+	</div>
+	<%= render :partial => "shared/reviews", :locals =>{ :reviews => @reviews} %>
+	<div class="pagination fright">
+		<%= paginate @reviews %>
+	</div>
+	Add comment :-
+	<%= render :partial => "shared/add_comment_form", :locals =>{ :post_to => @job.company} %>
+</div>
 
-<table class = "table table-condensed">
-  <tr>
-    <th>Title:</th>
-    <td><%= @job.title %></td>
-  </tr>
-  <tr>
-    <th>Position:</th>
-    <td><%= @job.position %></td>
-  </tr>
-  <tr>
-    <th>Address:</th>
-    <td><%= @job.address %></td>
-  </tr>
-  <tr>
-    <th>Date:</th>
-    <td><%= @job.date %></td>
-  </tr>
-  <tr>
-    <th>Working Days:</th>
-    <td><%= @job.day_amount %></td>
-  </tr>
-  <tr>
-    <th>Salary Per day:</th>
-    <td><%= number_to_currency(@job.salary, :format => "RM %n") %></td>
-  </tr>
-  <tr>
-    <th>Work Time (Hours):</th>
-    <td><%= @job.time %></td>
-  </tr>
-  <tr>
-    <th>Requirements:</th>
-    <td><%= @job.requirements %></td>
-  </tr>
-  <tr>
-    <th>Who is working here:</th>
-    <td>
-      <% @job.users.each do |u|%>
-        <%=link_to u.name, user_accounts_path(u) %>
-      <% end %>
-    </td>
-  </tr>
-  
-  <tr>
-    <th>Company Link:</th>
-    <td><%= link_to 'Company Link', @job.company, :class => "btn btn-primary" %></td>
-  </tr>
-  
-  <tr>
-    <th></th>
-    <td><%= link_to 'Apply', apply_job_path(@job) , :class => "btn btn-primary" %></td>
-  </tr>
-  
-</table>
 
-<table class="table table-condensed">
-  <tr>
-    <th>Date</th>
-    <th>Rating</th>
-    <th>Comment</th>
-  </tr>
-  <% @job.company.reviews.each do |r| %>
-    <tr>
-      <td><%= r.created_at.strftime('%d-%m-%Y') %></td>
-      <td>Put user rating here</td>
-      <td><%= r.comment %></td>
-    </tr>
-  <% end %>
-</table>
 
-<%= form_tag(reviews_path) do %>
-  <%= text_field_tag :comment, nil %>
-  <%= hidden_field_tag :username, current_user.username %>
-  <%= hidden_field_tag :company_id, @job.company_id %>
-  <%= hidden_field_tag :job_id, @job.id %>
-  <%= button_tag "Comment" %>
-<% end %>
+
