@@ -8,7 +8,7 @@
       <div class="reviews">
         <%= image_tag("default-profile-photo.png", :size => "40x40", :class => "reviews-img")%>
         <div class="reviews-details">
-          <h5><%= r.post_by %></h5>
+          <h5><%= r.poster.name %></h5>
           <span class="reviews-date"><%= r.created_at.to_date %></span>
 				  <span class="reviews-rating">
 				    <%= image_tag("ratings-on.png", :title => "Bad", :size => "15x15", :class => "rating-star")%>
