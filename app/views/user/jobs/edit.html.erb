@@ -1,11 +1,22 @@
-<%= render :partial => "user/accounts/account_menu" %>
-<h2>Edit Job</h2>
-<%= simple_form_for(@job, :url => user_account_company_job_path(@user, @company, @job), :html => { :method => :put, :class => "form-horizontal" }) do |f| %>
-  
-  <%= render :partial => 'form', :locals => {:f => f} %>
-  
-  <div class="form-actions">
-    <%= f.submit "Update", :class => "btn btn-primary"%>
-    <%= link_to "Back", :back, :class => "btn btn-info" %>
-  </div>
-<% end %>
+<%= render :partial => "shared/left_navigator" %>
+<div class="content-section">
+	<div class="pro-header clear">
+		<h1 class="content-title tinfo"> <i>&nbsp;</i> Edit Job Details </h1>
+		<h2 class="profile-title"><%= @job.title %></h2>
+		<hr class="divider">
+	</div>
+	<div class="pro-details">
+    <%= simple_form_for(@job, :url => user_account_company_job_path(@user, @company, @job), :html => { :method => :put, :class => "form-horizontal" }) do |f| %>
+      
+      <%= render :partial => 'form', :locals => {:f => f} %>
+      
+      <hr style="height:20px;">
+      <%= button_tag(type: 'submit', class: "btn save") do %>
+        <span>save</span>
+      <% end %>
+      <%= link_to :back, :class => "btn back" do%>
+        <span>back</span>
+      <% end %>
+    <% end %>
+	</div>	
+</div>

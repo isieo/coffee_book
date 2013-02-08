@@ -1,21 +1,26 @@
-<%= render :partial => "user/accounts/account_menu" %>
+<%= render :partial => "shared/left_navigator" %>
 
-<h3>Who you want to add?</h3>
-<table class ="table table-condensed">
-<% User.all.each do |u| %>
-  <tr>
-    <td><%= u.username%></td>
-    <td><%= link_to 'Add Member', create_member_user_account_company_path(current_user, @company, :member => u), :class => "btn btn-primary" %></td>
-  </tr>
-<% end %>
-</table>
-
-<%= simple_form_for(@company, :url => create_member_user_account_company_path(current_user, @company), :html => { :class => "form-horizontal" }) do |f| %>
-  
-  <%= f.input :group_user,:input_html => { :data => {autocomplete_source: User.all.order(:username).map(&:username)} } %>
-  
-  <div class="form-actions">
-    <%= f.submit "Add", :class => "btn btn-primary"%>
-    <%= link_to "Back", :back, :class => "btn btn-info" %>
-  </div>
-<% end %>
+<div class="content-section">
+	<h1 class="content-title tadd"> <i>&nbsp;</i>Who you want to add?</h1>
+	<hr class="divider">
+	<div class="company-details">
+    <table class="joblisting">
+      <% User.all.each do |u| %>
+        <tr>
+          <td><%= u.username%></td>
+          <td><%= link_to 'Add Member', create_member_user_account_company_path(current_user, @company, :member => u)%></td>
+        </tr>
+      <% end %>
+    </table>
+    
+    <%= simple_form_for(@company, :url => create_member_user_account_company_path(current_user, @company)) do |f| %>
+      <%= f.input :group_user,:input_html => { :data => {autocomplete_source: User.all.order(:username).map(&:username)} } %>
+      <%= button_tag(type: 'submit', class: "btn save") do %>
+        <span>save</span>
+      <% end %>
+      <%= link_to :back, :class => "btn back" do%>
+        <span>back</span>
+      <% end %>
+    <% end %>
+ 	</div>	
+</div>

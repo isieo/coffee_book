@@ -26,7 +26,7 @@
           <td><%= c.contact_office %></td>
           <td class="tools"><%= link_to "View", user_account_company_path(current_user, c) %></td>
           <td class="tools"><%= link_to "Edit", edit_user_account_company_path(current_user, c) %></td>
-          <td class="tools"><%= link_to "Add Member", new_member_user_account_company_path(current_user, c) if @user.is_company_admin?(c._id) %></td>
+          <td class="tools"><%= link_to "Add Member", new_member_user_account_company_path(current_user, c) if current_user.is_company_admin?(c._id) %></td>
           <td class="tools delete"><%= link_to "Delete", user_account_company_path(current_user, c), :confirm => "Are you sure?", :method=>:delete %></td>
         </tr>
         <%count_no = count_no + 1%>

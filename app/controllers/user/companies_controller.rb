@@ -7,13 +7,17 @@ class User::CompaniesController < ApplicationController
     @companies = []
     @user.admin_of.collect {|a| @companies.push(a)}
     @user.member_of.collect {|m| @companies.push(m)}
-    @user = User.all
   end
   
   def new
     @company = @user.admin_of.new
     
-    geo_data = Geocoder.search("118.107.243.154")
+    if Rails.env == "development"
+      geo_data = Geocoder.search("118.107.243.154")
+    else
+      geo_data = Geocoder.search(request.ip)
+    end
+    
     if !geo_data.blank?
       geo_data = geo_data.first
     else

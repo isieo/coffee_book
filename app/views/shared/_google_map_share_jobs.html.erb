@@ -1,14 +1,3 @@
-<%= f.input :title, :input_html => { :class => 'inputdetails' } %>
-<%= f.input :position, :input_html => { :class => 'inputdetails' } %>
-<%= f.input :address, :hint => "Your address must be readable by google maps", :input_html => { :class => 'inputdetails' }  %>
-<%= f.input :coordinates_latitude, :input_html => { :class => 'inputdetails' } %>
-<%= f.input :coordinates_longitude, :input_html => { :class => 'inputdetails' } %>
-<%= f.input :salary, :input_html => { :class => 'inputdetails' } %>
-<%= f.input :date, :input_html => { :class => 'datepickers inputdetails' } %>
-<%= f.input :time, :input_html => { :class => 'inputdetails' } %>
-<%= f.input :requirements, :as => :text, :input_html => { :class => 'inputdetails' } %>
-
-
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBKCYyYFzM8EnWRKrX62dXCoaY4qjJNN0U&sensor=true">
 </script>
 
@@ -32,14 +21,14 @@
     
     google.maps.event.addListener(marker, 'dragend', function(evt){
       var latlng = new google.maps.LatLng(evt.latLng.lat(), evt.latLng.lng());
-      $('#job_coordinates_latitude').val(evt.latLng.lat().toFixed(myCoordsLenght));
-      $('#job_coordinates_longitude').val(evt.latLng.lng().toFixed(myCoordsLenght));
+      $('#user_coordinates_latitude').val(evt.latLng.lat().toFixed(myCoordsLenght));
+      $('#user_coordinates_longitude').val(evt.latLng.lng().toFixed(myCoordsLenght));
       initialize(evt.latLng.lat().toFixed(myCoordsLenght), evt.latLng.lng().toFixed(myCoordsLenght));
       
       geocoder.geocode({'latLng': latlng}, function(results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
           if (results[0]) {
-            $('#job_address').val(results[0].formatted_address);
+            $('#user_address').val(results[0].formatted_address);
           }
         } else {
           alert("Geocoder failed due to: " + status);
@@ -53,8 +42,8 @@
 
   function showPosition(position)
     {
-    $('#job_coordinates_latitude').val(position.coords.latitude);
-    $('#job_coordinates_longitude').val(position.coords.longitude);
+    $('#user_coordinates_latitude').val(position.coords.latitude);
+    $('#user_coordinates_longitude').val(position.coords.longitude);
     initialize(position.coords.latitude, position.coords.longitude);
     }
   
@@ -70,6 +59,3 @@
       }
     )
 </script>
-
-
-<div id="map_canvas" style="width:500px; height:500px;"></div>

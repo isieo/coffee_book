@@ -1,17 +1,29 @@
 <%= render :partial => "shared/left_navigator" %>
 <div class="content-section">
 	<h1 class="content-title tjob"> <i>&nbsp;</i> Advance Search</h1>
-	<% if params[:job_title].nil? %>
-	  Search Jobs
-    <%= simple_form_for advance_search_path, :method => "get" do |f| %>
-      <%= f.input :job_title, :input_html => { :class => 'inputdetails' }, :placeholder => 'Search...', :required => false, :class => "inputtitle _block" %>
+	<% if params[:search_type].nil? %>
+	  <h2>Search Jobs</h2>
+    <%= form_tag advance_search_path, :method => "get" do |f| %>
+      <%= hidden_field_tag :search_type, "#{params[:search_type]}", :value => "jobs"  %>
+      Title : <%= text_field_tag :title_cont,"#{params[:title]}",  :class => 'inputdetails' %> </br>
+      Address : <%= text_field_tag :address,"#{params[:address]}",  :class => 'inputdetails' %></br>
+      Salary : <%= text_field_tag :salary,"#{params[:salary]}",  :class => 'inputdetails' %></br>
+      Working Days : <%= text_field_tag :working_days,"#{params[:working_days]}",  :class => 'inputdetails' %></br>
+      Date : <%= text_field_tag :date,"#{params[:date]}",  :class => 'inputdetails datepickers' %></br>
       <%= submit_tag("Search", :class => "btn search")%>
     <% end %>
+    <%= search_form_for @search do |f| %>
+      <%= f.hidden_field :search_type, "jobs"%>
+      <%= f.label :title_cont, "Title contains" %>
+      <%= f.text_field :title_cont %>
+      <%= f.submit "Search" %>
+    <% end %>
+
 	<% else %>
 	  <hr class="divider">
 	  <hr style="height:20px">
     <div>
-      <% if @search_job.present? %>
+      <% if @jobs.present? %>
         <table class="joblisting">
           <tr>
             <th>Title</th>
@@ -21,7 +33,7 @@
             <th>How Many Days</th>
             <th></th>
           </tr>
-          <% @search_job.each do |job| %>
+          <% @jobs.each do |job| %>
             <tr>
               <td><%= job.title %></td>
               <td><%= job.address.truncate(50) %></td>

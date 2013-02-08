@@ -6,7 +6,7 @@
 <%= f.input :coordinates_longitude, :input_html => { :class => 'inputdetails' } %>
 
 <% if f.object.cover_image_uid %>
-  <%= image_tag f.object.cover_image.thumb('100x100').url %>
+  <% image_tag f.object.cover_image.thumb('100x100').url %>
 <% end %>
 
 <%= f.label :cover_image, "Photo", :for=>"user_contact_mobile" %>
@@ -14,7 +14,6 @@
 
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBKCYyYFzM8EnWRKrX62dXCoaY4qjJNN0U&sensor=true">
 </script>
-
 <script type="text/javascript">
   function initialize(latitude,longitude) {
     geocoder = new google.maps.Geocoder();
@@ -63,13 +62,12 @@
   
   $(function ()
       {
-       showPosition({coords:{longitude: <%= @coordinates_longitude  %>,latitude: <%= @coordinates_latitude %> }}); 
-      if (navigator.geolocation)
-        {
-        navigator.geolocation.getCurrentPosition(showPosition);
-        }
-      else{x.innerHTML="Geolocation is not supported by this browser.";}
-      
+        showPosition({coords:{longitude: <%= @coordinates_longitude  %>,latitude: <%= @coordinates_latitude %> }}); 
+        if (navigator.geolocation)
+          {
+            navigator.geolocation.getCurrentPosition(showPosition);
+          }
+        else{x.innerHTML="Geolocation is not supported by this browser.";}
       }
     )
 </script>

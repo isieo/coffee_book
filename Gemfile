@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.3'
+gem 'rails', '3.2.11'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -45,5 +45,6 @@ gem 'delayed_job_mongoid'
 gem 'rack-cache', :require => 'rack/cache'
 gem 'dragonfly', '~>0.9.12'
 gem 'kaminari'
+gem 'ransack'
 
 gem "geocoder", :git => 'git://github.com/SailorMercury/geocoder.git'

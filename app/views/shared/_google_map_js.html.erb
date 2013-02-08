@@ -1,10 +1,10 @@
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBKCYyYFzM8EnWRKrX62dXCoaY4qjJNN0U&sensor=true">
 </script>
 <script type="text/javascript">
-  function initialize() {
-    var myLatlng = new google.maps.LatLng(<%= user.coordinates_latitude %>, <%= user.coordinates_longitude %>);
+  function initialize(latitude, longitude) {
+    var myLatlng = new google.maps.LatLng(latitude, longitude);
     var mapOptions = {
-      center: new google.maps.LatLng(<%= user.coordinates_latitude %>, <%= user.coordinates_longitude %>),
+      center: new google.maps.LatLng(latitude, longitude),
       zoom: 10,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
@@ -18,37 +18,57 @@
         icon: image,
         title:"You are here!"
     });
+    
+    
     var job = <%=raw @marker_array.to_json %>;
+
+    $.ajax({url: "/home/show.js?lon="+longitude+"&lat="+latitude, 
+       dataType: "json", 
+       async: false
+    }).done(function(data){
+                  job = data
+             });
+    
+    
     
     var marker, i;
-
-    for (i = (job.length-1); i <= 1; i--) {  
-      marker = new google.maps.Marker({
-        position: new google.maps.LatLng(job[i][1], job[i][2]),
-        map: map
-      });
-      
-      google.maps.event.addListener(marker, 'click', (function(marker, i) {
-        return function() {
-          var contentString = '<h3>'+job[i][3]+'</h3>' + '<b>Salary : </b> RM' + job[i][4] + "</br><b>Date : </b>" + job[i][5] ;
-          infowindow.setContent(contentString);
-          infowindow.open(map, marker);
-        }
-      })(marker, i));
-      
-      var contentString = '<h3>'+job[i][3]+'</h3>' + '<b>Salary : </b> RM' + job[i][4] + "</br><b>Date : </b>" + job[i][5] ;
-      infowindow.setContent(contentString);
-      infowindow.open(map, marker);
+    if (job.length > 0) {
+      for (i = (job.length-1); i <= 1; i--) {  
+        marker = new google.maps.Marker({
+          position: new google.maps.LatLng(job[i][1], job[i][2]),
+          map: map
+        });
+        
+        google.maps.event.addListener(marker, 'click', (function(marker, i) {
+          return function() {
+            var contentString = '<h3>'+job[i][3]+'</h3>' + '<b>Salary : </b> RM' + job[i][4] + "</br><b>Date : </b>" + job[i][5] ;
+            infowindow.setContent(contentString);
+            infowindow.open(map, marker);
+          }
+        })(marker, i));
+        
+        var contentString = '<h3>'+job[i][3]+'</h3>' + '<b>Salary : </b> RM' + job[i][4] + "</br><b>Date : </b>" + job[i][5] ;
+        infowindow.setContent(contentString);
+        infowindow.open(map, marker);
+      }
     }
- 
    }
-  
+   
+  function showPosition(position)
+  {
+    initialize(position.coords.latitude, position.coords.longitude);
+  }
   
   $(function ()
-    {
-        initialize();
+    { 
+      if (navigator.geolocation)
+        {
+          navigator.geolocation.getCurrentPosition(showPosition);
+        }
+      else{x.innerHTML="Geolocation is not supported by this browser.";}
+      showPosition({coords:{longitude: <%= @lon %>,latitude: <%= @lat%>}});
+
     }
   )
-  
   
 </script>

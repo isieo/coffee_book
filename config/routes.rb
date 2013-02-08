@@ -8,6 +8,7 @@ CoffeeBook::Application.routes.draw do
     get "sign_out", :to => "user/sessions#destroy", :as => :destroy_user_session
     get "/users/auth/:provider" => "user/omniauth_callbacks#passthru"
   end
+  resources :home
   resources :companies
   resources :reviews, :only => :create
   resources :jobs, :only => [:index, :show] do

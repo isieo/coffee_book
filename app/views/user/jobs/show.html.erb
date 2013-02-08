@@ -1,60 +1,51 @@
-<%= render :partial => "user/accounts/account_menu" %>
-<table class = "table table-condensed">
-  <tr>
-    <th>Title:</th>
-    <td><%= @job.title %></td>
-  </tr>
-  <tr>
-    <th>Post:</th>
-    <td><%= @job.position %></td>
-  </tr>
-  <tr>
-    <th>Address:</th>
-    <td><%= @job.address %></td>
-  </tr>
-  <tr>
-    <th>Coordinates Latitude:</th>
-    <td><%= @job.coordinates_latitude %></td>
-  </tr>
-  <tr>
-    <th>Coordinates Longitude:</th>
-    <td><%= @job.coordinates_longitude %></td>
-  </tr>
-  <tr>
-    <th>Salary Per day:</th>
-    <td><%= number_to_currency(@job.salary, :format => "RM %n") %></td>
-  </tr>
-  <tr>
-    <th>Start Date:</th>
-    <td><%= @job.date.strftime('%d-%m-%Y') %></td>
-  </tr>
-  <tr>
-    <th>Work Time (Hours):</th>
-    <td><%= @job.time %></td>
-  </tr>
-  <tr>
-    <th>Requirements:</th>
-    <td><%= @job.requirements %></td>
-  </tr>
-  <tr>
-    <th>Who is working here:</th>
-    <td>
-      <% @job.users.each do |u|%>
-        <%=link_to u.name, user_accounts_path(u) %>
-      <% end %>
-    </td>
-  </tr>
-  
-  <tr>
-    <th>Who applied:</th>
-    <td>
-      <% @job.applicant.each do |a|%>
-        <%= link_to a[0], user_accounts_path(a[0]), :target => "_blank" %> applied on <%= a[1].strftime('%d-%m-%Y')%>
-        <%= link_to "Approve", approve_user_account_company_job_path(@user, @company, @job, :applicant => a[0]), :class => "btn btn-primary"%>
-      <% end %>
-    </td>
-  </tr>
-  
-</table>
-<%= link_to 'Edit', edit_user_account_company_job_path(@user, @company, @job) %> |
-<%= link_to 'Back', user_account_company_jobs_path(@user, @company) %>
+<%= render :partial => "shared/left_navigator"%>
+<div class="content-section">
+	<h1 class="content-title tjob"> <i>&nbsp;</i> <%= @job.title %></h1>
+  <table class="joblisting">
+    <tr>
+      <th>Post:</th><td><%= @job.position %></td>
+    </tr>
+    <tr>
+      <th>Address:</th><td><%= @job.address %></td>
+    </tr>
+    <tr>
+      <th>Coordinates Latitude:</th><td><%= @job.coordinates_latitude %></td>
+    </tr>
+    <tr>
+      <th>Coordinates Longitude:</th><td><%= @job.coordinates_longitude %></td>
+    </tr>
+    <tr>
+      <th>Salary Per day:</th><td><%= number_to_currency(@job.salary, :format => "RM %n") %></td>
+    </tr>
+    <tr>
+      <th>Start Date:</th><td><%= @job.date.strftime('%d-%m-%Y') %></td>
+    </tr>
+    <tr>
+      <th>Work Time (Hours):</th><td><%= @job.time %></td>
+    </tr>
+    <tr>
+      <th>Requirements:</th><td><%= @job.requirements %></td>
+    </tr>
+    <tr>
+      <th>Who is working here:</th>
+      <td>
+        <% @job.users.each do |u|%>
+          <%=link_to u.name, user_accounts_path(u) %>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <th>Who applied:</th>
+      <td>
+        <% @job.applicant.each do |a|%>
+          <%= link_to a[0], user_accounts_path(a[0]), :target => "_blank" %> applied on <%= a[1].strftime('%d-%m-%Y')%>
+          <%= link_to "Approve", approve_user_account_company_job_path(@user, @company, @job, :applicant => a[0]), :class => "btn btn-primary"%>
+        <% end %>
+      </td>
+    </tr>
+  </table>
+  <%= link_to 'Edit', edit_user_account_company_job_path(@user, @company, @job) %>
+  <%= link_to :back, :class => "btn back" do%>
+    <span>back</span>
+  <% end %>
+</div>

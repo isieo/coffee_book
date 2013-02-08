@@ -42,7 +42,11 @@
       
       <tr>
         <th></th>
-        <td><%= link_to 'Apply', apply_job_path(@job) %></td>
+        <% if !current_user.nil?%>
+          <td><%= link_to 'Apply', apply_job_path(@job)%></td>
+        <% else %>
+          <td>Please register or sign-in to apply </td>
+        <% end %>
       </tr>
       
 	  </table>
@@ -51,7 +55,6 @@
 	<div class="pagination fright">
 		<%= paginate @reviews %>
 	</div>
-	Add comment :-
 	<%= render :partial => "shared/add_comment_form", :locals =>{ :post_to => @job.company} %>
 </div>
 

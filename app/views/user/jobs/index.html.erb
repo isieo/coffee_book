@@ -1,28 +1,33 @@
-<%= render :partial => "user/accounts/account_menu" %>
-<h2>Jobs</h2>
-<table class = "table table-condensed">
-  <tr>
-    <th>Title</th>
-    <th>Position</th>
-    <th>Address</th>
-    <th>Salary (RM)</th>
-    <th>Working Time (Hours)</th>
-    <th>Date</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-  <% @jobs.each do |j| %>
-    <tr>
-      <td><%= j.title %></td>
-      <td><%= j.position %></td>
-      <td><%= j.address %></td>
-      <td><%= j.salary %></td>
-      <td><%= j.time %></td>
-      <td><%= j.date %></td>
-      <td><%= link_to "View", user_account_company_job_path(@user, @company, j), :class => "btn btn-primary" %></td>
-      <td><%= link_to "Edit", edit_user_account_company_job_path(@user, @company, j), :class => "btn btn-info" %></td>
-      <td><%= link_to "Delete", user_account_company_job_path(@user, @company, j), :confirm => "Are you sure?", :method=>:delete, :class => "btn btn-danger" %></td></tr>
-  <% end %>
-</table>
-<%= link_to "New Job", new_user_account_company_job_path(@user, @company), :class => "btn btn-primary" %>
+<%= render :partial => "shared/left_navigator" %>
+<div class="content-section">
+	<h1 class="content-title tadd"> <i>&nbsp;</i> Jobs created by <%= @company.name %></h1>
+	<hr class="divider">
+	<div class="company-details">
+    <table class="joblisting">
+      <tr>
+        <th>Title</th>
+        <th>Position</th>
+        <th>Address</th>
+        <th>Salary (RM)</th>
+        <th>Working Time (Hours)</th>
+        <th>Date</th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+      <% @jobs.each do |j| %>
+        <tr>
+          <td><%= j.title %></td>
+          <td><%= j.position %></td>
+          <td><%= j.address %></td>
+          <td><%= j.salary %></td>
+          <td><%= j.time %></td>
+          <td><%= j.date %></td>
+          <td class = "details-more"><%= link_to "View", user_account_company_job_path(@user, @company, j)%></td>
+          <td class = "details-more"><%= link_to "Edit", edit_user_account_company_job_path(@user, @company, j)%></td>
+          <td class = "details-more"><%= link_to "Delete", user_account_company_job_path(@user, @company, j), :confirm => "Are you sure?", :method=>:delete %></td></tr>
+      <% end %>
+    </table>
+    <%= link_to "New Job", new_user_account_company_job_path(@user, @company), :class => "btn" %>
+	</div>	
+</div>

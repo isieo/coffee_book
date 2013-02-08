@@ -1,4 +1,5 @@
 class SearchController < ApplicationController
+  
   def search
     if params[:search].present?
       @search_job = Job.search(params[:search])
@@ -9,9 +10,9 @@ class SearchController < ApplicationController
   end
   
   def advance_search
-    #raise params.inspect
-    if params[:job_title].present?
-      @search_job = Job.where(:title => /params[:job_title]/)
-    end
+    #if params[:search_type] == 'jobs'
+      @search = Job.search(params[:q])
+      @jobs = @search.all
+    #end
   end
 end

@@ -4,7 +4,13 @@
 
 	<div class="pro-header clear">
 		<h1 class="content-title tinfo"> <i>&nbsp;</i> Edit Details </h1>
-		<%= image_tag('default-profile-photo.png', :size => "68x64", :class => "profile-img")%>
+    <% if !current_user.cover_image_uid.nil? %>
+      <%= image_tag (current_user.cover_image.url), :size => "68x64", :class => "profile-img" %>
+    <% elsif !current_user.fb_profile_pic.nil? %>
+      <%= image_tag (current_user.fb_profile_pic), :size => "68x64", :class => "profile-img" %>
+    <% else %>
+      <%= image_tag("default-profile-photo.png", :size => "68x64", :class => "profile-img")%>
+    <% end %>
 		<h2 class="profile-title"><%= current_user.name %></h2>
 		<hr class="divider">
 	</div>
@@ -38,7 +44,7 @@
       <% end %>
       <%= link_to :back, :class => "btn back" do%>
         <span>back</span>
-      <%end%>
+      <% end %>
       <%= link_to raw("<span>cancel my account</span>"), registration_path(@user), :confirm => "Are you sure?", :method => :delete, :class => "btn cancel fright" %>
     <% end %>
 	</div>	

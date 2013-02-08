@@ -1,4 +1,4 @@
-<%= simple_form_for search_path, :method => "get" do |f| %>
+<%= form_tag search_path, :method => "get" do |f| %>
   <%= text_field_tag :search,"#{params[:search]}",  :class => 'searchfield', :placeholder => 'Search...' %>
   <%= image_submit_tag("search-icon.png", :class => "submit")%>
 <% end %>

@@ -1,7 +1,7 @@
 <%= render :partial => "shared/left_navigator" %>
 
 <div class="content-section">
-	<h1 class="content-title tprofile"> <i>&nbsp;</i> My Details</h1>
+	<h1 class="content-title tprofile"> <i>&nbsp;</i> <%= @user.name%>'s Details</h1>
 	<div class="profile-section">
     <% if !@user.cover_image_uid.nil? %>
       <%= image_tag @user.cover_image.url, :size => "68x64", :class => "profile-img" %>
