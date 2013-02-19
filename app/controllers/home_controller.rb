@@ -15,8 +15,12 @@ class HomeController < ApplicationController
       @lat = 3.129
     end
     
-    @lon = current_user.coordinates_longitude if !current_user.address.nil?
-    @lat = current_user.coordinates_latitude if !current_user.address.nil?
+    if !current_user.nil?
+      if !current_user.address.nil?
+        @lon = current_user.coordinates_longitude
+        @lat = current_user.coordinates_latitude
+      end
+    end
     
     i = 2
     for job in Job.near([@lat,@lon],20)
