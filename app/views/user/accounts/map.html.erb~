@@ -3,9 +3,9 @@
 </script>
 <script type="text/javascript">
   function initialize() {
-    var myLatlng = new google.maps.LatLng(<%= @lat %>, <%= @lon %>);
+    var myLatlng = new google.maps.LatLng(<%= current_user.coordinates_latitude %>, <%= current_user.coordinates_longitude %>);
     var mapOptions = {
-      center: new google.maps.LatLng(<%= @lat %>, <%= @lon %>),
+      center: new google.maps.LatLng(<%= current_user.coordinates_latitude %>, <%= current_user.coordinates_longitude %>),
       zoom: 10,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };

@@ -30,7 +30,7 @@ class User::AccountsController < ApplicationController
   end
   
   def map
-    if !current_user.address.nil?
+    if !current_user..nil?
       @lon = current_user.coordinates_longitude
       @lat = current_user.coordinates_latitude
     elsif request.location.longitude > 0
