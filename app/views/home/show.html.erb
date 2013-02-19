@@ -1,9 +1,8 @@
 <%= render :partial => "shared/google_map_js", :locals =>{ :user => @user} %>
-<%= render :partial => "shared/login_form" %>
+<%#= render :partial => "shared/login_form" %>
 <div class="content-area">
 	<div class="search_section ">
 	  <%= form_tag search_path, :method => "get" do |f| %>
-	  
 		  <div class="search-col">
 		    <span class="inputtitle _block ">You can search for any keyword ?:</span>
 		    <%= text_field_tag :search,"#{params[:search]}",  :class => 'inputfield', :placeholder => 'Search...' %>
@@ -11,9 +10,6 @@
       
       <%= submit_tag("Search", :class => "btn search")%>
     <% end %>
-
-
-
 	</div>
 
 	<div class="video_section shadow-border">
