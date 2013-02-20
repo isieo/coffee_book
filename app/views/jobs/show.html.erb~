@@ -55,12 +55,7 @@
 	<div class="pagination fright">
 		<%= paginate @reviews %>
 	</div>
-	<% if current_user.nil? %>
-	  Please login to add comment
-	<% else %>
-	  <%= render :partial => "shared/add_comment_form", :locals =>{ :post_to => @job.company} %>
-	<% end %>
-	
+	<%= render :partial => "shared/add_comment_form", :locals =>{ :post_to => @job.company} %>
 </div>
 
 
