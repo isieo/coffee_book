@@ -41,7 +41,7 @@
 
     var marker, i;
     if (job.length > 0) { 
-      for (i = job.length-1; i >= 0; i--) {
+      for (i = (job.length-1); i >= 0; i--) {
         marker = new google.maps.Marker({
           position: new google.maps.LatLng(job[i][1], job[i][2]),
           map: map    

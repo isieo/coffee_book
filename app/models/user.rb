@@ -50,8 +50,8 @@ class User
   field :username, :type => String, :null => false
   field :address, :type => String
   field :coordinates
-  field :coordinates_latitude
-  field :coordinates_longitude
+  field :coordinates_latitude, :type => Float
+  field :coordinates_longitude, :type => Float
   field :city
   field :state, :type => String
   field :country, :type => String

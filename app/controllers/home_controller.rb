@@ -17,16 +17,17 @@ class HomeController < ApplicationController
 
     if !current_user.nil?
       if !current_user.coordinates_longitude.blank?
-        @lon = current_user.coordinates_longitude
-        @lat = current_user.coordinates_latitude
+        @address_lon = current_user.coordinates_longitude
+        @address_lat = current_user.coordinates_latitude
+        for job in Job.near([@address_lat, @address_lon],20)
+          @marker_array << [job.id, job.coordinates_latitude, job.coordinates_longitude, (self.class.helpers.link_to job.title, job_url(job)),('%.2f' % job.salary),job.date]
+        end
+        
       end
     end
-    i = 2
     for job in Job.near([@lat,@lon],20)
       @marker_array << [job.id, job.coordinates_latitude, job.coordinates_longitude, (self.class.helpers.link_to job.title, job_url(job)),('%.2f' % job.salary),job.date]
-      i = i + 1
     end
-    
     respond_to do |format|
       format.html {}
       format.js {render json: @marker_array}

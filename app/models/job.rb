@@ -14,8 +14,8 @@ class Job
   field :address
   field :city
   field :coordinates
-  field :coordinates_latitude
-  field :coordinates_longitude
+  field :coordinates_latitude, :type => Float
+  field :coordinates_longitude, :type => Float
   field :state, :type => String
   field :country, :type => String
   field :applicant, :type => Array

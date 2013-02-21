@@ -1,34 +1,38 @@
-class Company
+class Job
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Mongoid::Search
   include Geocoder::Model::Mongoid
- 
-  field :name, :type => String
-  field :coordinates
-  field :coordinates_latitude, :type => Float
-  field :coordinates_longitude, :type => Float
+  
+  field :title, :type => String
+  field :position, :type => String
+  field :salary, :type => BigDecimal
+  field :date, :type => Date
+  field :day_amount, :type => Integer
+  field :time, :type => Integer
+  field :requirements, :type => String
   field :address
   field :city
+  field :coordinates
+  field :coordinates_latitude
+  field :coordinates_longitude
   field :state, :type => String
   field :country, :type => String
-  field :contact_mobile, :type => String
-  field :contact_office, :type => String
-  field :cover_image_uid, :type => String
+  field :applicant, :type => Array
   
   before_validation :initialize_coordinates
   after_validation :geocode, :reverse_geocode, :if => (:address_changed? || :coordinates_latitude_changed? || :coordinates_longitude_changed?)
-
-  attr_accessor :image, :group_user
   
-  has_many :jobs
-  embeds_many :reviews
-  has_and_belongs_to_many :admins,  class_name: "User"
-  has_and_belongs_to_many :members, class_name: "User"
+  attr_accessible :address, :coordinates_latitude,:coordinates_longitude, :title, :position, :salary, :date, :day_amount, :time, :requirements, :city, :state, :country, :summary
   
-  image_accessor :cover_image
+  belongs_to :company
+  has_and_belongs_to_many :users
   
-  validates_presence_of :name, :address, :contact_mobile, :contact_office
-  before_validation :initialize_coordinates
+  search_in :title, :position, :city, :salary, :date, :company_name, :address, :state, :country
+  
+  before_validation :initialize_applicant, :initialize_coordinates
+  
+  validates_presence_of :title, :address
   
   geocoded_by :address do |obj,results|
     if geo = results.first
@@ -52,7 +56,17 @@ class Company
     end
   end
   
+  def summary
+    "#{title}, salary RM#{'%.2f' % salary} "
+  end
+  
   protected
+  def initialize_applicant
+    if self.applicant == nil
+      self.applicant = []
+    end
+  end
+  
   def initialize_coordinates
     self.coordinates = [self.coordinates_longitude.to_f, self.coordinates_latitude.to_f]
   end

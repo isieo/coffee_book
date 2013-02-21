@@ -6,7 +6,7 @@
 <%= f.input :salary, :input_html => { :class => 'inputdetails' } %>
 <%= f.input :date, :input_html => { :class => 'datepickers inputdetails' } %>
 <%= f.input :time, :input_html => { :class => 'inputdetails' } %>
-<%= f.input :day_amount, :input_html => { :class => 'inputdetails' } %>
+<%= f.input :da_amount, :input_html => { :class => 'inputdetails' } %>
 <%= f.input :requirements, :as => :text, :input_html => { :class => 'inputdetails' } %>
 
 
