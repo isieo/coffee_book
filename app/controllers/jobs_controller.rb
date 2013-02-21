@@ -13,9 +13,9 @@ before_filter :find_job, :only => [:show, :apply]
       @lon = 101.989
       @lat = 3.129
     end
-    
+
     if !current_user.nil?
-      if !current_user.address.nil?
+      if !current_user.coordinates_longitude.blank?
         @lon = current_user.coordinates_longitude
         @lat = current_user.coordinates_latitude
       end

@@ -21,7 +21,7 @@
       <th>Photo</th>
       <td>
         <% if !@company.cover_image_uid.nil? %>
-          <%= image_tag (@company.cover_image.url), :size => "68x64", :class => "profile-img" %>
+          <%= image_tag (current_user.cover_image.url), :size => "68x64", :class => "profile-img" %>
         <% else %>
           <%= image_tag("default-company-photo.png", :size => "68x64", :class => "profile-img")%>
         <% end %>

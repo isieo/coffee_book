@@ -13,9 +13,9 @@ class User::CompaniesController < ApplicationController
     @company = @user.admin_of.new
     
     if Rails.env == "development"
-      geo_data = Geocoder.search("118.107.243.154")
+      geo_data = Geocoder.search([3.129, 101.589])
     else
-      geo_data = Geocoder.search(request.ip)
+      geo_data = Geocoder.search([request.location.latitude, request.location.longitude])
     end
     
     if !geo_data.blank?
@@ -23,6 +23,7 @@ class User::CompaniesController < ApplicationController
     else
       raise "no geo data found"
     end
+    raise geo_data.inspect
     @company.city = geo_data.city
     @company.state = geo_data.data['region_name']
     @company.country = geo_data.data['country_name']

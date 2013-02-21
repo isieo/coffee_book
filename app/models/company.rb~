@@ -18,6 +18,7 @@ class Company
   before_validation :initialize_coordinates
   after_validation :geocode, :reverse_geocode, :if => (:address_changed? || :coordinates_latitude_changed? || :coordinates_longitude_changed?)
 
+  attr_accessible :address, :coordinates_latitude, :coordinates_longitude
   attr_accessor :image, :group_user
   
   has_many :jobs

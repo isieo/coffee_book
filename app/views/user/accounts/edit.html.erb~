@@ -25,6 +25,9 @@
       <%#= f.input :password_confirmation, :input_html => { :class => 'inputdetails' } %>
       <%#= f.input :current_password, :hint => "we need your current password to confirm your changes", :input_html => { :class => 'inputdetails' } %>
       <%= f.input :address, :input_html => { :class => 'inputdetails' } %>
+      <%= f.input :city %>
+      <%= f.input :state %>
+      <%= f.input :country %>
       <%= f.input :coordinates_latitude, :input_html => { :class => 'inputdetails' } %>
       <%= f.input :coordinates_longitude, :input_html => { :class => 'inputdetails' } %>
       <%= f.input :contact_mobile, :input_html => { :class => 'inputdetails' } %>
