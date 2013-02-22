@@ -21,7 +21,7 @@ class User::AccountsController < ApplicationController
       @coordinates_longitude = geo_data.data['longitude']
       @coordinates_latitude = geo_data.data['latitude']
     else
-      @coordinates_longitude = @user.coordinates_latitude
+      @coordinates_longitude = @user.coordinates_longitude
       @coordinates_latitude = @user.coordinates_latitude
     end
   end

@@ -6,7 +6,7 @@
 		<li><%= link_to "List Jobs", jobs_path %></li>
 		<li><%= link_to "Company", user_account_companies_path(current_user) if !current_user.nil? %><span>&nbsp;</span></li>
 		<li><%= link_to "Review", user_account_reviews_path(current_user) if !current_user.nil? %><span>&nbsp;</span></li>
-		<!--<li><%#= link_to "Search", advance_search_path %><span>&nbsp;</span></li>-->
+		<li><%#= link_to "Search", advance_search_path %><span>&nbsp;</span></li>
 		<li class="logout"><%= link_to ("Logout"), destroy_user_session_path if !current_user.nil? %><span>&nbsp;</span></li>
 	</ul>
 

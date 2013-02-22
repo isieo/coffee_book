@@ -11,7 +11,7 @@ class User
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :authentication_keys => [:login]
   
-  attr_accessible :name, :username, :email, :login
+  attr_accessible :name, :username, :email, :password, :password_confirmation, :address,:coordinates_latitude,:coordinates_longitude ,:city, :state, :country, :contact_mobile, :contact_home, :dob, :gender, :nationality, :ic_number, :login, :cover_image
   attr_accessor :login, :image
 
   ## Database authenticatable
