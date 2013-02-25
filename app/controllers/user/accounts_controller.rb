@@ -48,8 +48,10 @@ class User::AccountsController < ApplicationController
       @user.coordinates_longitude = params[:user][:coordinates_longitude]
       @user.contact_mobile = params[:user][:contact_mobile]
       @user.contact_home = params[:user][:contact_home]
-      dob = params[:user]['dob(3i)'] + "-" + params[:user]['dob(2i)'] + "-" + params[:user]['dob(1i)']
-      @user.dob = dob
+      if !params[:user]['dob(3i)'].blank? && !params[:user]['dob(2i)'].blank? && !params[:user]['dob(1i)'].blank?
+        dob = params[:user]['dob(3i)'] + "-" + params[:user]['dob(2i)'] + "-" + params[:user]['dob(1i)']
+        @user.dob = dob
+      end
       @user.gender = params[:user][:gender]
       @user.nationality = params[:user][:nationality]
       @user.ic_number = params[:user][:ic_number]

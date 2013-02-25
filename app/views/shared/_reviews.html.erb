@@ -5,7 +5,7 @@
     <% reviews.each do |review| %>
        <div class='reviews'>
         <% if !review.poster.cover_image_uid.nil? %>
-           <%= image_tag(review.poster.cover_image.reviewl, :size => "40x40", :class => "reviews-img") %>
+           <%= image_tag(review.poster.cover_image.url, :size => "40x40", :class => "reviews-img") %>
         <% elsif !review.poster.fb_profile_pic.nil? %>
            <%= image_tag(review.poster.fb_profile_pic, :size => "40x40", :class => "reviews-img") %>
         <% else %>
