@@ -18,34 +18,34 @@ CoffeeBook::Application.routes.draw do
   end
   resources :users, :only => :index
   # Overwrite account route /user/accounts to /:username
-  get "/:username" => "user/accounts#index", :as => :user_accounts
-  get "/:username/edit" => 'user/accounts#edit', :as => :edit_user_account
-  put "/:username" => 'user/accounts#update', :as => :user_account
-  get "/:username/experience" => "user/accounts#experience", :as => :user_experience
-  get "/:username/map" => "user/accounts#map", :as => :user_map
+  get "/:username" => "user/accounts#index", :as => :user_accounts, :format => false
+  get "/:username/edit" => 'user/accounts#edit', :as => :edit_user_account, :format => false
+  put "/:username" => 'user/accounts#update', :as => :user_account, :format => false
+  get "/:username/experience" => "user/accounts#experience", :as => :user_experience, :format => false
+  get "/:username/map" => "user/accounts#map", :as => :user_map, :format => false
   # Overwrite company nested routes /user/:user_id/companies to /:username/companies
-  get "/:username/companies" => "user/companies#index", :as => :user_account_companies
-  post "/:username/companies" => "user/companies#create", :as => :user_account_companies
-  get "/:username/companies/new" => "user/companies#new", :as => :new_user_account_company
-  get "/:username/companies/:id/edit" => "user/companies#edit", :as => :edit_user_account_company
-  get "/:username/companies/:id" => "user/companies#show", :as => :user_account_company
-  put "/:username/companies/:id" => "user/companies#update", :as => :user_account_company
-  delete "/:username/companies/:id" => "user/companies#destroy", :as => :user_account_company
-  get "/:username/companies/:id/new_member" => "user/companies#new_member", :as => :new_member_user_account_company
-  put "/:username/companies/:id/create_member" => "user/companies#create_member", :as => :create_member_user_account_company
-  get "/:username/companies/:id/create_member" => "user/companies#create_member", :as => :create_member_user_account_company
-  delete "/:username/companies/:id/delete_member" => "user/companies#delete_member", :as => :delete_member_user_account_company
+  get "/:username/companies" => "user/companies#index", :as => :user_account_companies, :format => false
+  post "/:username/companies" => "user/companies#create", :as => :user_account_companies, :format => false
+  get "/:username/companies/new" => "user/companies#new", :as => :new_user_account_company, :format => false
+  get "/:username/companies/:id/edit" => "user/companies#edit", :as => :edit_user_account_company, :format => false
+  get "/:username/companies/:id" => "user/companies#show", :as => :user_account_company, :format => false
+  put "/:username/companies/:id" => "user/companies#update", :as => :user_account_company, :format => false
+  delete "/:username/companies/:id" => "user/companies#destroy", :as => :user_account_company, :format => false
+  get "/:username/companies/:id/new_member" => "user/companies#new_member", :as => :new_member_user_account_company, :format => false
+  put "/:username/companies/:id/create_member" => "user/companies#create_member", :as => :create_member_user_account_company, :format => false
+  get "/:username/companies/:id/create_member" => "user/companies#create_member", :as => :create_member_user_account_company, :format => false
+  delete "/:username/companies/:id/delete_member" => "user/companies#delete_member", :as => :delete_member_user_account_company, :format => false
   # Overwrite reviews nested routes /user/:user_id/reviews to /:username/reviews
-  get "/:username/reviews" => "user/reviews#index", :as => :user_account_reviews
-  post "/:username/reviews" => "user/reviews#create", :as => :user_account_reviews
-  get "/:username/reviews/new" => "user/reviews#new", :as => :new_user_account_review
+  get "/:username/reviews" => "user/reviews#index", :as => :user_account_reviews, :format => false
+  post "/:username/reviews" => "user/reviews#create", :as => :user_account_reviews, :format => false
+  get "/:username/reviews/new" => "user/reviews#new", :as => :new_user_account_review, :format => false
   # Overwrite jobs nested routes /user/:user_id/companies/:company_id/jobs to /:username/companies/:company_id/jobs
-  get "/:username/companies/:company_id/jobs/:id/approve" => 'user/jobs#approve', :as => :approve_user_account_company_job
-  get "/:username/companies/:company_id/jobs" => "user/jobs#index", :as => :user_account_company_jobs
-  post "/:username/companies/:company_id/jobs" => "user/jobs#create", :as => :user_account_company_jobs
-  get "/:username/ompanies/:company_id/jobs/new" => "user/jobs#new", :as => :new_user_account_company_job
-  get "/:username/companies/:company_id/jobs/:id/edit" => "user/jobs#edit", :as => :edit_user_account_company_job
-  get "/:username/companies/:company_id/jobs/:id" => "user/jobs#show", :as => :user_account_company_job
-  put "/:username/companies/:company_id/jobs/:id" => "user/jobs#update", :as => :user_account_company_job
-  delete "/:username/companies/:company_id/jobs/:id" => "user/jobs#destroy", :as => :user_account_company_job
+  get "/:username/companies/:company_id/jobs/:id/approve" => 'user/jobs#approve', :as => :approve_user_account_company_job, :format => false
+  get "/:username/companies/:company_id/jobs" => "user/jobs#index", :as => :user_account_company_jobs, :format => false
+  post "/:username/companies/:company_id/jobs" => "user/jobs#create", :as => :user_account_company_jobs, :format => false
+  get "/:username/ompanies/:company_id/jobs/new" => "user/jobs#new", :as => :new_user_account_company_job, :format => false
+  get "/:username/companies/:company_id/jobs/:id/edit" => "user/jobs#edit", :as => :edit_user_account_company_job, :format => false
+  get "/:username/companies/:company_id/jobs/:id" => "user/jobs#show", :as => :user_account_company_job, :format => false
+  put "/:username/companies/:company_id/jobs/:id" => "user/jobs#update", :as => :user_account_company_job, :format => false
+  delete "/:username/companies/:company_id/jobs/:id" => "user/jobs#destroy", :as => :user_account_company_job, :format => false
 end
