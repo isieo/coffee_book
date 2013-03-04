@@ -1,0 +1,65 @@
+<%= render :partial => "shared/left_navigator" %>
+<div class="content-section">
+	<h1 class="content-title tprofile"> <i>&nbsp;</i> My Application</h1>
+	<div class="profile-section">
+	  <h2 class="profile-title">Pending</h2>
+		<table class="joblisting">
+			<tr>
+				<th>Title</th>
+				<th>Address</th>
+				<th>Salary Per Day</th>
+				<th>Start Date</th>
+				<th>Work how many days?</th>
+				<th>Details</th>
+			</tr>
+			<% @pending.each do |application| %>
+			  
+        <tr>
+          <td><%= application.job.title %></td>
+          <td><%= application.job.address.truncate(30) %></td>
+          <td>
+              <% if application.job.salary.blank? %>
+                N/A
+              <% else %>
+                <%= number_to_currency(application.job.salary, :format => "RM %n") %>
+              <% end %>
+          </td>
+          <td><%= application.job.date.strftime('%d-%m-%Y') if application.job.date.present? %></td>
+          <td><%= application.job.day_amount %> Days</td>
+          <td class='details-more'><%= link_to 'See More »', application.job %></td>
+        </tr>
+      <% end %>
+		</table>
+	  <hr class="divider">
+	  <h2 class="profile-title">Approved</h2>
+		<table class="joblisting">
+			<tr>
+				<th>Title</th>
+				<th>Address</th>
+				<th>Salary Per Day</th>
+				<th>Start Date</th>
+				<th>Work how many days?</th>
+				<th>Details</th>
+			</tr>
+			<% @approved.each do |job| %>
+        <tr>
+          <td><%= job.title %></td>
+          <td><%= job.address.truncate(30) %></td>
+          <td>
+              <% if job.salary == 0 || job.salary.nil? %>
+                N/A
+              <% else %>
+                <%= number_to_currency(job.salary, :format => "RM %n") %>
+              <% end %>
+          </td>
+          <td><%= job.date.strftime('%d-%m-%Y') if job.date.present? %></td>
+          <td><%= job.day_amount %> Days</td>
+          <td class='details-more'><%= link_to 'See More »', job %></td>
+        </tr>
+      <% end %>
+		</table>
+	</div>
+</div>	
+
+
+

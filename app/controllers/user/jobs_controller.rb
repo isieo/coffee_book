@@ -57,17 +57,12 @@ class User::JobsController < ApplicationController
    end
    
    def approve
-    array_location = 0
-    @job.applicant.each do |ja|
-      if ja[0] == params[:applicant]
-        u = User.where(:username => params[:applicant]).first
-        u.jobs << @job
-        u.save
-        @job.applicant.delete_at(array_location)
-        @job.save
-      end
-      array_location += 1
-    end
+    applicant = @job.job_applications.find(params[:applicant_id])
+    applicant.update_attributes(:status => "approved")
+    u = User.find(applicant.user_id)
+    u.jobs << @job
+    u.save
+    @job.save
 
     flash[:notice] = "User approved"
     redirect_to user_account_company_job_path(@user, @company, @job)

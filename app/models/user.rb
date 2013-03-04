@@ -71,6 +71,7 @@ class User
   has_and_belongs_to_many :admin_of, class_name: "Company"
   has_and_belongs_to_many :member_of, class_name: "Company"
   has_and_belongs_to_many :jobs
+  has_many :job_applications
   embeds_many :reviews
 
   validates_uniqueness_of :username, :email

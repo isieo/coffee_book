@@ -20,7 +20,6 @@
 		<div class="opt-signup">
       <%if !user_signed_in?%>
 			  <p><strong>Get started just as simple as clicking on sign in with facebook</strong></p>
-			  <hr style="height:20px;">
 		    <%- if devise_mapping.omniauthable? %>
           <%- resource_class.omniauth_providers.each do |provider| %>
            <%= link_to "", omniauth_authorize_path(resource_name, provider), :class => "facebook-btn" %>
@@ -28,8 +27,8 @@
         <% end -%>
       <% else %>
 			  <p><strong>Welcome! Let’s get started by locating jobs, placing jobs or updating your profile status</strong></p>
-			  <hr style="height:20px;">
       <% end %>
+      <hr style="height:20px;">
 		</div>
 	</div>	
 

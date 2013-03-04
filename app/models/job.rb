@@ -18,7 +18,6 @@ class Job
   field :coordinates_longitude, :type => Float
   field :state, :type => String
   field :country, :type => String
-  field :applicant, :type => Array
   
   before_validation :initialize_coordinates
   after_validation :geocode, :reverse_geocode, :if => (:address_changed? || :coordinates_latitude_changed? || :coordinates_longitude_changed?)
@@ -27,6 +26,7 @@ class Job
   
   belongs_to :company
   has_and_belongs_to_many :users
+  has_many :job_applications
   
   search_in :title, :position, :city, :salary, :date, :company_name, :address, :state, :country
   

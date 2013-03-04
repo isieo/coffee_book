@@ -80,6 +80,11 @@ class User::AccountsController < ApplicationController
     @jobs = Job.near([@lat,@lon],20)
   end
   
+  def application
+    @pending = current_user.job_applications.where(:status => 'pending')
+    @approved = current_user.jobs
+  end
+  
   protected
   def find_user
     @user = User.where(_id: params[:id]).first || User.where(username: params[:username]).first
