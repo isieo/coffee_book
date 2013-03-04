@@ -6,7 +6,9 @@
 <%= f.input :coordinates_longitude, :input_html => { :class => 'inputdetails' } %>
 
 <% if f.object.cover_image_uid %>
-  <% image_tag f.object.cover_image.thumb('100x100').url %>
+  <%= image_tag (@company.cover_image.url), :size => "100x100", :class => "profile-img" %>
+<% else %>
+  <%= image_tag("default-company-photo.png", :size => "100x100", :class => "profile-img")%>
 <% end %>
 
 <%= f.label :cover_image, "Photo", :for=>"user_contact_mobile" %>

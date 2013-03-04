@@ -27,7 +27,7 @@
       <th>Working Days:</th><td><%= @job.day_amount %></td>
     </tr>
     <tr>
-      <th>Requirements:</th><td><%= @job.requirements %></td>
+      <th>Job Requirements:</th><td><%= @job.requirements %></td>
     </tr>
     <tr>
       <th>Who is working here:</th>
@@ -47,7 +47,7 @@
       </td>
     </tr>
   </table>
-  <%= link_to 'Edit', edit_user_account_company_job_path(@user, @company, @job) %>
+  <%= link_to 'Edit', edit_user_account_company_job_path(@user, @company, @job), :class => "btn company" %>
   <%= link_to :back, :class => "btn back" do%>
     <span>back</span>
   <% end %>
