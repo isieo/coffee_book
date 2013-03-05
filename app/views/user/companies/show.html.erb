@@ -28,7 +28,7 @@
       </td>
     </tr>
   </table>
-  <%= link_to "Edit", edit_user_account_company_path(current_user, @company) %>
+  <%= link_to "Edit", edit_user_account_company_path(current_user, @company), :class => "btn save" %>
 
   <h2 class="content-title tjob"><i>&nbsp;</i> Members</h2>
   <table class="joblisting">
@@ -47,11 +47,11 @@
       </tr>
     <% end %>
   </table>
-  <%= link_to "Add Member", new_member_user_account_company_path(current_user, @company) if @user.is_company_admin?(@company._id) %>
+  <%= link_to "Add Member", new_member_user_account_company_path(current_user, @company), :class => "btn save" if @user.is_company_admin?(@company._id) %>
 
   <h2 class="content-title tjob"><i>&nbsp;</i> Jobs created by this company</h2>
-  <%= link_to "View all job", user_account_company_jobs_path(@user, @company) %>
-  <%= link_to "New Job", new_user_account_company_job_path(@user, @company) %>
+  <%= link_to "View all job", user_account_company_jobs_path(@user, @company), :class => "btn save" %>
+  <%= link_to "New Job", new_user_account_company_job_path(@user, @company), :class => "btn save" %>
   <table class="joblisting">
     <tr>
       <th>Title</th>
@@ -75,12 +75,25 @@
           </td>
           <td><%= job.date.to_date %></td>
           <td><%= job.day_amount %> Days</td>
-          <td class='details-more'><%= link_to 'See More', job %></td>
-          <td class='details-more'><%= link_to 'Edit', edit_user_account_company_job_path(@user, @company, job) %></td>
+          <td class='details-more'><%= link_to "View", user_account_company_job_path(@user, @company, job)%></td>
+          <td class='details-more'><%= link_to "Edit", edit_user_account_company_job_path(@user, @company, job)%></td>
         </tr>
     <% end %>
   </table>
   <%#= load_review(@company.reviews)%>
+  <h2 class="content-title tjob"><i>&nbsp;</i>Job Applicants</h2>
+  <table class="joblisting">
+    <tr>
+      <th>Username</th>
+      <th>Jobs Applied</th>
+    </tr>
+    <% @company.job_applications.each do |applicant|%>
+      <tr>
+          <td><%= applicant.username %></td>
+          <td><%= applicant.job.title %></td>
+      </tr>
+    <% end %>
+  </table>
   <h2 class="content-title tjob"><i>&nbsp;</i>Map</h2>
   <%= image_tag "http://maps.google.com/maps/api/staticmap?size=450x300&sensor=false&zoom=16&markers=#{@company.coordinates_latitude}%2C#{@company.coordinates_longitude}" %>
 </div>

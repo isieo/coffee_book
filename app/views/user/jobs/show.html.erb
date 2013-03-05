@@ -40,7 +40,7 @@
     <tr>
       <th>Who applied:</th>
       <td>
-        <% @job.job_applicantions.where(:status => "pending").each do |a|%>
+        <% @job.job_applications.where(:status => "pending").each do |a|%>
           <%= link_to a.username, user_accounts_path(a.username), :target => "_blank" %> applied on <%= a.created_at %>
           <%= link_to "Approve", approve_user_account_company_job_path(@user, @company, @job, :applicant_id => a.id), :class => "btn"%>
         <% end %>

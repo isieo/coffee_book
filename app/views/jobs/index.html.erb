@@ -24,7 +24,7 @@
           <td><%= job.title %></td>
           <td><%= job.address.truncate(30) %></td>
           <td>
-              <% if job.salary == 0 || job.salary.nil? %>
+              <% if application.job.salary.blank? %>
                 N/A
               <% else %>
                 <%= number_to_currency(job.salary, :format => "RM %n") %>
