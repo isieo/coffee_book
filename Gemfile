@@ -38,7 +38,7 @@ gem 'mongoid', '2.4.10'
 gem 'bson_ext'
 gem 'mongoid_search'
 gem "devise"
-gem 'omniauth-facebook'
+gem 'omniauth-facebook', '1.4.0'
 gem "simple_form"
 gem "country_select"
 gem 'delayed_job_mongoid'

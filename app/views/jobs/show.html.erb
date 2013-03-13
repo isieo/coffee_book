@@ -56,7 +56,11 @@
 		<%= paginate @reviews %>
 	</div>
 	<% if current_user.nil? %>
-	  Please login to add comment
+    <%- if devise_mapping.omniauthable? %>
+      <%- resource_class.omniauth_providers.each do |provider| %>
+       Please <%= link_to "login", omniauth_authorize_path(resource_name, provider) %> to add comment
+      <% end -%>
+    <% end -%>
 	<% else %>
 	  <%= render :partial => "shared/add_comment_form", :locals =>{ :post_to => @job.company} %>
 	<% end %>
