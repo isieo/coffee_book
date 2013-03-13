@@ -30,7 +30,7 @@ class Job
   
   search_in :title, :position, :city, :salary, :date, :company_name, :address, :state, :country
   
-  before_validation :initialize_applicant, :initialize_coordinates
+  before_validation :initialize_coordinates
   
   validates_presence_of :title, :address
   
@@ -61,11 +61,6 @@ class Job
   end
   
   protected
-  def initialize_applicant
-    if self.applicant == nil
-      self.applicant = []
-    end
-  end
   
   def initialize_coordinates
     self.coordinates = [self.coordinates_longitude.to_f, self.coordinates_latitude.to_f]
