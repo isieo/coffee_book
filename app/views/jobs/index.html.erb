@@ -13,7 +13,7 @@
 				<th class="recommend">&nbsp;</th>
 				<th>Title</th>
 				<th>Address</th>
-				<th>Salary Per Day</th>
+				<th>Pay</th>
 				<th>Start Date</th>
 				<th>Job Duration</th>
 				<th>Details</th>
@@ -23,13 +23,7 @@
           <td class="recommend"><%= image_tag('recommend-on.png', :size => "25x25")%></td>
           <td><%= job.title %></td>
           <td><%= job.address.truncate(30) %></td>
-          <td>
-              <% if job.salary.blank? %>
-                N/A
-              <% else %>
-                <%= number_to_currency(job.salary, :format => "RM %n") %>
-              <% end %>
-          </td>
+          <td><%= number_to_currency(job.pay, :format => "RM %n") %>/<%= job.pay_per %></td>
           <td><%= job.date.strftime('%d-%m-%Y') if job.date.present? %></td>
           <td><%= job.day_amount %> Days</td>
           <td class='details-more'><%= link_to 'See More »', job %></td>

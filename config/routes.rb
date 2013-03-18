@@ -1,8 +1,12 @@
 CoffeeBook::Application.routes.draw do
   get 'search' => 'search#search', :as => :search
   get 'admin_login' => 'home#admin_login'
+  get 'guide' => 'home#guide'
   get 'application' => 'user/accounts#application', :as => :application
   get 'advance_search' => 'search#advance_search', :as => :advance_search
+  
+
+  
   root :to => "home#show"
   devise_for :users, :controllers => { :omniauth_callbacks => "user/omniauth_callbacks", :registrations => "user/registrations", :sessions => "user/sessions" }
   devise_scope :user do
@@ -13,10 +17,13 @@ CoffeeBook::Application.routes.draw do
   resources :home
   resources :companies
   resources :reviews, :only => :create
-  resources :jobs, :only => [:index, :show] do
-    get :apply, :on => :member
-    get :apply_a, :on => :collection
+  resources :jobs do
+    resource :job_applications
   end
+  #resources :jobs, :only => [:index, :show] do
+  #  get :apply, :on => :member
+  #  get :apply_a, :on => :collection
+  #end
   resources :users, :only => :index
   # Overwrite account route /user/accounts to /:username
   get "/:username" => "user/accounts#index", :as => :user_accounts, :constraints  => { :username => /[0-z\.]+/ }

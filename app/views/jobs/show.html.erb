@@ -18,10 +18,7 @@
         <th>Job Duration:</th><td><%= @job.day_amount %></td>
       </tr>
       <tr>
-        <th>Salary Per day:</th><td><%= number_to_currency(@job.salary, :format => "RM %n") %></td>
-      </tr>
-      <tr>
-        <th>Work Time (Hours):</th><td><%= @job.time %></td>
+        <th>Pay</th><td><%= number_to_currency(@job.pay, :format => "RM %n") %>/<%= @job.pay_per %></td>
       </tr>
       <tr>
         <th>Job Requirements:</th><td><%= @job.requirements %></td>
@@ -43,7 +40,7 @@
       <tr>
         <th></th>
         <% if !current_user.nil?%>
-          <td><%= link_to 'Apply', apply_job_path(@job)%></td>
+          <td><%= link_to 'Apply', new_job_job_applications_path(@job)%></td>
         <% else %>
           <td>Please register or sign-in to apply </td>
         <% end %>

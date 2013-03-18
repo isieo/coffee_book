@@ -15,13 +15,10 @@
       <th>Coordinates Longitude:</th><td><%= @job.coordinates_longitude %></td>
     </tr>
     <tr>
-      <th>Salary Per day:</th><td><%= number_to_currency(@job.salary, :format => "RM %n") %></td>
+      <th>Pay</th><td><%= number_to_currency(@job.pay, :format => "RM %n") %>/<%= @job.pay_per %></td>
     </tr>
     <tr>
       <th>Start Date:</th><td><%= @job.date.strftime('%d-%m-%Y') %></td>
-    </tr>
-    <tr>
-      <th>Work Time (Hours):</th><td><%= @job.time %></td>
     </tr>
     <tr>
       <th>Working Days:</th><td><%= @job.day_amount %></td>
@@ -42,7 +39,6 @@
       <td>
         <% @job.job_applications.where(:status => "pending").each do |a|%>
           <%= link_to a.username, user_accounts_path(a.username), :target => "_blank" %> applied on <%= a.created_at %>
-          <%= link_to "Approve", approve_user_account_company_job_path(@user, @company, @job, :applicant_id => a.id), :class => "btn"%>
         <% end %>
       </td>
     </tr>

@@ -11,18 +11,24 @@ class User::JobsController < ApplicationController
     geo_data = Geocoder.search("118.107.243.154")
     if !geo_data.blank?
       geo_data = geo_data.first
+      @job.city = geo_data.city
+      @job.state = geo_data.data['region_name']
+      @job.country = geo_data.data['country_name']
+      @coordinates_longitude = geo_data.data['longitude']
+      @coordinates_latitude = geo_data.data['latitude']
     else
-      raise "no geo data found"
+      flash[:notice] = "No Geo data found, please make sure you are connected to internet"
     end
-    @job.city = geo_data.city
-    @job.state = geo_data.data['region_name']
-    @job.country = geo_data.data['country_name']
-    @coordinates_longitude = geo_data.data['longitude']
-    @coordinates_latitude = geo_data.data['latitude']
    end
    
    def create
-     @job = @company.jobs.new(params[:job].merge({:company_name => @company.name, :address => @company.address, :state => @company.state, :country => @company.country, :contact_mobile => @company.contact_mobile, :contact_office => @company.contact_office}))
+     @job = @company.jobs.new(params[:job].merge({:company_name => @company.name, :address => @company.address, 
+     :state => @company.state, :country => @company.country, :contact_mobile => @company.contact_mobile, 
+     :contact_office => @company.contact_office}))
+
+     @job.pay = params[:job][:pay]
+     @job.pay_per = params[:job][:pay_per]
+
      if @job.save
        flash[:notice] = "Job created successfully."
        redirect_to user_account_company_job_url(@user, @company, @job)
@@ -42,6 +48,9 @@ class User::JobsController < ApplicationController
    
    def update
      if @job.update_attributes(params[:job])
+       @job.pay = params[:job][:pay]
+       @job.pay_per = params[:job][:pay_per]
+       @job.save
        flash[:notice] = "Job updated successfully."
        redirect_to user_account_company_job_url(@user, @company, @job)
      else

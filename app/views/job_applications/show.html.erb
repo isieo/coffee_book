@@ -1,0 +1,12 @@
+<%= render :partial => "shared/left_navigator" %>
+<div class="content-section">
+	<h1 class="content-title tjob"> <i>&nbsp;</i> <%= @application.username %>'s application</h1>
+	<hr class="divider">
+	<hr style="height:20px">
+	<%= @application.username %> said :
+  <div>
+    <p><%= @application.applicant_description %></p>
+	</div>
+	<%#= link_to "Approve", approve_user_account_company_job_path(@user, @company, @job, :applicant_id => a.id), :class => "btn"%>
+</div>	
+

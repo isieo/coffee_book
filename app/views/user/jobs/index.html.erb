@@ -8,7 +8,7 @@
         <th>Title</th>
         <th>Position</th>
         <th>Address</th>
-        <th>Salary (RM)</th>
+        <th>Pay</th>
         <th>Working Time (Hours)</th>
         <th>Date</th>
         <th></th>
@@ -20,7 +20,7 @@
           <td><%= j.title %></td>
           <td><%= j.position %></td>
           <td><%= j.address %></td>
-          <td><%= j.salary %></td>
+          <td><%= number_to_currency(@job.pay, :format => "RM %n") %>/<%= @job.pay_per %></td>
           <td><%= j.time %></td>
           <td><%= j.date %></td>
           <td class = "details-more"><%= link_to "View", user_account_company_job_path(@user, @company, j)%></td>

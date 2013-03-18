@@ -13,6 +13,7 @@ class User::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       sign_in_and_redirect @user, :event => :authentication
     else
       session["devise.facebook_data"] = request.env["omniauth.auth"]
+      flash[:notice] = "facebook login error"
       redirect_to root_path
     end
   end

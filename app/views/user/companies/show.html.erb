@@ -1,6 +1,11 @@
 <%= render :partial => "shared/left_navigator"%>
 <div class="content-section">
 	<h1 class="content-title tjob"> <i>&nbsp;</i> <%= @company.name %></h1>
+	<%= link_to "Update company details", edit_user_account_company_path(current_user, @company), :class => "btn save" %>
+  <%= link_to "Add Member", new_member_user_account_company_path(current_user, @company), :class => "btn save" if @user.is_company_admin?(@company._id) %>
+  <%= link_to "View all job", user_account_company_jobs_path(@user, @company), :class => "btn save" %>
+  <%= link_to "New Job", new_user_account_company_job_path(@user, @company), :class => "btn save" %>
+  
   <table class="joblisting">
     <tr>
       <th>Address</th><td><%= @company.address %></td>
@@ -28,72 +33,76 @@
       </td>
     </tr>
   </table>
-  <%= link_to "Edit", edit_user_account_company_path(current_user, @company), :class => "btn save" %>
 
   <h2 class="content-title tjob"><i>&nbsp;</i> Members</h2>
-  <table class="joblisting">
-    <tr>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Contact</th>
-      <th>Action</th>
-    </tr>
-    <% @company.members.each do |m| %>
+  <% if !@company.members.blank?%>
+    <table class="joblisting">
       <tr>
-        <td><%= m.name %></td>
-        <td><%= m.email %></td>
-        <td><%= m.contact_mobile %></td>
-        <td class='details-more'><%= link_to "Delete", delete_member_user_account_company_path(@user, @company, :member => m.username), :confirm => "Are you sure?", :method=>:delete if current_user.is_company_admin?(@company._id) %></td>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Contact</th>
+        <th>Action</th>
       </tr>
-    <% end %>
-  </table>
-  <%= link_to "Add Member", new_member_user_account_company_path(current_user, @company), :class => "btn save" if @user.is_company_admin?(@company._id) %>
-
-  <h2 class="content-title tjob"><i>&nbsp;</i> Jobs created by this company</h2>
-  <%= link_to "View all job", user_account_company_jobs_path(@user, @company), :class => "btn save" %>
-  <%= link_to "New Job", new_user_account_company_job_path(@user, @company), :class => "btn save" %>
-  <table class="joblisting">
-    <tr>
-      <th>Title</th>
-      <th>Address</th>
-      <th>Salary Per day</th>
-      <th>Start Date</th>
-      <th>How Many Days</th>
-      <th></th>
-      <th></th>
-    </tr>
-    <% @company.jobs.each do |job|%>
+      <% @company.members.each do |m| %>
         <tr>
-          <td><%= job.title %></td>
-          <td><%= job.address %></td>
-          <td>
-              <% if job.salary == 0 || job.salary.nil? %>
-                N/A
-              <% else %>
-                <%= number_to_currency(job.salary, :format => "RM %n") %>
-              <% end %>
-          </td>
-          <td><%= job.date.to_date %></td>
-          <td><%= job.day_amount %> Days</td>
-          <td class='details-more'><%= link_to "View", user_account_company_job_path(@user, @company, job)%></td>
-          <td class='details-more'><%= link_to "Edit", edit_user_account_company_job_path(@user, @company, job)%></td>
+          <td><%= m.name %></td>
+          <td><%= m.email %></td>
+          <td><%= m.contact_mobile %></td>
+          <td class='details-more'><%= link_to "Delete", delete_member_user_account_company_path(@user, @company, :member => m.username), :confirm => "Are you sure?", :method=>:delete if current_user.is_company_admin?(@company._id) %></td>
         </tr>
-    <% end %>
-  </table>
+      <% end %>
+    </table>
+  <% else %>
+    There is currently no other members in the company
+  <% end %>
+  
+  <h2 class="content-title tjob"><i>&nbsp;</i> Jobs created by this company</h2>
+  <% if !@company.jobs.blank? %>
+    <table class="joblisting">
+      <tr>
+        <th>Title</th>
+        <th>Address</th>
+        <th>Pay</th>
+        <th>Start Date</th>
+        <th>How Many Days</th>
+        <th></th>
+        <th></th>
+      </tr>
+      <% @company.jobs.each do |job|%>
+          <tr>
+            <td><%= job.title %></td>
+            <td><%= job.address %></td>
+            <td><%= number_to_currency(job.pay, :format => "RM %n") %>/<%= job.pay_per %></td>
+            <td><%= job.date.to_date %></td>
+            <td><%= job.day_amount %> Days</td>
+            <td class='details-more'><%= link_to "View", user_account_company_job_path(@user, @company, job)%></td>
+            <td class='details-more'><%= link_to "Edit", edit_user_account_company_job_path(@user, @company, job)%></td>
+          </tr>
+      <% end %>
+    </table>
+  <% else %>
+    There is currently no jobs created by this company
+  <% end %>
   <%#= load_review(@company.reviews)%>
   <h2 class="content-title tjob"><i>&nbsp;</i>Job Applicants</h2>
-  <table class="joblisting">
-    <tr>
-      <th>Username</th>
-      <th>Jobs Applied</th>
-    </tr>
-    <% @company.job_applications.each do |applicant|%>
+  <% if !@company.job_applications.blank? %>
+    <table class="joblisting">
       <tr>
-          <td><%= applicant.username %></td>
-          <td><%= applicant.job.title %></td>
+        <th>Username</th>
+        <th>Jobs Applied</th>
+        <th></th>
       </tr>
-    <% end %>
-  </table>
+      <% @company.job_applications.each do |applicant|%>
+        <tr>
+            <td><%= applicant.username %></td>
+            <td><%= applicant.job.title %></td>
+            <td class='details-more'><%= link_to "View", job_job_applications_path(applicant)%></td>
+        </tr>
+      <% end %>
+    </table>
+  <% else %>
+    There is currently no job applicant for this company
+  <% end %>
   <h2 class="content-title tjob"><i>&nbsp;</i>Map</h2>
   <%= image_tag "http://maps.google.com/maps/api/staticmap?size=450x300&sensor=false&zoom=16&markers=#{@company.coordinates_latitude}%2C#{@company.coordinates_longitude}" %>
 </div>

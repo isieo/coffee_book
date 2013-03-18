@@ -29,7 +29,8 @@ job = company.jobs.find_or_create_by(title: "games promoter")
 job.title = "games promoter"
 job.position = "Promoter"
 job.address = "Giant Kelana Jaya"
-job.salary = 120
+job.pay = 120
+job.pay_per = 'Per Day'
 job.date = Date.today + 15
 job.day_amount = 5
 job.time = 10
@@ -44,7 +45,8 @@ job2 = company.jobs.find_or_create_by(title: "Pamphlet Distributor")
 job2.title = "Pamphlet Distributor"
 job2.position = "Distributor"
 job2.address = "Paradigm Mall Kelana Jaya"
-job2.salary = 100
+job2.pay = 8
+job2.pay_per = 'Per Hour'
 job2.date = Date.today + 15
 job2.day_amount = 3
 job2.time = 8
@@ -58,7 +60,8 @@ job3 = company.jobs.find_or_create_by(title: "Road Show Model")
 job3.title = "Road Show Model"
 job3.position = "Road Show"
 job3.address = "Tropicana Mall Petaling Jaya"
-job3.salary = 300
+job3.pay = 300
+job3.pay_per = 'Per Day'
 job3.date = Date.today + 15
 job3.day_amount = 2
 job3.time = 6
@@ -117,4 +120,5 @@ if user.jobs.empty?
   user.jobs << job3
   puts "many to many (users to jobs vice versa) save " + user.save.to_s
 end
+
 

@@ -6,6 +6,9 @@ class JobApplication
   
   field :username
   field :status, :type => String, :default => "pending"
+  field :available_day
+  field :reject_reason
+  field :applicant_description
   
   belongs_to :job
   belongs_to :company

@@ -19,13 +19,13 @@ before_filter :find_job, :only => [:show, :apply]
         @address_lon = current_user.coordinates_longitude
         @address_lat = current_user.coordinates_latitude
         for job in Job.near([@address_lat, @address_lon],20)
-          @marker_array << [job.id, job.coordinates_latitude, job.coordinates_longitude, (self.class.helpers.link_to job.title, job_url(job)),('%.2f' % job.salary),job.date]
+          @marker_array << [job.id, job.coordinates_latitude, job.coordinates_longitude, (self.class.helpers.link_to job.title, job_url(job)),('%.2f' % job.pay),job.pay_per,job.date]
         end
         
       end
     end
     for job in Job.near([@lat,@lon],20)
-      @marker_array << [job.id, job.coordinates_latitude, job.coordinates_longitude, (self.class.helpers.link_to job.title, job_url(job)),('%.2f' % job.salary),job.date]
+      @marker_array << [job.id, job.coordinates_latitude, job.coordinates_longitude, (self.class.helpers.link_to job.title, job_url(job)),('%.2f' % job.pay),job.pay_per,job.date]
     end
     respond_to do |format|
       format.html {}
@@ -35,19 +35,6 @@ before_filter :find_job, :only => [:show, :apply]
 
   def show
     @reviews = @job.company.reviews.all.page(params[:page]).per(3)
-  end
-  
-  def apply
-    @job.job_applications.create(:user_id => current_user.id, :username => current_user.username, :company_id => @job.company.id)
-    @job.save
-    @job.company.admins.each do |admin|
-      Delayed::Job.enqueue NotifyJob.new(admin.id, current_user.id, @job.id)
-    end
-    @job.company.members.each do |member|
-      Delayed::Job.enqueue NotifyJob.new(member.id, current_user.id, @job.id)
-    end
-    flash[:notice] = "Job applied successfully, please wait for approval or contact"
-    redirect_to application_path
   end
   
   protected

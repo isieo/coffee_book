@@ -6,7 +6,8 @@ class Job
   
   field :title, :type => String
   field :position, :type => String
-  field :salary, :type => BigDecimal
+  field :pay, :type => BigDecimal
+  field :pay_per, :type => String
   field :date, :type => Date
   field :day_amount, :type => Integer
   field :time, :type => Integer
@@ -32,7 +33,7 @@ class Job
   
   before_validation :initialize_coordinates
   
-  validates_presence_of :title, :address
+  validates_presence_of :title, :address, :pay
   
   geocoded_by :address do |obj,results|
     if geo = results.first
