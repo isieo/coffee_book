@@ -25,6 +25,50 @@ class JobApplicationsController < ApplicationController
     redirect_to application_path
   end
   
+  def edit
+    @application = JobApplication.find(params[:job_id])
+  end
+  
+  def update
+    application = JobApplication.find(params[:job_id])
+    if params[:job_application][:status] == "rejected"
+      application.status = "rejected"
+      application.reject_reason = params[:job_application][:reject_reason]
+      application.save
+      flash[:notice] = "Job application rejected successfully"
+      redirect_to user_account_company_path(current_user, application.company)
+    elsif params[:job_application][:status] == "approved"
+      application.status = "approved"
+      user = application.user
+      company = application.company
+      user.member_of << c
+      company.members << user
+      user.jobs << application.job
+      user.member_of.uniq!
+      company.members.uniq!
+      user.jobs.uniq!
+      user.save
+      company.save
+      application.save
+      flash[:notice] = "Job application approved successfully"
+      redirect_to user_account_company_path(current_user, application.company)
+    end
+
+  end
+  
+  def approve
+    applicant = @job.job_applications.find(params[:applicant_id])
+    applicant.update_attributes(:status => "approved")
+    u = User.find(applicant.user_id)
+    u.jobs << @job
+    u.save
+    @job.save
+
+    flash[:notice] = "User approved"
+    redirect_to user_account_company_job_path(@user, @company, @job)
+  end
+
+
   private
   def initialize_job
   end

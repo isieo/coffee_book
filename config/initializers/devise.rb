@@ -208,6 +208,14 @@ Devise.setup do |config|
   APP_CONFIG = YAML.load_file("#{Rails.root}/config/settings.yml")[Rails.env].symbolize_keys!
   config.omniauth :facebook, APP_CONFIG[:app_id] , APP_CONFIG[:app_secret]
 
+  OmniAuth.config.test_mode = true
+  OmniAuth.config.mock_auth[:facebook] = OmniAuth::AuthHash.new({
+    :provider => 'facebook',
+    :uid => '123456'
+    :email => 'spree@example.com'
+    :name => 'mock_auth_test'
+    # etc.
+  })
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.

@@ -65,17 +65,7 @@ class User::JobsController < ApplicationController
      end
    end
    
-   def approve
-    applicant = @job.job_applications.find(params[:applicant_id])
-    applicant.update_attributes(:status => "approved")
-    u = User.find(applicant.user_id)
-    u.jobs << @job
-    u.save
-    @job.save
 
-    flash[:notice] = "User approved"
-    redirect_to user_account_company_job_path(@user, @company, @job)
-   end
    
    protected
    def find_user

@@ -84,15 +84,15 @@
     There is currently no jobs created by this company
   <% end %>
   <%#= load_review(@company.reviews)%>
-  <h2 class="content-title tjob"><i>&nbsp;</i>Job Applicants</h2>
-  <% if !@company.job_applications.blank? %>
+  <h2 class="content-title tjob"><i>&nbsp;</i>Pending Job Applicants</h2>
+  <% if !@company.job_applications.where(:status => "pending").blank? %>
     <table class="joblisting">
       <tr>
         <th>Username</th>
         <th>Jobs Applied</th>
         <th></th>
       </tr>
-      <% @company.job_applications.each do |applicant|%>
+      <% @company.job_applications.where(:status => "pending").each do |applicant|%>
         <tr>
             <td><%= applicant.username %></td>
             <td><%= applicant.job.title %></td>

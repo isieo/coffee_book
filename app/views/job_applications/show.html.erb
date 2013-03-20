@@ -7,6 +7,18 @@
   <div>
     <p><%= @application.applicant_description %></p>
 	</div>
-	<%#= link_to "Approve", approve_user_account_company_job_path(@user, @company, @job, :applicant_id => a.id), :class => "btn"%>
+	
+	<div class="company-details">
+    <%= simple_form_for(@application, :url => job_job_applications_path, :html => { :method => :put }) do |f| %>
+      <%= f.input :status, :as => :hidden, :input_html => { :value => "approved"  }%>
+      <%= button_tag(type: 'submit', class: "btn save") do %>
+        <span>Approve</span>
+      <% end %>
+      <%= link_to edit_job_job_applications_path(@application), :class => "btn cancel" do%>
+        <span>Reject</span>
+      <% end %>
+    <% end %>
+  </div>
+
 </div>	
 

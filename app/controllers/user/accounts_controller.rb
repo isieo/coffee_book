@@ -82,6 +82,7 @@ class User::AccountsController < ApplicationController
   
   def application
     @pending = current_user.job_applications.where(:status => 'pending')
+    @rejected = current_user.job_applications.where(:status => 'rejected')
     @approved = current_user.jobs
   end
   

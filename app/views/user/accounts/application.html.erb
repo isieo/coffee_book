@@ -30,6 +30,7 @@
         </tr>
       <% end %>
 		</table>
+		
 	  <hr class="divider">
 	  <h2 class="profile-title">Approved</h2>
 		<table class="joblisting">
@@ -58,6 +59,24 @@
         </tr>
       <% end %>
 		</table>
+		
+	  <hr class="divider">
+	  <h2 class="profile-title">Rejected</h2>
+		<table class="joblisting">
+			<tr>
+				<th>Title</th>
+				<th>Reason</th>
+				<th>Details</th>
+			</tr>
+			<% @rejected.each do |reject| %>
+        <tr>
+          <td><%= reject.job.title %></td>
+          <td><%= reject.reject_reason %></td>
+          <td class='details-more'><%= link_to 'See More »', reject.job %></td>
+        </tr>
+      <% end %>
+		</table>
+		
 	</div>
 </div>	
 

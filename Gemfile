@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.11'
+gem 'rails', '3.2.12'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -48,3 +48,12 @@ gem 'kaminari'
 gem 'ransack'
 
 gem "geocoder", :git => 'git://github.com/SailorMercury/geocoder.git'
+
+gem "rspec-rails", :group => [:test, :development]
+group :test do
+  gem "factory_girl_rails"
+  gem "capybara"
+  gem "guard-rspec"
+end
+gem 'rb-inotify', '~> 0.9'
+

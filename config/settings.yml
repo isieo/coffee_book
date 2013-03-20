@@ -5,6 +5,13 @@ development:
   # https://dev.twitter.com/apps/1872270/show
   app_host: localhost:3000
 
+test:
+  app_id: ''
+  app_secret: ''
+  app_url: http://localhost:3000
+  # https://dev.twitter.com/apps/1872270/show
+  app_host: localhost:3000
+
 production:
   app_id: '241021532667942'
   app_secret: '5ba9051b909557b8a1af80e9c7eac50c'
