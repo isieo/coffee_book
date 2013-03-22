@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   
   def check_user_login_count
     if !current_user.nil?
-      if current_user.address.blank?
+      if !current_user.address.blank?
         if current_user.sign_in_count == 1
           redirect_to guide_path
           current_user.sign_in_count = 2
@@ -25,4 +25,8 @@ class ApplicationController < ActionController::Base
       end
     end
   end
+  
+
 end
+
+

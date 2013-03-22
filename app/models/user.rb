@@ -119,20 +119,25 @@ class User
   
   def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)
     data = access_token.extra.raw_info
+    email = data.email
+    email = data.facebook.email if data.email.blank?
     user_name = data.username
-    user_name = data.email if data.username.blank?
+    user_name = email if data.username.blank?
     u_name = data.name
-    u_name = data.email if data.name.blank?
-    user = self.where(email: data.email).first
+    u_name = email if data.name.blank?
+
+    user = self.where(email: email).first
+
     if user.present?
       user.update_attributes(name: u_name, username: user_name, gender: data.gender)
       user.fb_profile_pic = "http://graph.facebook.com/#{data.id}/picture"
       user.save
       user
     else # Create a user with a stub password. 
-      self.create(email: data.email, password: Devise.friendly_token[0,20], name: u_name, username: user_name, gender: data.gender) 
+      user = self.new(email: email, password: Devise.friendly_token[0,20], name: u_name, username: user_name, gender: data.gender) 
+      user.save
+      user
     end
-    
   end
   
   

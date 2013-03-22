@@ -25,7 +25,7 @@
       <tr>
         <th>Title</th>
         <th>Address</th>
-        <th>Salary Per day</th>
+        <th>Pay</th>
         <th>Start Date</th>
         <th>How Many Days</th>
         <th></th>
@@ -34,13 +34,7 @@
       <tr>
         <td><%= job.title %></td>
         <td><%= job.address.truncate(50) %></td>
-        <td>
-            <% if job.salary == 0 || job.salary.nil? %>
-              N/A
-            <% else %>
-              <%= number_to_currency(job.salary, :format => "RM %n") %>
-            <% end %>
-        </td>
+        <td><%= number_to_currency(job.pay, :format => "RM %n") %>/<%= job.pay_per %></td>
         <td><%= job.date.to_date %></td>
         <td><%= job.day_amount %> Days</td>
         <td class='details-more'><%= link_to 'See More', job %></td>

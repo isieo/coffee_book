@@ -44,9 +44,6 @@ class JobApplicationsController < ApplicationController
       user.member_of << c
       company.members << user
       user.jobs << application.job
-      user.member_of.uniq!
-      company.members.uniq!
-      user.jobs.uniq!
       user.save
       company.save
       application.save
