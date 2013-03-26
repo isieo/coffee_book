@@ -20,7 +20,7 @@
           <td><%= j.title %></td>
           <td><%= j.position %></td>
           <td><%= j.address %></td>
-          <td><%= number_to_currency(@job.pay, :format => "RM %n") %>/<%= @job.pay_per %></td>
+          <td><%= number_to_currency(j.pay, :format => "RM %n") %>/<%= j.pay_per %></td>
           <td><%= j.time %></td>
           <td><%= j.date %></td>
           <td class = "details-more"><%= link_to "View", user_account_company_job_path(@user, @company, j)%></td>

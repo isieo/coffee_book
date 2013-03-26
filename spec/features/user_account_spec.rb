@@ -20,11 +20,20 @@ describe "login user, " do
     click_link "My Account"
     page.should have_content("foobar")
   end
-  
-  it "My account page is accessible" do
+
+  it "adding comment to my account" do
     login_first_time
     click_link "My Account"
-    page.should have_content("foobar")
+    fill_in "comment", :with => "testing 123"
+    click_button "Comment"
+    page.should have_content("testing 123")
+  end
+  
+  it "account map page is accessible" do
+    login_first_time
+    click_link "Edit my details"
+    click_link "map"
+    page.should have_content("foobar@example.com")
   end
 end
 
