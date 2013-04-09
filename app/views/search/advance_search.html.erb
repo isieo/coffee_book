@@ -1,4 +1,4 @@
-<%= render :partial => "shared/left_navigator" %>
+<%= render :partial => "shared/left_navigator", :locals => {:current_link => "adv_search"} %>
 <div class="content-section">
 	<h1 class="content-title tjob"> <i>&nbsp;</i> Advance Search</h1>
 	<% if params[:search_type].nil? %>

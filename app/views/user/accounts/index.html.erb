@@ -1,4 +1,4 @@
-<%= render :partial => "shared/left_navigator" %>
+<%= render :partial => "shared/left_navigator", :locals => {:current_link => "user"} %>
 
 <div class="content-section">
 	<h1 class="content-title tprofile"> <i>&nbsp;</i> <%= @user.name%>'s Details</h1>

@@ -1,4 +1,4 @@
-<%= render :partial => "shared/left_navigator" %>
+<%= render :partial => "shared/left_navigator", :locals => {:current_link => "jobs"} %>
 <%= render :partial => "shared/google_map_js", :locals =>{ :user => @user} %>
 <div class="content-section">
 	<h1 class="content-title tjob"> <i>&nbsp;</i> Jobs Listing</h1>
@@ -18,8 +18,9 @@
 				<th>Job Duration</th>
 				<th>Details</th>
 			</tr>
+			<% i = 1%>
 			<% @jobs.each do |job| %>
-        <tr>
+        <tr class = '<%= i%2 == 1 ? "_odd" : "_even"%>'>
           <td class="recommend"><%= image_tag('recommend-on.png', :size => "25x25")%></td>
           <td><%= job.title %></td>
           <td><%= job.address.truncate(30) %></td>
@@ -28,6 +29,7 @@
           <td><%= job.day_amount %> Days</td>
           <td class='details-more'><%= link_to 'See More »', job %></td>
         </tr>
+        <% i = i + 1%>
       <% end %>
 		</table>
 	</div>	

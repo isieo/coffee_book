@@ -1,4 +1,4 @@
-<%= render :partial => "shared/left_navigator" %>
+<%= render :partial => "shared/left_navigator", :locals => {:current_link => "my_jobs_index"} %>
 <div class="content-section">
 	<h1 class="content-title tadd"> <i>&nbsp;</i> Jobs created by <%= @company.name %></h1>
 	<hr class="divider">

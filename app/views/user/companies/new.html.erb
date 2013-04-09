@@ -1,4 +1,4 @@
-<%= render :partial => "shared/left_navigator" %>
+<%= render :partial => "shared/left_navigator", :locals => {:current_link => "company"} %>
 <div class="content-section">
 	<h1 class="content-title tadd"> <i>&nbsp;</i> Add Company</h1>
 	<hr class="divider">
@@ -13,8 +13,7 @@
         <span>back</span>
       <% end %>
 	  <% end %>
-	</div>	
+	</div>
+	<%= render 'map' %>
 </div>
-
-
 

@@ -1,4 +1,4 @@
-<%= render :partial => "shared/left_navigator" %>
+<%= render :partial => "shared/left_navigator", :locals => {:current_link => "company"} %>
 <div class="content-section">
 	<h1 class="content-title tbrowse"> <i>&nbsp;</i> Companies under <%= current_user.name %></h1>
 	<hr class="divider">

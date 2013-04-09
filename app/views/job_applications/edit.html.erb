@@ -1,4 +1,4 @@
-<%= render :partial => "shared/left_navigator" %>
+<%= render :partial => "shared/left_navigator", :locals => {:current_link => "application"} %>
 <div class="content-section">
 	<h1 class="content-title tjob"> <i>&nbsp;</i> Rejecting <%= @application.username %>'s application</h1>
 	<hr class="divider">

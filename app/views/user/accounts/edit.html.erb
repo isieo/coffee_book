@@ -1,4 +1,4 @@
-<%= render :partial => "shared/left_navigator" %>
+<%= render :partial => "shared/left_navigator", :locals => {:current_link => "edit"} %>
 <div class="content-section">
   <%= render :partial => "account_menu",:locals =>{ :step => 'details'} %>
 

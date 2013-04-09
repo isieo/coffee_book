@@ -1,4 +1,4 @@
-<%= render :partial => "shared/left_navigator"%>
+<%= render :partial => "shared/left_navigator", :locals => {:current_link => "company"}%>
 <div class="content-section">
 	<h1 class="content-title tjob"> <i>&nbsp;</i> <%= @company.name %></h1>
 	<%= link_to "Update company details", edit_user_account_company_path(current_user, @company), :class => "btn save" %>

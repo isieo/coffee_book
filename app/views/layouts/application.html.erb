@@ -18,55 +18,78 @@
     <link href="images/apple-touch-icon.png" rel="apple-touch-icon">
     <link href="images/apple-touch-icon-72x72.png" rel="apple-touch-icon" sizes="72x72">
     <link href="images/apple-touch-icon-114x114.png" rel="apple-touch-icon" sizes="114x114">
+    <script type="text/javascript">
+	    div = {
+		    show: function(elem) {
+			    document.getElementById(elem).style.visibility = 'visible';
+		    },
+		    hide: function(elem) {
+			    document.getElementById(elem).style.visibility = 'hidden';
+		    }
+	    }
+    </script>
+    <script>
+	    $('menunav li a').click(
+	    function(e) {
+	       e.preventDefault(); // prevent the default action
+	       e.stopPropagation(); // stop the click from bubbling
+	       $(this).closest('ul').find('._a').removeClass('_a');
+	       $(this).parent().addClass('_a');
+	    });
+    </script>
   </head>
   <body>
-    <div id="header"><div class="section">
-	    <div class="logo">
-        <%= link_to image_tag("8dvice.png", :size => "100x45", :alt => "8vice"), root_path%>
-	    </div>
-
-	    <div class="header-bar">
-		    <div class="searchform fleft">
-          <%= render :partial => "shared/search_form"%>
-		    </div>
-        <%if !user_signed_in?%>
-			    <%- if devise_mapping.omniauthable? %>
-            <%- resource_class.omniauth_providers.each do |provider| %>
-             <%= link_to raw("<i> &nbsp; </i><span>Login</span>"), omniauth_authorize_path(resource_name, provider), :class => "btn login" %>
-            <% end -%>
-          <% end -%>
-        <% else %>
-          <%= link_to raw("<i> &nbsp; </i><span>Logout</span>"), destroy_user_session_path, :class => "btn logout"%>
-		      <div class="userprofile">
-		        <% if !current_user.cover_image_uid.nil? %>
-		          <%= image_tag (current_user.cover_image.url), :size => "40x40", :class => "user-img" %>
-		        <% elsif !current_user.fb_profile_pic.nil? %>
-		          <%= image_tag (current_user.fb_profile_pic), :size => "40x40", :class => "user-img" %>
-		        <% else %>
-		          <%= image_tag("default-profile-photo.png", :size => "40x40", :class => "user-img")%>
-		        <% end %>
-			      <p class="username"> <%=link_to current_user.name.truncate(10), user_accounts_path(current_user) %></p>
-		      </div>
-        <% end %>
-	    </div>
-    </div></div>
-
-    <div id="container">
+    <div id="header">
       <div class="section">
+	      <div class="logo">
+          <%= link_to image_tag("8dvice.png", :size => "100x45", :alt => "8vice"), root_path%>
+	      </div>
+
+	      <div class="header-bar">
+		      <div class="searchform fleft">
+            <%= render :partial => "shared/search_form"%>
+		      </div>
+          <%if !user_signed_in?%>
+			      <%- if devise_mapping.omniauthable? %>
+              <%- resource_class.omniauth_providers.each do |provider| %>
+               <%= link_to raw("<i> &nbsp; </i><span>Login</span>"), omniauth_authorize_path(resource_name, provider), :class => "btn login" %>
+              <% end -%>
+            <% end -%>
+          <% else %>
+		        <div class="userprofile">
+		          <ul>
+		            <li onMouseOver="div.show('dropdown-nav')" onMouseOut="div.hide('dropdown-nav')">
+		              <% if !current_user.cover_image_uid.nil? %>
+		                <%= image_tag (current_user.cover_image.url), :size => "40x40", :class => "user-img" %>
+		              <% elsif !current_user.fb_profile_pic.nil? %>
+		                <%= image_tag (current_user.fb_profile_pic), :size => "40x40", :class => "user-img" %>
+		              <% else %>
+		                <%= image_tag("default-profile-photo.png", :size => "40x40", :class => "user-img")%>
+		              <% end %>
+		              <a class="username" href="#"><%= current_user.name.truncate(10) %></a>
+							    <div id="dropdown-nav">
+								    <span><%=link_to "My Profile", user_accounts_path(current_user) %></span>
+								    <span><%=link_to "Locate Jobs", jobs_path %></span>
+								    <span class="last-child"><%= link_to "Logout", destroy_user_session_path %></span>
+							    </div>
+		            </li>
+		          </ul>
+		        </div>
+          <% end %>
+	      
+      </div></div>
+
+      <div id="container"><div class="section">
         <div class="content-area">
           <%= render 'layouts/flash_message' %>
-          <%= yield %>
-        
-          <div id="footer" class="clear">
-
-	          <p class="copyrights">© 2012 8vice. All rights reserved. </p>
-	
-          </div>
+          <%= yield %>  
         </div>
-      </div>
+      </div></div>
+
+      <div id="footer" class="clear"><div class="section">
+        <p class="copyrights">© <%= Date.today.year%> 8vice. All rights reserved. </p>
+      </div></div>
+
     </div>
-
-
-
   </body>
 </html>
