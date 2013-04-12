@@ -297,8 +297,6 @@ a.username {
 	color: #fff;
 	float: right;
 	margin: 18px 15px;
-	
-
 }
 
 .login i{
@@ -651,6 +649,21 @@ select {
 
 @media screen and (-webkit-min-device-pixel-ratio:0) {
     select {padding-right:18px}
+}
+
+select.dateofbirth {
+	width: 75px;
+	background: #f8f8f8 url(select-arrow.png) no-repeat 58px 5px ;
+	display: inline-block;
+	margin: 3px 3px 15px;
+}
+
+select.dateofbirth._numdate {
+	margin-left: 20px;
+}
+
+#user_dob_3i{
+  margin-left: 20px;
 }
 
 .photo-chosen {

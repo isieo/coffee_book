@@ -30,14 +30,14 @@
       <%= f.input :contact_mobile, :input_html => { :class => 'inputdetails' } %>
       <%= f.input :contact_home, :input_html => { :class => 'inputdetails' } %>
       <%= f.input :gender, :collection => [["Male", "Male"], ["Female", "Female"]], :prompt => false, :input_html => { :class => 'inputdetails' } %>
-      <%= f.input :dob, :label => "Date of Birth", :as => :date, :start_year => Date.today.year - 90, :end_year => Date.today.year - 12, :order => [:day, :month, :year], :prompt => {:day => 'Day', :month => 'Month', :year => 'Year'}, :input_html => { :class => 'inputdetails' } %>
+      <%= f.input :dob, :label => "Date of Birth", :as => :date, :start_year => Date.today.year - 90, :end_year => Date.today.year - 12, :order => [:day, :month, :year], :prompt => {:day => 'Day', :month => 'Month', :year => 'Year'}, :input_html => { :class => 'dateofbirth' } %>
       <%= f.input :nationality, :input_html => { :class => 'inputdetails' } %>
       <%= f.input :ic_number, :input_html => { :class => 'inputdetails' } %>
       <% if f.object.cover_image_uid %>
         <%= image_tag f.object.cover_image.thumb('100x100').url %>
       <% end %>
       <%= f.label :cover_image, "Photo", :class => "string optional control-label", :for=>"user_contact_mobile" %>
-      <%= f.file_field :cover_image, :class => "string optional" %>
+      <%= f.file_field :cover_image, :class => "photo-chosen", :id => "file" %>
       <hr style="height:20px;">
       <%= button_tag(type: 'submit', class: "btn save") do %>
         <span>save</span>
