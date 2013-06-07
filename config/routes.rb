@@ -1,6 +1,6 @@
 CoffeeBook::Application.routes.draw do
   get 'search' => 'search#search', :as => :search
-  get 'admin_login' => 'home#admin_login'
+  get 'login' => 'home#login'
   get 'guide' => 'home#guide'
   get 'application' => 'user/accounts#application', :as => :application
   get 'advance_search' => 'search#advance_search', :as => :advance_search

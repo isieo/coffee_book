@@ -27,37 +27,16 @@ class User::AccountsController < ApplicationController
   end
   
   def update
-    #if params[:user][:password].blank?
+    if params[:user][:password].blank?
       # Bypass to enter current password and password is null during update profile
-      #params[:user].delete(:password)
-      #params[:user].delete(:password_confirmation)
-      #params[:user].delete(:current_password)
-    #else
+      params[:user].delete(:password)
+      params[:user].delete(:password_confirmation)
+      params[:user].delete(:current_password)
+    else
       # Bypass to enter current password during update profile
-      #params[:user].delete(:current_password)
-    #end
-  #:name,  :email, :address,
-  #:coordinates_latitude,:coordinates_longitude ,:city, 
-  #:state, :country, :contact_mobile, :contact_home, :dob, 
-  #:gender, :nationality, :ic_number, :cover_image
-    if @user == current_user
-      @user.email = params[:user][:email]
-      @user.name = params[:user][:name]
-      @user.address = params[:user][:address]
-      @user.coordinates_latitude = params[:user][:coordinates_latitude]
-      @user.coordinates_longitude = params[:user][:coordinates_longitude]
-      @user.contact_mobile = params[:user][:contact_mobile]
-      @user.contact_home = params[:user][:contact_home]
-      if !params[:user]['dob(3i)'].blank? && !params[:user]['dob(2i)'].blank? && !params[:user]['dob(1i)'].blank?
-        dob = params[:user]['dob(3i)'] + "-" + params[:user]['dob(2i)'] + "-" + params[:user]['dob(1i)']
-        @user.dob = dob
-      end
-      @user.gender = params[:user][:gender]
-      @user.nationality = params[:user][:nationality]
-      @user.ic_number = params[:user][:ic_number]
-      @user.cover_image = params[:user][:cover_image] if params[:user][:cover_image]
-      @user.cover_image_uid_will_change!
-      @user.save
+      params[:user].delete(:current_password)
+    end
+    if @user.update_attributes(params[:user])
       sign_in @user, :bypass => true
       flash[:notice] = "User profile updated successfully."
       redirect_to user_accounts_url(@user)

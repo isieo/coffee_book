@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   def check_user_address
     if !current_user.nil?
       if current_user.address.blank?
-        flash[:notice] = "Please update your address"
+        flash[:notice] = "We need your address to find jobs near you!"
         redirect_to edit_user_account_path(current_user)
       end
     end

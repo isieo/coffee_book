@@ -1,28 +1,58 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<%#= link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete, :class => "btn btn-danger" %>
 
-<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => "form-horizontal" }) do |f| %>
+<%= render :partial => "shared/left_navigator", :locals => {:current_link => "edit"} %>
+<div class="content-section">
+  <%= render :partial => "user/accounts/account_menu",:locals =>{ :step => 'details'} %>
 
-  <%= f.input :email %>
-  <%= f.input :name %>
-  <%= f.input :username %>
-  <%= f.input :password, :hint => "leave blank if you don't want to change it" %>
-  <%= f.input :password_confirmation %>
-  <%= f.input :current_password, :hint => "we need your current password to confirm your changes" %>
-  <%= f.input :address_street1 %>
-  <%= f.input :address_street2 %>
-  <%= f.input :post_code %>
-  <%= f.input :state %>
-  <%= f.input :country %>
-  <%= f.input :contact_mobile %>
-  <%= f.input :contact_home %>
-  <%= f.input :gender %>
-  <%= f.input :nationality %>
-  <%= f.input :ic_number %>
+	<div class="pro-header clear">
+		<h1 class="content-title tinfo"> <i>&nbsp;</i> Edit Details </h1>
+    <% if !current_user.cover_image_uid.nil? %>
+      <%= image_tag (current_user.cover_image.url), :size => "68x64", :class => "profile-img" %>
+    <% elsif !current_user.fb_profile_pic.nil? %>
+      <%= image_tag (current_user.fb_profile_pic), :size => "68x64", :class => "profile-img" %>
+    <% else %>
+      <%= image_tag("default-profile-photo.png", :size => "68x64", :class => "profile-img")%>
+    <% end %>
+		<h2 class="profile-title"><%= current_user.name %></h2>
+		<hr class="divider">
+	</div>
 
-  <div class="form-actions">
-    <%= f.submit "Update", :class => "btn btn-primary"%>
-    <%= link_to "Back", :back, :class => "btn btn-info" %>
-  </div>
-<% end %>
+	<div class="pro-details">
+	  <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :multipart => true}) do |f| %>
+      <%= f.input :email, :input_html => { :class => 'inputdetails' }, :wrapper => false  %>
+      <%= f.input :name, :input_html => { :class => 'inputdetails' } %>
+      <%#= f.input :username, :input_html => { :class => 'inputdetails' } user_account_path%>
+      <% if f.object.fb_profile_pic.nil?%>
+        <%= f.input :password, :input_html => { :class => 'inputdetails' } %>
+        <%= f.input :password_confirmation, :input_html => { :class => 'inputdetails' } %>
+        <%= f.input :current_password, :input_html => { :class => 'inputdetails' } %>
+      <% end %>
+      <%= f.input :address, :input_html => { :class => 'inputdetails' } %>
+      <%= f.input :coordinates_latitude, :input_html => { :class => 'inputdetails' } %>
+      <%= f.input :coordinates_longitude, :input_html => { :class => 'inputdetails' } %>
+      <%= f.input :contact_mobile, :input_html => { :class => 'inputdetails' } %>
+      <%= f.input :contact_home, :input_html => { :class => 'inputdetails' } %>
+      <%= f.input :gender, :collection => [["Male", "Male"], ["Female", "Female"]], :prompt => false, :input_html => { :class => 'inputdetails' } %>
+      <%= f.input :dob, :label => "Date of Birth", :as => :date, :start_year => Date.today.year - 90, :end_year => Date.today.year - 12, :order => [:day, :month, :year], :prompt => {:day => 'Day', :month => 'Month', :year => 'Year'}, :input_html => { :class => 'dateofbirth' } %>
+      <%= f.input :nationality, :input_html => { :class => 'inputdetails' } %>
+      <%= f.input :ic_number, :input_html => { :class => 'inputdetails' } %>
+      <% if f.object.cover_image_uid %>
+        <%= image_tag f.object.cover_image.thumb('100x100').url %>
+      <% end %>
+      <%= f.label :cover_image, "Photo", :class => "string optional control-label", :for=>"user_contact_mobile" %>
+      <%= f.file_field :cover_image, :class => "photo-chosen", :id => "file" %>
+      <hr style="height:20px;">
+      <%= button_tag(type: 'submit', class: "btn save") do %>
+        <span>save</span>
+      <% end %>
+      <%= link_to :back, :class => "btn back" do%>
+        <span>back</span>
+      <% end %>
+      <%= link_to raw("<span>cancel my account</span>"), registration_path(@user), :confirm => "Are you sure?", :method => :delete, :class => "btn cancel fright" %>
+    <% end %>
+	</div>
+	<%= render 'user/accounts/map' %>
+</div>
 
-<%= link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete, :class => "btn btn-danger" %>
+
+

@@ -1,0 +1,39 @@
+<%= render :partial => "shared/left_navigator", :locals => {:current_link => "login"} %>
+<div class="content-section">
+	<div class="company-details">
+    <h1 class="content-title tadd">Sign in</h1>
+
+    <%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+
+      <%= f.input :login, :class => "inputdetails", :placeholder => "Email/Username" %>
+      <%= f.input :password, :class => "inputdetails", :placeholder => "Password", :type => "password" %>
+
+      <% if devise_mapping.rememberable? -%>
+        <%= f.check_box :remember_me %>
+        Remember Me
+      <% end -%>
+
+      <div class="form-actions">
+        <%= f.submit "Sign in" %>
+      </div>
+    <% end %>
+	</div>
+	<div class="pro-details wizard-gmap" style="border: none;">
+    <h1 class="content-title tadd">Sign up</h1>
+
+    <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+      
+      <%= f.input :email, :class => "inputdetails", :placeholder => "example@google.dev" %>
+      <%= f.input :username, :class => "inputdetails", :placeholder => "Kratos" %>
+      <%= f.input :name, :class => "inputdetails", :placeholder => "David" %>
+      <%= f.input :password, :class => "inputdetails" %>
+      <%= f.input :password_confirmation, :class => "inputdetails" %>
+      <%= f.input :gender, :class => "inputdetails", :collection => [["Male", "Male"], ["Female", "Female"]], :prompt => false %>
+      <%= f.input :dob, :input_html => { :class => 'dateofbirth' }, :label => "Date of Birth", :as => :date, :start_year => Date.today.year - 90, :end_year => Date.today.year - 12, :order => [:day, :month, :year], :prompt => {:day => 'Day', :month => 'Month', :year => 'Year'} %>
+
+      <div class="form-actions">
+        <%= f.submit "Sign up" %>
+      </div>
+    <% end %>
+  </div>
+</div>

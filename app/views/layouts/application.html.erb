@@ -49,12 +49,8 @@
 		      <div class="searchform fleft">
             <%= render :partial => "shared/search_form"%>
 		      </div>
-          <%if !user_signed_in?%>
-			      <%- if devise_mapping.omniauthable? %>
-              <%- resource_class.omniauth_providers.each do |provider| %>
-               <%= link_to raw("<i> &nbsp; </i><span>Login</span>"), omniauth_authorize_path(resource_name, provider), :class => "btn login" %>
-              <% end -%>
-            <% end -%>
+          <% if !user_signed_in? %>
+             <%= link_to raw("<i> &nbsp; </i><span>Login</span>"), login_path, :class => "btn login" %>
           <% else %>
 		        <div class="userprofile">
 		          <ul>
