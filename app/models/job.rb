@@ -5,6 +5,7 @@ class Job
   include Geocoder::Model::Mongoid
   
   field :title, :type => String
+  validates :title, presence: true
   field :position, :type => String
   field :pay, :type => BigDecimal
   field :pay_per, :type => String

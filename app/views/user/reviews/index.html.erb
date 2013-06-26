@@ -1,26 +1,61 @@
-<%= render :partial => "shared/left_navigator", :locals => {:current_link => "review"}  %>
-<div class="content-section">
-  <%= render :partial => "user/accounts/account_menu", :locals =>{ :step => 'ratings'} %>
-	<div class="rating-section clear">
-		<h1 class="content-title trating"> <i>&nbsp;</i> My Ratings</h1>
-		<hr class="divider dashed">
-    <% @reviews.each do |r| %>
-      <div class="reviews">
-        <%= image_tag("default-profile-photo.png", :size => "40x40", :class => "reviews-img")%>
-        <div class="reviews-details">
-          <h5><%= r.poster.name %></h5>
-          <span class="reviews-date"><%= r.created_at.to_date %></span>
-				  <span class="reviews-rating">
-				    <%= image_tag("ratings-on.png", :title => "Bad", :size => "15x15", :class => "rating-star")%>
-				    <%= image_tag("ratings-on.png", :title => "Poor", :size => "15x15", :class => "rating-star")%>
-				    <%= image_tag("ratings-off.png", :title => "Regular", :size => "15x15", :class => "rating-star")%>
-				    <%= image_tag("ratings-off.png", :title => "Good", :size => "15x15", :class => "rating-star")%>
-				    <%= image_tag("ratings-off.png", :title => "Awesome", :size => "15x15", :class => "rating-star")%>	
-				  </span>
-				  <p class="reviews-comment"><%= r.comment %></p>
-				</div>
-			</div>
-			<hr class="divider dashed">
-    <% end %>
+<div class="row">
+  <div class="small-12 large-12 columns">
+    <h2> My Ratings</h2>
+    <hr>
   </div>
+</div>
+
+<div class="row">
+  <% @reviews.each do |review| %>
+    <div class="small-4 large-4 columns panel">
+      <div class="row">
+      
+        <div class="small-4 large-4 columns">
+          <% if review.poster && !review.poster.cover_image_uid.nil? %>
+             <%= image_tag(review.poster.cover_image.url, :size => "50x50", :class => "th") %>
+          <% elsif review.poster && !review.poster.fb_profile_pic.nil? %>
+             <%= image_tag(review.poster.fb_profile_pic, :size => "50x50", :class => "th") %>
+          <% else %>
+             <%=  image_tag("default-profile-photo.png", :size => "50x50", :class => "th") %>
+          <% end %>
+        </div>
+        
+        <div class="small-8 large-8 columns">
+
+          <div class = 'row'>
+            <div class="small-12 large-12 columns">
+              <b><%= review.poster.name %></b> :
+              <span><%= review.created_at.to_date.to_s %></span>
+            </div>
+          </div>
+          
+          <div class = 'row'>
+            <div class="small-12 large-12 columns">
+              <span>
+                <% rating_title = ["Bad", "Poor", "Regular","Good","Awesome"] %>
+                <% count = 0 %>
+                <% while (count < (review.rating||0)) %>
+                   <%= image_tag("ratings-on.png", :title => "#{rating_title[count]}", :size => "15x15", :class => "rating-star") %>
+                  <% count = count + 1 %>
+                <% end %>
+                <% while (count != 5) %>
+                  <%= image_tag("ratings-off.png", :title => "#{rating_title[count]}", :size => "15x15", :class => "rating-star") %>
+                  <% count = count + 1 %>
+                <% end %>
+              </span>
+            </div>
+          </div>
+          
+          <div class = "row">
+            <div class="small-12 large-12 columns">
+              <p><%= review.comment %></p>
+            </div>
+          </div>
+          
+        </div>
+        
+      </div>
+    </div>
+  <% end %>
+  <hr>
 </div>

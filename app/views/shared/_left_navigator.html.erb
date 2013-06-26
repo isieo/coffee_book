@@ -1,17 +1,13 @@
-<div class="sidebar-section">
-
-	<ul class="sidebar">
-		<li class=<%= '_active' if current_link == 'user' %>><%= link_to "My Account", user_accounts_path(current_user) if !current_user.nil? %><span>&nbsp;</span></li>
-		<li class=<%= '_active' if current_link == 'edit' %>><%= link_to "Edit my details", edit_user_account_path(current_user) if !current_user.nil? %><span>&nbsp;</span></li>
-		<li class=<%= '_active' if current_link == 'application' %>><%= link_to "My Applications", application_path if !current_user.nil? %><span>&nbsp;</span></li>
-		<li class=<%= '_active' if current_link == 'jobs' %>><%= link_to "List Jobs", jobs_path %></li>
-		<li class=<%= '_active' if current_link == 'company' %>><%= link_to "Company", user_account_companies_path(current_user) if !current_user.nil? %><span>&nbsp;</span></li>
-		<li class=<%= '_active' if current_link == 'review' %>><%= link_to "Review", user_account_reviews_path(current_user) if !current_user.nil? %><span>&nbsp;</span></li>
-		<li class="logout"><%= link_to ("Logout"), destroy_user_session_path if !current_user.nil? %><span>&nbsp;</span></li>
-	</ul>
-
-	<div class="side-ads">
-	  <%= link_to image_tag('side-ads.jpg', :size => "200x390", :class => "ads-border")%>
-	</div>	
-
+<div class="sidebar-section small-3 large-3 columns">
+  <div class="sidebar-section">
+    <ul class="side-nav">
+      <li class=<%= 'active' if current_link == 'user' %>><%= link_to "My Account", user_accounts_path(current_user) if !current_user.nil? %></li>
+      <li class=<%= 'active' if current_link == 'edit' %>><%= link_to "Edit my details", edit_user_account_path(current_user) if !current_user.nil? %></li>
+      <li class=<%= 'active' if current_link == 'application' %>><%= link_to "My Applications", application_path if !current_user.nil? %></li>
+      <li class=<%= 'active' if current_link == 'jobs' %>><%= link_to "List Jobs", jobs_path %></li>
+      <li class=<%= 'active' if current_link == 'company' %>><%= link_to "Company", user_account_companies_path(current_user) if !current_user.nil? %></li>
+      <li class=<%= 'active' if current_link == 'review' %>><%= link_to "Review", user_account_reviews_path(current_user) if !current_user.nil? %></li>
+    </ul>
+  </div>
+  <%= link_to image_tag('side-ads.jpg', :size => "200x390", :class => "ads-border")%>
 </div>

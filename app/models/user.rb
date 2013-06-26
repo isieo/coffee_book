@@ -8,16 +8,16 @@ class User
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :authentication_keys => [:login]
-  
-  attr_accessible :name, :username, :email, :password, :password_confirmation, :address,:coordinates_latitude,:coordinates_longitude ,:city, :state, :country, :contact_mobile, :contact_home, :dob, :gender, :nationality, :ic_number, :login, :cover_image
+  devise :database_authenticatable, :registerable, :omniauthable,
+         :recoverable, :rememberable, :trackable, :validatable,  :authentication_keys => [:login]
+
+  attr_accessible :name, :username, :email, :password, :password_confirmation, :address,:coordinates_latitude,:coordinates_longitude ,:city, :state, :country, :contact_mobile, :contact_home, :dob, :gender, :nationality, :ic_number, :login
   attr_accessor :login, :image
 
   ## Database authenticatable
-  field :email,              :type => String, :null => false, :default => ""
-  field :encrypted_password, :type => String, :null => false, :default => ""
-
+  field :email,              :type => String
+  field :encrypted_password, :type => String
+  validates :email, :presence => true, :uniqueness => true
   ## Recoverable
   field :reset_password_token,   :type => String
   field :reset_password_sent_at, :type => Time
@@ -46,8 +46,10 @@ class User
   ## Token authenticatable
   # field :authentication_token, :type => String
   
-  field :name, :type => String, :null => false
-  field :username, :type => String, :null => false
+  field :name, :type => String
+  field :username, :type => String
+  validates :name, presence: true
+  validates :username, :presence => true, :uniqueness => true
   field :address, :type => String
   field :coordinates
   field :coordinates_latitude, :type => Float
@@ -61,8 +63,10 @@ class User
   field :gender, :type => String
   field :nationality, :type => String
   field :ic_number, :type => String
-  field :cover_image_uid, :type => String
+  field :image, :type => String
   field :fb_profile_pic, :type => String
+  field :provider, :type => String
+  field :uid
   
   before_validation :initialize_coordinates
   after_validation :geocode, :reverse_geocode, :if => (:address_changed? || :coordinates_latitude_changed? || :coordinates_longitude_changed?)
@@ -73,13 +77,12 @@ class User
   has_and_belongs_to_many :jobs
   has_many :job_applications
   embeds_many :reviews
+  mount_uploader :image, PictureUploader
 
   validates_uniqueness_of :username, :email
   validates_presence_of :username, :name
   
   search_in :name, :email, :username
-  
-  image_accessor :cover_image
   
   geocoded_by :address do |obj,results|
     if geo = results.first
@@ -107,7 +110,7 @@ class User
     username
   end
   
-  # Overwrite Devise authentication method
+  #for login with both email and username
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
     if login = conditions.delete(:login)
@@ -117,26 +120,39 @@ class User
     end
   end
   
-  def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)
-    data = access_token.extra.raw_info
-    email = data.email
-    email = data.facebook.email if data.email.blank?
-    user_name = data.username
-    user_name = email if data.username.blank?
-    u_name = data.name
-    u_name = email if data.name.blank?
+  #for devise facebook login
+  def self.from_omniauth(auth)
+    where(auth.slice(:provider, :uid)).first_or_create do |user|
+      user.provider = auth.provider
+      user.uid = auth.uid
+      user.username = auth.info.nickname
+      user.name = auth.info.name
+      user.email = auth.info.email
+      user.address = auth.info.location
+      user.fb_profile_pic = auth.info.image#"http://graph.facebook.com/" + auth.uid + "/picture"
+    end
+  end
 
-    user = self.where(email: email).first
+  def self.new_with_session(params, session)
+    if session["devise.user_attributes"]
+      new(session["devise.user_attributes"], without_protection: true) do |user|
+        user.attributes = params
+        user.valid?
+      end
+    else
+      super
+    end
+  end
 
-    if user.present?
-      user.update_attributes(name: u_name, username: user_name, gender: data.gender)
-      user.fb_profile_pic = "http://graph.facebook.com/#{data.id}/picture"
-      user.save
-      user
-    else # Create a user with a stub password. 
-      user = self.new(email: email, password: Devise.friendly_token[0,20], name: u_name, username: user_name, gender: data.gender) 
-      user.save
-      user
+  def password_required?
+    super && provider.blank?
+  end
+
+  def update_with_password(params, *options)
+    if encrypted_password.blank?
+      update_attributes(params, *options)
+    else
+      super
     end
   end
   

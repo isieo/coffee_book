@@ -1,21 +1,19 @@
-<%= render :partial => "shared/left_navigator", :locals => {:current_link => "experience"} %>
-<div class="content-section">
-  <%= render :partial => "user/accounts/account_menu",:locals =>{ :step => 'experience'} %>
-	<div class="experince-section clear">
-	<h1 class="content-title texp"> <i>&nbsp;</i> Coming Soon!</h1>
-		<!--<h1 class="content-title texp"> <i>&nbsp;</i> My Experience Achievement</h1>
-		<ul class="list list-badge">
-			<li> <%= image_tag('exp-badge-01.png', :size => '85x85')%> </li>
-			<li> <%= image_tag('exp-badge-02.png', :size => '85x85')%> </li>
-			<li> <%= image_tag('exp-badge-01.png', :size => '85x85')%> </li>
-			<li> <%= image_tag('exp-badge-02.png', :size => '85x85')%> </li>
-		</ul>	
-		<hr class="divider">
-		<h1 class="content-title tachieve"> <i>&nbsp;</i> My Experience </h1>
-		<ul class="list list-arrow">
-      <% current_user.jobs.each do |uj| %>
-        <li><%=uj.title%></li>
-      <% end %>
-		</ul>	-->
-	</div>
+<div class="row">
+  <div class="small-12 large-12 columns">
+	  <h2>Coming Soon!</h2>
+		  <!--<h1 class="content-title texp"> <i>&nbsp;</i> My Experience Achievement</h1>
+		  <ul class="list list-badge">
+			  <li> <%= image_tag('exp-badge-01.png', :size => '85x85')%> </li>
+			  <li> <%= image_tag('exp-badge-02.png', :size => '85x85')%> </li>
+			  <li> <%= image_tag('exp-badge-01.png', :size => '85x85')%> </li>
+			  <li> <%= image_tag('exp-badge-02.png', :size => '85x85')%> </li>
+		  </ul>	
+		  <hr class="divider">
+		  <h1 class="content-title tachieve"> <i>&nbsp;</i> My Experience </h1>
+		  <ul class="list list-arrow">
+        <% current_user.jobs.each do |uj| %>
+          <li><%=uj.title%></li>
+        <% end %>
+		  </ul>	-->
+  </div>
 </div>

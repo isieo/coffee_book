@@ -1,9 +1,24 @@
-<%= render :partial => "shared/left_navigator", :locals => {:current_link => "search"} %>
-<div class="content-section">
-	<h1 class="content-title tjob"> <i>&nbsp;</i> Search result</h1>
-	<hr class="divider">
-	<hr style="height:20px">
-  <div>
+<div class="row">
+  <div class="small-12 large-12 columns">
+    <%= form_tag search_path, :method => "get" do |f| %>
+      <fieldset>
+        <legend>Search</legend>
+          <div class="row">
+            <div class="small-9 columns">
+              <%= text_field_tag :search,"#{params[:search]}", :placeholder => 'You can search for any keyword' %>
+            </div>
+            <div class="small-3 columns">
+              <%= submit_tag("Search", :class => "button prefix")%>
+            </div>
+          </div>
+      </fieldset>
+    <% end %>
+  </div>
+</div>
+<div class = "row">
+  <div class="small-12 large-12 columns">
+    <h2>Search result</h2>
+    <hr>
     <% if @search_job.present? %>
       <table class="joblisting">
         <tr>
@@ -19,10 +34,10 @@
             <td><%= job.title %></td>
             <td><%= job.address.truncate(50) %></td>
             <td>
-                <% if job.salary == 0 || job.salary.nil? %>
+                <% if job.pay.nil? || job.pay == 0 %>
                   N/A
                 <% else %>
-                  <%= number_to_currency(job.salary, :format => "RM %n") %>
+                  <%= number_to_currency(job.pay, :format => "RM %n") %>
                 <% end %>
             </td>
             <td><%= job.date.to_date %></td>
@@ -49,4 +64,3 @@
     <% end %>
   </div>
 </div>
-

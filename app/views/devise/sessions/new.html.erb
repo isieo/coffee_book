@@ -1,18 +1,67 @@
-<h2>Sign in</h2>
+<div class="row">
+  <div class="small-12 large-12 columns">
+    <h2>Sign in</h2>
 
-<%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :class => "form-horizontal"}) do |f| %>
+    <%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :class => "form-horizontal"}) do |f| %>
 
-  <%= f.input :email %></div>
-  <%= f.input :password %></div>
+      <div class="row">
+        <div class="small-8">
+          <div class="row">
+            <div class="small-3 columns">
+              <%= f.label :login, class: 'right inline' %>
+            </div>
+            <div class="small-9 columns">
+              <%= f.input_field :login, :placeholder => "Email/Username"%>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="small-8">
+          <div class="row">
+            <div class="small-3 columns">
+              <%= f.label :password, class: 'right inline' %>
+            </div>
+            <div class="small-9 columns">
+              <%= f.input_field :password, :placeholder => "Password", :type => "password"%>
+            </div>
+          </div>
+        </div>
+      </div>
 
-  <% if devise_mapping.rememberable? -%>
-    <%= f.check_box :remember_me %>
-    Remember Me
-  <% end -%>
+      <div class="row">
+        <div class="small-8">
+          <div class="row">
+            <div class="small-3 columns">
+               <%= f.label :remember_me, class: 'right inline' %>
+            </div>
+            <div class="small-9 columns">
+              <% if devise_mapping.rememberable? -%>
+                <%= f.check_box :remember_me %>
+              <% end -%>
+            </div>
+          </div>
+        </div>
+      </div>
 
-  <div class="form-actions">
-    <%= f.submit "Sign in" %>
+      <div class="row">
+        <div class="small-8">
+          <div class="row">
+            <div class="small-3 columns">
+            </div>
+            <div class="small-9 columns">
+               <%= f.submit "Sign in", class: "small button" %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <% end %>
+    <div class="row">
+      <div class="small-12 large-12 columns">
+        <%= render :partial => "devise/shared/links" %>
+      </div>
+    </div>
   </div>
-<% end %>
-
-<%= render :partial => "devise/shared/links" %>
+</div>

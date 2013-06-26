@@ -1,27 +1,34 @@
-<%= render :partial => "shared/left_navigator", :locals => {:current_link => "company"} %>
-<div class="content-section">
-	<div class="pro-header clear">
-		<h1 class="content-title tinfo"> <i>&nbsp;</i> Edit Details </h1>
-    <% if !@company.cover_image_uid.nil? %>
-      <%= image_tag (@company.cover_image.url), :size => "68x64", :class => "profile-img" %>
-    <% else %>
-      <%= image_tag("default-company-photo.png", :size => "68x64", :class => "profile-img")%>
-    <% end %>
-		<h2 class="profile-title"><%= @company.name %></h2>
-		<hr class="divider">
-	</div>
-	<div class="pro-details">
-    <%= simple_form_for(@company, :url => user_account_company_path(current_user, @company), :html => { :method => :put }) do |f| %>
+<div class="row">
+  <div class="small-12 large-12 columns">
   
-      <%= render :partial => 'form', :locals => {:f => f} %>
-      <hr style="height:20px;">
-      <%= button_tag(type: 'submit', class: "btn save") do %>
-        <span>save</span>
-      <% end %>
-      <%= link_to :back, :class => "btn back" do%>
-        <span>back</span>
-      <% end %>
-    <% end %>
-	</div>
-	<%= render 'map' %>
+    <div class="row">
+      <div class="small-12 large-12 columns">
+	      <h3> Edit Details </h3>
+        <% if @company.image? %>
+          <%= image_tag(@company.image_url(:thumb), class: "th") %>
+        <% else %>
+          <%= image_tag("default-company-photo.png", size: "100x100", class: "th") %>
+        <% end %>
+	      <h3><%= @company.name %></h3>
+		    <hr>
+		  </div>
+		</div>
+
+	  <div class="row">
+	    <div class="small-6 large-6 columns">
+        <%= simple_form_for(@company, :url => user_account_company_path(current_user, @company), :html => { :method => :put }) do |f| %>
+          <%= render :partial => 'form', :locals => {:f => f} %>
+          <hr>
+          <%= button_tag 'Save', class: "button small"%>
+          <%= link_to "Back", :back, :class => "button secondary small"%>
+        <% end %>
+      </div>
+      
+      <div class="small-6 large-6 columns">
+        <%= render 'map' %>
+      </div>
+	  </div>
+	  
+	  
+  </div>
 </div>
