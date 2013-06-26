@@ -1,108 +1,138 @@
-<%= render :partial => "shared/left_navigator", :locals => {:current_link => "company"}%>
-<div class="content-section">
-	<h1 class="content-title tjob"> <i>&nbsp;</i> <%= @company.name %></h1>
-	<%= link_to "Update company details", edit_user_account_company_path(current_user, @company), :class => "btn save" %>
-  <%= link_to "Add Member", new_member_user_account_company_path(current_user, @company), :class => "btn save" if @user.is_company_admin?(@company._id) %>
-  <%= link_to "View all job", user_account_company_jobs_path(@user, @company), :class => "btn save" %>
-  <%= link_to "New Job", new_user_account_company_job_path(@user, @company), :class => "btn save" %>
+<div class="row">
+  <div class="small-12 large-12 columns">
   
-  <table class="joblisting">
-    <tr>
-      <th>Address</th><td><%= @company.address %></td>
-    </tr>
-    <tr>
-      <th>State</th><td><%= @company.state %></td>
-    </tr>
-    <tr>
-      <th>Country</th><td><%= @company.country %></td>
-    </tr>
-    <tr>
-      <th>Mobile</th><td><%= @company.contact_mobile %></td>
-    </tr>
-    <tr>
-      <th>Office</th><td><%= @company.contact_office %></td>
-    </tr>
-    <tr>
-      <th>Photo</th>
-      <td>
-        <% if !@company.cover_image_uid.nil? %>
-          <%= image_tag (@company.cover_image.url), :size => "68x64", :class => "profile-img" %>
-        <% else %>
-          <%= image_tag("default-company-photo.png", :size => "68x64", :class => "profile-img")%>
-        <% end %>
-      </td>
-    </tr>
-  </table>
-
-  <h2 class="content-title tjob"><i>&nbsp;</i> Members</h2>
-  <% if !@company.members.blank?%>
-    <table class="joblisting">
-      <tr>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Contact</th>
-        <th>Action</th>
-      </tr>
-      <% @company.members.each do |m| %>
-        <tr>
-          <td><%= m.name %></td>
-          <td><%= m.email %></td>
-          <td><%= m.contact_mobile %></td>
-          <td class='details-more'><%= link_to "Delete", delete_member_user_account_company_path(@user, @company, :member => m.username), :confirm => "Are you sure?", :method=>:delete if current_user.is_company_admin?(@company._id) %></td>
-        </tr>
-      <% end %>
-    </table>
-  <% else %>
-    There is currently no other members in the company
-  <% end %>
-  
-  <h2 class="content-title tjob"><i>&nbsp;</i> Jobs created by this company</h2>
-  <% if !@company.jobs.blank? %>
-    <table class="joblisting">
-      <tr>
-        <th>Title</th>
-        <th>Address</th>
-        <th>Pay</th>
-        <th>Start Date</th>
-        <th>How Many Days</th>
-        <th></th>
-        <th></th>
-      </tr>
-      <% @company.jobs.each do |job|%>
+    <div class = "row">
+      <div class="small-12 large-12 columns">
+	      <h3><%= @company.name %></h3>
+	      <ul class="button-group">
+          <li><%= link_to "Update company details", edit_user_account_company_path(current_user, @company), :class => "small button" %></li>
+          <!-- <li><%#= link_to "Add Member", new_member_user_account_company_path(current_user, @company), :class => "small button" if @user.is_company_admin?(@company._id) %></li> -->
+          <li><%= link_to "View all job by this company", user_account_company_jobs_path(@user, @company), :class => "small button" %></li>
+          <li><%= link_to "New Job", new_user_account_company_job_path(@user, @company), :class => "small button" %></li>
+          <li><%= link_to "Delete", user_account_company_path(current_user, @company), :confirm => "Are you sure?", :method=>:delete, :class => "small button alert" if current_user.is_company_admin?(@company._id) %></li>
+        <ul>
+      </div>
+    </div>
+    <div class = "row">
+      <div class="small-12 large-12 columns">
+        <table>
           <tr>
-            <td><%= job.title %></td>
-            <td><%= job.address %></td>
-            <td><%= number_to_currency(job.pay, :format => "RM %n") %>/<%= job.pay_per %></td>
-            <td><%= job.date.to_date %></td>
-            <td><%= job.day_amount %> Days</td>
-            <td class='details-more'><%= link_to "View", user_account_company_job_path(@user, @company, job)%></td>
-            <td class='details-more'><%= link_to "Edit", edit_user_account_company_job_path(@user, @company, job)%></td>
+            <th>Address</th><td><%= @company.address %></td>
           </tr>
-      <% end %>
-    </table>
-  <% else %>
-    There is currently no jobs created by this company
-  <% end %>
-  <%#= load_review(@company.reviews)%>
-  <h2 class="content-title tjob"><i>&nbsp;</i>Pending Job Applicants</h2>
-  <% if !@company.job_applications.where(:status => "pending").blank? %>
-    <table class="joblisting">
-      <tr>
-        <th>Username</th>
-        <th>Jobs Applied</th>
-        <th></th>
-      </tr>
-      <% @company.job_applications.where(:status => "pending").each do |applicant|%>
-        <tr>
-            <td><%= applicant.username %></td>
-            <td><%= applicant.job.title %></td>
-            <td class='details-more'><%= link_to "View", job_job_applications_path(applicant)%></td>
-        </tr>
-      <% end %>
-    </table>
-  <% else %>
-    There is currently no job applicant for this company
-  <% end %>
-  <h2 class="content-title tjob"><i>&nbsp;</i>Map</h2>
-  <%= image_tag "http://maps.google.com/maps/api/staticmap?size=450x300&sensor=false&zoom=16&markers=#{@company.coordinates_latitude}%2C#{@company.coordinates_longitude}" %>
+          <tr>
+            <th>State</th><td><%= @company.state %></td>
+          </tr>
+          <tr>
+            <th>Country</th><td><%= @company.country %></td>
+          </tr>
+          <tr>
+            <th>Mobile</th><td><%= @company.contact_mobile %></td>
+          </tr>
+          <tr>
+            <th>Office</th><td><%= @company.contact_office %></td>
+          </tr>
+          <tr>
+            <th>Photo</th>
+            <td>
+              <% if @company.image? %>
+                <%= image_tag(@company.image_url(:thumb), class: "th") %>
+              <% else %>
+                <%= image_tag("default-company-photo.png", size: "100x100", class: "th") %>
+              <% end %>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class = "row">
+      <div class="small-12 large-12 columns">
+        <h3>Members</h3>
+        <% if !@company.members.blank?%>
+          <table class="joblisting">
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Contact</th>
+              <th>Action</th>
+            </tr>
+            <% @company.members.each do |m| %>
+              <tr>
+                <td><%= m.name %></td>
+                <td><%= m.email %></td>
+                <td><%= m.contact_mobile %></td>
+                <td class='details-more'><%= link_to "Delete", delete_member_user_account_company_path(@user, @company, :member => m.username), :confirm => "Are you sure?", :method=>:delete if current_user.is_company_admin?(@company._id) %></td>
+              </tr>
+            <% end %>
+          </table>
+        <% else %>
+          There is currently no other members in the company
+        <% end %>
+      </div>
+    </div>
+    
+    <div class = "row">
+      <div class="small-12 large-12 columns">
+        <h3>Jobs created by this company</h3>
+        <% if !@company.jobs.blank? %>
+          <table class="joblisting">
+            <tr>
+              <th>Title</th>
+              <th>Address</th>
+              <th>Pay</th>
+              <th>Start Date</th>
+              <th>How Many Days</th>
+              <th></th>
+              <th></th>
+            </tr>
+            <% @company.jobs.each do |job|%>
+                <tr>
+                  <td><%= job.title %></td>
+                  <td><%= job.address %></td>
+                  <td><%= number_to_currency(job.pay, :format => "RM %n") %>/<%= job.pay_per %></td>
+                  <td><%= job.date.to_date %></td>
+                  <td><%= job.day_amount %> Days</td>
+                  <td class='details-more'><%= link_to "View", user_account_company_job_path(@user, @company, job)%></td>
+                  <td class='details-more'><%= link_to "Edit", edit_user_account_company_job_path(@user, @company, job)%></td>
+                </tr>
+            <% end %>
+          </table>
+        <% else %>
+          There is currently no jobs created by this company
+        <% end %>
+      </div>
+    </div>
+    <%#= load_review(@company.reviews)%>
+    <div class = "row">
+      <div class="small-12 large-12 columns">
+        <h3>Pending Job Applicants</h3>
+        <% if !@company.job_applications.where(:status => "pending").blank? %>
+          <table class="joblisting">
+            <tr>
+              <th>Username</th>
+              <th>Jobs Applied</th>
+              <th></th>
+            </tr>
+            <% @company.job_applications.where(:status => "pending").each do |applicant|%>
+              <tr>
+                  <td><%= applicant.username %></td>
+                  <td><%= applicant.job.title %></td>
+                  <td class='details-more'><%= link_to "View", job_job_applications_path(applicant)%></td>
+              </tr>
+            <% end %>
+          </table>
+        <% else %>
+          There is currently no job applicant for this company
+        <% end %>
+      </div>
+    </div>
+    
+    <div class = "row">
+      <div class="small-12 large-12 columns">
+        <h3>Map</h3>
+        <%= image_tag "http://maps.google.com/maps/api/staticmap?size=450x300&sensor=false&zoom=16&markers=#{@company.coordinates_latitude}%2C#{@company.coordinates_longitude}" %>
+      </div>
+    </div>
+    
+  </div>
 </div>

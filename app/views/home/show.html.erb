@@ -1,54 +1,44 @@
 <%= render :partial => "shared/google_map_js", :locals =>{ :user => @user} %>
 <%#= render :partial => "shared/login_form" %>
-<div class="search_section ">
-  <%= form_tag search_path, :method => "get" do |f| %>
-    <div class="search-col">
-      <span class="inputtitle _block">You can search for any keyword ?:</span>
-      <%= text_field_tag :search,"#{params[:search]}",  :class => 'inputfield _keywords', :placeholder => 'Search...' %>
-    </div>
-    
-    <%= submit_tag("Search", :class => "btn search")%>
-  <% end %>
+
+<div class="row">
+  <div class="small-12 large-12 columns" style= "text-align: center;">
+    <h1>8vice finds part time jobs near you</h1>
+    <h4 class="subheader">8vice will help you find the part time job that suits your needs, from location, to the types of jobs you're looking for.</h4>
+  </div>
 </div>
 
-<div class="gmap_section shadow-border">
-	<div class="gmap">
-	  <div id="map_canvas" class="map-container" style="width:680px; height:390px;"></div>
-	</div>
-
-	<div class="opt-signup">
-    <%if !user_signed_in?%>
-		  <p><strong>Get started just as simple as clicking on sign in with facebook</strong></p>
-	    <%- if devise_mapping.omniauthable? %>
-        <%- resource_class.omniauth_providers.each do |provider| %>
-         <%= link_to "", omniauth_authorize_path(resource_name, provider), :class => "facebook-btn", :id => "facebook" %>
-        <% end -%>
-      <% end -%>
-      <p><strong>or <%= link_to "create an account", login_path %> if you dont have facebook</strong></p>
-    <% else %>
-		  <p><strong>Welcome! Listed below is the job nearest to you!</strong></p>
-		  <ol>
-		    <% @marker_array.each do |j|%>
-		      <li><%= j[3] %> (<%= '%.2f' % current_user.distance_to([j[1],j[2]], :km)%> KM)</li>
-		    <% end %>
-		  </ol>
+<div class="row">
+  <div class="small-12 large-12 columns">
+    <%= form_tag search_path, :method => "get" do |f| %>
+      <fieldset>
+        <legend>Search</legend>
+          <div class="row">
+            <div class="small-9 columns">
+              <%= text_field_tag :search,"#{params[:search]}", :placeholder => 'You can search for any keyword' %>
+            </div>
+            <div class="small-3 columns">
+              <%= submit_tag("Search", :class => "button prefix")%>
+            </div>
+          </div>
+      </fieldset>
     <% end %>
-    <hr style="height:20px;">
+  </div>
+</div>
+
+<div class="row">
+	<div class="small-12 large-12 columns panel">
+	  <div id="map_canvas" style="width:100%; height:400px;"></div>
 	</div>
+	<hr>
 </div>	
 
-<div class="ads_section">
-	<div class="_col _left">
-    <%= link_to "Job List", jobs_path, :class => "img left shadow-border" %>
-	</div>
+<ol class="joyride-list" data-joyride>
+  <li data-id="sign-up" data-text="Okay">
+    <p>Sign up or create<br /> an account for free!</p>
+  </li>
+</ol>
 
-	<div class="_col _middle">
-    <%= link_to "Companies List", companies_path, :class => "img left shadow-border" %>
-	</div>
-	<div class="_col _right">
-    <%= link_to "Users List", users_path, :class => "img left shadow-border" %>
-	</div>
-
-</div>
-
-
+<script type="text/javascript">
+  $(document).foundation('joyride', 'start');
+</script>

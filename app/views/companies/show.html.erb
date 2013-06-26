@@ -1,58 +1,78 @@
-<%= render :partial => "shared/left_navigator", :locals => {:current_link => "show_company"} %>
-<div class="content-section">
-	<h1 class="content-title tjob"> <i>&nbsp;</i> <%= @company.name %></h1>
-  <table class="joblisting">
-    <tr>
-      <th>Address</th><td><%= @company.address %></td>
-    </tr>
-    <tr>
-      <th>State</th><td><%= @company.state %></td>
-    </tr>
-    <tr>
-      <th>Country</th><td><%= @company.country %></td>
-    </tr>
-    <tr>
-      <th>Mobile</th><td><%= @company.contact_mobile %></td>
-    </tr>
-    <tr>
-      <th>Office</th><td><%= @company.contact_office %></td>
-    </tr>
-  </table>
-
-  <h2 class="content-title tjob"><i>&nbsp;</i> Jobs Created by this company</h2>
-  <% if @jobs.present? %>
-    <table class="joblisting">
-      <tr>
-        <th>Title</th>
-        <th>Address</th>
-        <th>Pay</th>
-        <th>Start Date</th>
-        <th>How Many Days</th>
-        <th></th>
-      </tr>
-    <% @jobs.each do |job| %>
-      <tr>
-        <td><%= job.title %></td>
-        <td><%= job.address.truncate(50) %></td>
-        <td><%= number_to_currency(job.pay, :format => "RM %n") %>/<%= job.pay_per %></td>
-        <td><%= job.date.to_date %></td>
-        <td><%= job.day_amount %> Days</td>
-        <td class='details-more'><%= link_to 'See More', job %></td>
-      </tr>
-    <% end %>
-  <% else %>
-    This company has no jobs listed.
-  <% end %>
-  </table>
-
-  <%= render :partial => "shared/reviews", :locals =>{ :reviews => @reviews} %>
-	<div class="pagination fright">
-		<%= paginate @reviews %>
-	</div>
-	<% if current_user.nil? %>
-	  Please login to add comment
-	<% else %>
-	  <%= render :partial => "shared/add_comment_form", :locals =>{ :post_to => @company} %> 
-	<% end %>
+<div class="row">
+  <div class="small-12 large-12 columns">
   
+    <div class="row">
+      <div class="small-12 large-12 columns">
+	      <h2><%= @company.name %></h2>
+        <table class="joblisting">
+          <tr>
+            <th>Address</th><td><%= @company.address %></td>
+          </tr>
+          <tr>
+            <th>State</th><td><%= @company.state %></td>
+          </tr>
+          <tr>
+            <th>Country</th><td><%= @company.country %></td>
+          </tr>
+          <tr>
+            <th>Mobile</th><td><%= @company.contact_mobile %></td>
+          </tr>
+          <tr>
+            <th>Office</th><td><%= @company.contact_office %></td>
+          </tr>
+          <tr>
+            <th>Picture</th>
+            <td>
+              <% if @company.image? %>
+                <%= image_tag(@company.image_url(:thumb), class: "th") %>
+              <% else %>
+                <%= image_tag("default-company-photo.png", size: "100x100", class: "th") %>
+              <% end %>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="small-12 large-12 columns">
+        <h2>Jobs Created by this company</h2>
+        <% if @jobs.present? %>
+          <table class="joblisting">
+            <tr>
+              <th>Title</th>
+              <th>Address</th>
+              <th>Pay</th>
+              <th>Start Date</th>
+              <th>How Many Days</th>
+              <th></th>
+            </tr>
+          <% @jobs.each do |job| %>
+            <tr>
+              <td><%= job.title %></td>
+              <td><%= job.address.truncate(50) %></td>
+              <td><%= number_to_currency(job.pay, :format => "RM %n") %>/<%= job.pay_per %></td>
+              <td><%= job.date.to_date %></td>
+              <td><%= job.day_amount %> Days</td>
+              <td class='details-more'><%= link_to 'See More', job %></td>
+            </tr>
+          <% end %>
+        <% else %>
+          This company has no jobs listed.
+        <% end %>
+        </table>
+      </div>
+    </div>
+    
+    <%= render :partial => "shared/reviews", :locals =>{ :reviews => @reviews} %>
+    <div>
+      <%= paginate @reviews %>
+    </div>
+    <% if current_user.nil? %>
+      Please login to add comment
+    <% else %>
+      <%= render :partial => "shared/add_comment_form", :locals =>{ :post_to => @company} %> 
+    <% end %>
+    
+  </div>
 </div>

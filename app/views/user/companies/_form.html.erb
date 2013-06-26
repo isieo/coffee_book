@@ -1,15 +1,92 @@
-<%= f.input :name, :input_html => { :class => 'inputdetails' }, :wrapper => false %>
-<%= f.input :address, :hint => "Your address must be readable by google", :input_html => { :class => 'inputdetails' }  %>
-<%= f.input :contact_mobile, :input_html => { :class => 'inputdetails' } %>
-<%= f.input :contact_office, :input_html => { :class => 'inputdetails' } %>
-<%= f.input :coordinates_latitude, :input_html => { :class => 'inputdetails' } %>
-<%= f.input :coordinates_longitude, :input_html => { :class => 'inputdetails' } %>
+<div class="row">
+  <div class="small-12">
+    <div class="row">
+      <div class="small-3 columns">
+        <%= f.label :name, class: 'right inline' %>
+      </div>
+      <div class="small-9 columns">
+        <%= f.input_field :name, :placeholder => "Name"%>
+      </div>
+    </div>
+  </div>
+</div>
 
-<% if f.object.cover_image_uid %>
-  <%= image_tag (@company.cover_image.url), :size => "100x100", :class => "profile-img" %>
-<% else %>
-  <%= image_tag("default-company-photo.png", :size => "100x100", :class => "profile-img")%>
-<% end %>
 
-<%= f.label :cover_image, "Company Photo", :for=>"cover_image" %>
-<%= f.file_field :cover_image, :class => "photo-chosen", :id=>'file' %>
+<div class="row">
+  <div class="small-12">
+    <div class="row">
+      <div class="small-3 columns">
+        <%= f.label :address, class: 'right inline' %>
+      </div>
+      <div class="small-9 columns">
+        <%= f.input_field :address, :placeholder => "Address", :hint => "Your address must be readable by google"%>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="small-12">
+    <div class="row">
+      <div class="small-3 columns">
+        <%= f.label :coordinates_latitude, class: "right inline", label: "Latitute" %>
+      </div>
+      <div class="small-9 columns">
+        <%= f.input_field :coordinates_latitude %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="small-12">
+    <div class="row">
+      <div class="small-3 columns">
+        <%= f.label :coordinates_longitude, class: "right inline", label: "Longitude" %>
+      </div>
+      <div class="small-9 columns">
+        <%= f.input_field :coordinates_longitude %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="small-12">
+    <div class="row">
+      <div class="small-3 columns">
+        <%= f.label :contact_mobile, class: 'right inline', label: "Mobile" %>
+      </div>
+      <div class="small-9 columns">
+        <%= f.input_field :contact_mobile, :placeholder => "Mobile Number"%>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="small-12">
+    <div class="row">
+      <div class="small-3 columns">
+        <%= f.label :contact_office, class: 'right inline', label: "Office" %>
+      </div>
+      <div class="small-9 columns">
+        <%= f.input_field :contact_office, :placeholder => "Office Number"%>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="small-12">
+    <div class="row">
+      <div class="small-3 columns">
+        <%= f.label :image, "Company Photo", :for=>"cover_image", class: 'right inline' %>
+      </div>
+      <div class="small-9 columns">
+        <%= f.file_field :image, :class => "photo-chosen", :id=>'file' %>
+      </div>
+    </div>
+  </div>
+</div>
+

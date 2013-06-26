@@ -1,8 +1,7 @@
-<%= render :partial => "shared/left_navigator", :locals => {:current_link => "my_jobs_index"} %>
-<div class="content-section">
-	<h1 class="content-title tadd"> <i>&nbsp;</i> Jobs created by <%= @company.name %></h1>
-	<hr class="divider">
-	<div class="company-details">
+<div class="row">
+  <div class="small-12 large-12 columns">
+	  <h2>Jobs created by <%= @company.name %></h2>
+	  <hr>
     <table class="joblisting">
       <tr>
         <th>Title</th>
@@ -28,6 +27,6 @@
           <td class = "details-more"><%= link_to "Delete", user_account_company_job_path(@user, @company, j), :confirm => "Are you sure?", :method=>:delete %></td></tr>
       <% end %>
     </table>
-    <%= link_to "New Job", new_user_account_company_job_path(@user, @company), :class => "btn" %>
-	</div>	
+    <%= link_to "New Job", new_user_account_company_job_path(@user, @company), :class => "button small" %>
+  </div>
 </div>

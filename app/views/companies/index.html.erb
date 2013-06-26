@@ -1,30 +1,28 @@
-<%= render :partial => "shared/left_navigator", :locals => {:current_link => "list_company"} %>
-<div class="content-section">
-	<h1 class="content-title tjob"> <i>&nbsp;</i> Companies Listing</h1>
+<div class="row">
+  <div class="small-12 large-12 columns">
+	  <h2>Companies Listing</h2>
+    <table>
+	    <tr>
+        <th>Name</th>
+        <th>Address</th>
+        <th>State</th>
+        <th>Country</th>
+        <th>Contact mobile</th>
+        <th>Contact office</th>
+        <th></th>
+	    </tr>
 
-  <table class="joblisting">
-	  <tr>
-      <th>Name</th>
-      <th>Address</th>
-      <th>State</th>
-      <th>Country</th>
-      <th>Contact mobile</th>
-      <th>Contact office</th>
-      <th></th>
-	  </tr>
-
-  <% @companies.each do |company| %>
-    <tr>
-      <td><%= company.name %></td>
-      <td><%= company.address %></td>
-      <td><%= company.state %></td>
-      <td><%= company.country %></td>
-      <td><%= company.contact_mobile %></td>
-      <td><%= company.contact_office %></td>
-      <td class='details-more'><%= link_to 'Show', company%></td>
-    </tr>
-  <% end %>
-  </table>
-
-  <br />
+      <% @companies.each do |company| %>
+        <tr>
+          <td><%= company.name %></td>
+          <td><%= company.address %></td>
+          <td><%= company.state %></td>
+          <td><%= company.country %></td>
+          <td><%= company.contact_mobile %></td>
+          <td><%= company.contact_office %></td>
+          <td class='details-more'><%= link_to 'Show', company%></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
 </div>

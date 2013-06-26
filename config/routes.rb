@@ -5,15 +5,13 @@ CoffeeBook::Application.routes.draw do
   get 'application' => 'user/accounts#application', :as => :application
   get 'advance_search' => 'search#advance_search', :as => :advance_search
   
-
-  
   root :to => "home#show"
-  devise_for :users, :controllers => { :omniauth_callbacks => "user/omniauth_callbacks", :registrations => "user/registrations", :sessions => "user/sessions" }
+  devise_for :users, :controllers => { :omniauth_callbacks => "user/omniauth_callbacks"}
+  
   devise_scope :user do
-    get "sign_in", :to => "user/sessions#new", :as => :new_user_session
     get "sign_out", :to => "user/sessions#destroy", :as => :destroy_user_session
-    get "/users/auth/:provider" => "user/omniauth_callbacks#passthru"
   end
+  
   resources :home
   resources :companies
   resources :reviews, :only => :create

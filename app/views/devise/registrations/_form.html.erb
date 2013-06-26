@@ -1,0 +1,218 @@
+<%= simple_form_for(@user, :url => registration_path(resource_name), :html => { :method => :put, :multipart => true, :class => "custom" }) do |f| %>
+  <div class="row">
+    <div class="small-12">
+      <%= devise_error_messages! %>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="small-12">
+      <div class="row">
+        <div class="small-3 columns">
+          <%= f.label :email, class: 'right inline' %>
+        </div>
+        <div class="small-9 columns">
+          <%= f.input_field :email, :placeholder => "Email"%>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="small-12">
+      <div class="row">
+        <div class="small-3 columns">
+          <%= f.label :name, class: 'right inline' %>
+        </div>
+        <div class="small-9 columns">
+          <%= f.input_field :name, :placeholder => "Name"%>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <% if f.object.encrypted_password.present? %>
+    <div class="row">
+      <div class="small-12">
+        <div class="row">
+          <div class="small-3 columns">
+            <%= f.label :password, class: 'right inline' %>
+          </div>
+          <div class="small-9 columns">
+            <%= f.input_field :password, :placeholder => "Password"%>
+            <h5 class="subheader">leave blank if you don't want to change it</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+    &nbsp;
+    <div class="row">
+      <div class="small-12">
+        <div class="row">
+          <div class="small-3 columns">
+            <%= f.label :password_confirmation, class: 'right inline', label: "Confirm" %>
+          </div>
+          <div class="small-9 columns">
+            <%= f.input_field :password_confirmation, :placeholder => "Type password again"%>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="small-12">
+        <div class="row">
+          <div class="small-3 columns">
+            <%= f.label :current_password, class: 'right inline', label: "Current" %>
+          </div>
+          <div class="small-9 columns">
+            <%= f.input_field :current_password, :placeholder => "Current Password"%>
+            <h5 class="subheader">we need your current password to confirm your changes</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+    &nbsp;
+  <% end %>
+  
+  <div class="row">
+    <div class="small-12">
+      <div class="row">
+        <div class="small-3 columns">
+          <%= f.label :address, class: 'right inline' %>
+        </div>
+        <div class="small-9 columns">
+          <%= f.input_field :address, :placeholder => "No 39, Jalan XYZ, Taman ABC"%>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="small-12">
+      <div class="row">
+        <div class="small-3 columns">
+          <%= f.label :coordinates_latitude, class: "right inline", label: "Latitute" %>
+        </div>
+        <div class="small-9 columns">
+          <%= f.input_field :coordinates_latitude %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="small-12">
+      <div class="row">
+        <div class="small-3 columns">
+          <%= f.label :coordinates_longitude, class: "right inline", label: "Longitude" %>
+        </div>
+        <div class="small-9 columns">
+          <%= f.input_field :coordinates_longitude %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="small-12">
+      <div class="row">
+        <div class="small-3 columns">
+          <%= f.label :contact_mobile, class: 'right inline', label: "Mobile" %>
+        </div>
+        <div class="small-9 columns">
+          <%= f.input_field :contact_mobile, :placeholder => "012-1234567"%>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="small-12">
+      <div class="row">
+        <div class="small-3 columns">
+          <%= f.label :contact_home, class: 'right inline', label: "Home" %>
+        </div>
+        <div class="small-9 columns">
+          <%= f.input_field :contact_home, :placeholder => "03-12345678"%>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="small-12">
+      <div class="row">
+        <div class="small-3 columns">
+          <%= f.label :dob, class: 'right inline' %>
+        </div>
+        <div class="small-9 columns">
+          <%= f.input :dob, :label => "Date of Birth", :as => :date, :start_year => Date.today.year - 90, :end_year => Date.today.year - 12, :order => [:day, :month, :year], :prompt => {:day => 'Day', :month => 'Month', :year => 'Year'}, label: false %>
+        </div>
+      </div>
+    </div>
+  </div>
+  &nbsp;
+  <div class="row">
+    <div class="small-12">
+      <div class="row">
+        <div class="small-3 columns">
+          <%= f.label :gender, class: 'right inline' %>
+        </div>
+        <div class="small-9 columns">
+          <%= f.input :gender, :collection => [["Male", "Male"], ["Female", "Female"]], :prompt => false, label: false, class: "medium" %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="small-12">
+      <div class="row">
+        <div class="small-3 columns">
+          <%= f.label :nationality, class: 'right inline' %>
+        </div>
+        <div class="small-9 columns">
+          <%= f.input_field :nationality, :placeholder => "Malaysian"%>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="small-12">
+      <div class="row">
+        <div class="small-3 columns">
+          <%= f.label :ic_number, class: 'right inline', label: "IC" %>
+        </div>
+        <div class="small-9 columns">
+          <%= f.input_field :ic_number, :placeholder => "880818-10-5688"%>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="small-12">
+      <div class="row">
+        <div class="small-3 columns">
+          <%= f.label :image, "Photo" %>
+          <% if current_user.image? %>
+            <%= image_tag(current_user.image_url(:thumb), class: "th") %>
+          <% elsif !current_user.fb_profile_pic.nil? %>
+            <%= image_tag (current_user.fb_profile_pic), :size => "70x70", :class => "th" %>
+          <% else %>
+            <%= image_tag("default-profile-photo.png", size: "70x70", class: "th") %>
+          <% end %>
+        </div>
+        <div class="small-9 columns">
+          <%= f.file_field :image, :class => "photo-chosen", :id => "file" %>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <hr>
+  <%= f.submit "Save", class: "small button"%>
+  <%#= link_to raw("<span>cancel my account</span>"), registration_path(@user), :confirm => "Are you sure?", :method => :delete, :class => "btn cancel fright" %>
+<% end %>

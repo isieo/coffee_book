@@ -1,37 +1,48 @@
-<%= render :partial => "shared/left_navigator", :locals => {:current_link => "jobs"} %>
-<%= render :partial => "shared/google_map_js", :locals =>{ :user => @user} %>
-<div class="content-section">
-	<h1 class="content-title tjob"> <i>&nbsp;</i> Jobs Listing</h1>
-	<hr class="divider">
-		<div class="map-details"> 
-      <div id="map_canvas" class="shadow-border" style="width:900px; height:330px;"></div>
-		</div>	
-		<hr style="height:20px">
-	<div>
-		<table class="joblisting">
-			<tr>
-				<th class="recommend">&nbsp;</th>
-				<th>Title</th>
-				<th>Company</th>
-				<th>Pay</th>
-				<th>Start Date</th>
-				<th>Job Duration</th>
-				<th>Details</th>
-			</tr>
-			<% i = 1%>
-			<% @jobs.each do |job| %>
-        <tr class = '<%= i%2 == 1 ? "_odd" : "_even"%>'>
-          <td class="recommend"><%= image_tag('recommend-on.png', :size => "25x25")%></td>
-          <td><%= job.title %></td>
-          <td><%= job.company.name.truncate(30) %></td>
-          <td><%= number_to_currency(job.pay, :format => "RM %n") %>/<%= job.pay_per %></td>
-          <td><%= job.date.strftime('%d-%m-%Y') if job.date.present? %></td>
-          <td><%= job.day_amount %> Days</td>
-          <td class='details-more'><%= link_to 'See More »', job %></td>
-        </tr>
-        <% i = i + 1%>
-      <% end %>
-		</table>
-	</div>	
-</div>	
-
+<div class="row">
+  <%= render :partial => "shared/google_map_js", :locals =>{ :user => @user} %>
+  <div class="small-12 large-12 columns">
+    
+    <div class = "row">
+      <div class="small-12 large-12 columns">
+	      <h2>Jobs Listing</h2>
+	      <hr>
+	      <div class="map-details"> 
+          <div id="map_canvas" class="shadow-border" style="width:100%; height:330px;"></div>
+	      </div>	
+	      <hr>
+	    </div>
+	  </div>
+	    
+    <div class = "row">
+      <div class="small-12 large-12 columns">
+		    <table>
+			    <tr>
+				    <th>Title</th>
+				    <th>Pay</th>
+				    <th>Distance</th>
+				    <th>Start Date</th>
+				    <th>Job Duration</th>
+				    <th>Details</th>
+			    </tr>
+			    <% i = 1%>
+			    <% @jobs.each do |job| %>
+            <tr class = '<%= i%2 == 1 ? "_odd" : "_even"%>'>
+              <td><%= job.title %></td>
+              <td><%= number_to_currency(job.pay, :format => "RM %n") %>/<%= job.pay_per %></td>
+              <% if !current_user.nil? %>
+                <td><%= '%.2f' % current_user.distance_to(job, :km)%> KM</td>
+              <% else %>
+                <td>Login to see distance</td>
+              <% end %>
+              <td><%= job.date.strftime('%d-%m-%Y') if job.date.present? %></td>
+              <td><%= job.day_amount %> Days</td>
+              <td class='details-more'><%= link_to 'See More', job %></td>
+            </tr>
+            <% i = i + 1%>
+          <% end %>
+		    </table>
+	    </div>
+	  </div>
+	  	
+  </div>	
+</div>
