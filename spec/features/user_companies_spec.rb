@@ -50,6 +50,17 @@ describe "[Logined User, Manipulating Company Object]" do
     page.should have_content("Company updated successfully.")
     page.should have_content("MOCKING TEST sdn bhd")
   end
+
+  it "delete company", js: true do
+    create_company_using_form
+    click_link "Company"
+    click_link "My Companies"
+    click_on "View"
+    click_on "Delete"
+    page.evaluate_script('window.confirm = function() { return true; }')
+    page.should have_content("Company destroyed successfully.")
+    page.should_not have_content("XYZ sdn bhd")
+  end
 end
 
 
