@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.12'
+gem 'rails', '3.2.13'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -15,6 +15,8 @@ group :assets do
   gem 'therubyracer', :platform => :ruby
 
   gem 'uglifier', '>= 1.0.3'
+  gem 'zurb-foundation', '~> 4.0.0'
+  gem 'foundation-icons-sass-rails'
 end
 
 gem 'jquery-rails'
@@ -34,16 +36,18 @@ gem 'capistrano'
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
-gem 'mongoid', '2.4.10'
+gem 'mongoid'#, '2.4.10'
 gem 'bson_ext'
 gem 'mongoid_search'
 gem "devise"
-gem 'omniauth-facebook', '1.4.0'
+gem 'omniauth-facebook'
 gem "simple_form"
 gem "country_select"
 gem 'delayed_job_mongoid'
 gem 'rack-cache', :require => 'rack/cache'
-gem 'dragonfly', '~>0.9.12'
+gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
+gem 'rmagick'
+#gem 'dragonfly', '~>0.9.12'
 gem 'kaminari'
 gem 'ransack'
 
@@ -53,6 +57,7 @@ gem "rspec-rails", :group => [:test, :development]
 group :test do
   gem "factory_girl_rails"
   gem "capybara"
+  gem 'capybara-webkit', github: 'thoughtbot/capybara-webkit', branch: 'master'
   gem "guard-rspec"
 end
 gem 'rb-inotify', '~> 0.9'

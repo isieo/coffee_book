@@ -1,3 +1,4 @@
+require 'rubygems'
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
@@ -14,27 +15,17 @@ OmniAuth.config.test_mode = true
 OmniAuth.config.mock_auth[:facebook] = OmniAuth::AuthHash.new({
   :provider => 'facebook',
   :uid => '123456',
-  :email => 'spree@example.com',
-  :name => 'mock_auth_test',
   :host => 'localhost:3000',
-  :extra => {:raw_info => 
-              {
-               :uuid     => "1234",
-               :username => 'mock_auth_test_username',
-               :facebook => {
-                             :email => "foobar@example.com",
-                             :gender => "Male",
-                             :first_name => "foo",
-                             :last_name => "bar",
-                             :nickname => "foo bar",
-                             :image => 'http://graph.facebook.com/659307629/picture?type=square'
-                             }
-              }
+  :info => {
+           :nickname => "foobar",
+           :email => "foobar@example.com",
+           :name => 'mock_auth_test',
+           :first_name => "foo",
+           :last_name => "bar",
+           :image => 'http://graph.facebook.com/659307629/picture?type=square',
+           :location => "Klang"
     }
-  
-  # etc.
 })
-
 RSpec.configure do |config|
   # ## Mock Framework
   #
@@ -70,6 +61,8 @@ RSpec.configure do |config|
   config.include(UsersMacros)
   config.include(LoginMacros)
   config.before(:each) do 
+    Capybara.javascript_driver = :webkit
+    Capybara.current_driver = Capybara.javascript_driver
     reset_companies
     reset_users
     reset_jobs

@@ -1,40 +1,45 @@
-<%= render :partial => "shared/left_navigator", :locals => {:current_link => "user"} %>
+<div class="row">
+  <div class="small-12 large-12 columns">
+  
+    <div class="row">
+      <div class="small-9 large-9 columns">
+        <h2><%= @user.name%>'s Details</h2>
+        <% if @user.image? %>
+          <%= image_tag(@user.image_url(:thumb), class: "th") %>
+        <% elsif !@user.fb_profile_pic.nil? %>
+          <%= image_tag (@user.fb_profile_pic), :size => "70x70", :class => "th" %>
+        <% else %>
+          <%= image_tag("default-profile-photo.png", size: "70x70", class: "th") %>
+        <% end %>
+        
+        <table>
+          <tr><th>User Name :</th><td><%= @user.username%></td><tr>
+          <tr><th>Name :</th><td><%= @user.name%></td><tr>
+          <tr><th>Email :</th><td><%= @user.email%></td><tr>
+          <tr><th>DOB :</th><td><%= @user.dob%></td><tr>
+          <tr><th>Gender :</th><td><%= @user.gender%></td><tr>
+          <tr><th>Phone :</th><td><%= @user.contact_mobile%></td><tr>
+          <tr><th>Country :</th><td><%= @user.country%></td><tr>
+          <tr><th>Nationality :</th><td><%= @user.nationality%></td><tr>
+        </table>
+      </div>
+      
+      <div class="small-3 large-3 columns">
+        <%= link_to image_tag("cnt-ads.jpg", :size => "415x345", :class => "ads-border"), root_path%>
+      </div>	
+    </div>
 
-<div class="content-section">
-	<h1 class="content-title tprofile"> <i>&nbsp;</i> <%= @user.name%>'s Details</h1>
-	<div class="profile-section">
-    <% if !@user.cover_image_uid.nil? %>
-      <%= image_tag @user.cover_image.url, :size => "68x64", :class => "profile-img" %>
-    <% elsif !@user.fb_profile_pic.nil? %>
-      <%= image_tag @user.fb_profile_pic, :size => "68x64", :class => "profile-img" %>
+    <%= render :partial => "shared/reviews", :locals =>{ :reviews => @reviews} %>
+    <div class="pagination fright">
+      <%= paginate @reviews %>
+    </div>
+    <% if current_user.nil? %>
+      Please login to add comment
     <% else %>
-      <%= image_tag "default-profile-photo.png", :size => "68x64", :class => "profile-img"%>
+      <%= render :partial => "shared/add_comment_form", :locals =>{ :post_to => @user} %>
     <% end %>
-	  <h2 class="profile-title"><%= @user.name%></h2>
-		<hr class="divider">
-			<p class="profile-details">User Name : <span><%= @user.username%></span></p>
-			<p class="profile-details">Name : <span><%= @user.name%></span></p>
-			<p class="profile-details">Email : <span><%= @user.email%></span></p>
-			<p class="profile-details">DOB : <span><%= @user.dob%></span></p>
-			<p class="profile-details">Gender : <span><%= @user.gender%></span></p>
-			<p class="profile-details">Phone : <span><%= @user.contact_mobile%></span></p>
-			<p class="profile-details">Country : <span><%= @user.country%></span></p>
-			<p class="profile-details">Nationality : <span><%= @user.nationality%></span></p>
-		<hr class="divider">
-	</div>
-	<div class="profile-ads">
-	  <%= link_to image_tag("cnt-ads.jpg", :size => "415x345", :class => "ads-border"), root_path%>
-	</div>	
-  <%= render :partial => "shared/reviews", :locals =>{ :reviews => @reviews} %>
-	<div class="pagination fright">
-		<%= paginate @reviews %>
-	</div>
-	<% if current_user.nil? %>
-	  Please login to add comment
-	<% else %>
-	  <%= render :partial => "shared/add_comment_form", :locals =>{ :post_to => @user} %>
-	<% end %>
-	 
+	   
+  </div>
 </div>	
 
 

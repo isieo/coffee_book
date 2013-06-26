@@ -1,38 +1,59 @@
-<div class='rating-section clear'>
-  <h2 class='content-title trating'><i>&nbsp;</i>Discussions</h2>
-  <hr class="divider dashed">
-  <% if reviews.count != 0 %>
-    <% reviews.each do |review| %>
-       <div class='reviews'>
-        <% if review.poster && !review.poster.cover_image_uid.nil? %>
-           <%= image_tag(review.poster.cover_image.url, :size => "40x40", :class => "reviews-img") %>
-        <% elsif review.poster && !review.poster.fb_profile_pic.nil? %>
-           <%= image_tag(review.poster.fb_profile_pic, :size => "40x40", :class => "reviews-img") %>
-        <% else %>
-           <%=  image_tag("default-profile-photo.png", :size => "40x40", :class => "reviews-img") %>
-        <% end %>
-        <div class='reviews-details'>
-          <h5><%= review.poster.name %></h5>
-          <span class="reviews-date"> <%= review.created_at.to_date.to_s %></span>
-          <span class="reviews-rating">
-            <% rating_title = ["Bad", "Poor", "Regular","Good","Awesome"] %>
-            <% count = 0 %>
-            <% while (count < (review.rating||0)) %>
-               <%= image_tag("ratings-on.png", :title => "#{rating_title[count]}", :size => "15x15", :class => "rating-star") %>
-              <% count = count + 1 %>
+<div class="row">
+  <div class="small-8 large-8 columns">
+  
+    <h2>Discussions</h2>
+    <% if reviews.count != 0 %>
+      <% reviews.each do |review| %>
+        <div class="row">
+        
+          <div class="small-2 large-2 columns">
+            <% if review.poster && current_user.image? %>
+              <%= image_tag(current_user.image_url(:comment_picture), class: "th") %>
+            <% elsif review.poster && !current_user.fb_profile_pic.nil? %>
+              <%= image_tag (current_user.fb_profile_pic), :size => "40x40", :class => "th" %>
+            <% else %>
+              <%= image_tag("default-profile-photo.png", size: "40x40", class: "th") %>
             <% end %>
-            <% while (count != 5) %>
-              <%= image_tag("ratings-off.png", :title => "#{rating_title[count]}", :size => "15x15", :class => "rating-star") %>
-              <% count = count + 1 %>
-            <% end %>
-          </span>
-          <p class="reviews-comment"><%= review.comment %></p>
+          </div>
+          
+          <div class="small-10 large-10 columns">
+          
+            <div class = 'row'>
+              <div class="small-12 large-12 columns">
+                <b><%= review.poster.name %></b> - 
+                <span><%= review.created_at.to_date.to_s %></span> - 
+                <span>
+                  <% rating_title = ["Bad", "Poor", "Regular","Good","Awesome"] %>
+                  <% count = 0 %>
+                  <% while (count < (review.rating||0)) %>
+                     <%= image_tag("ratings-on.png", :title => "#{rating_title[count]}", :size => "15x15", :class => "rating-star") %>
+                    <% count = count + 1 %>
+                  <% end %>
+                  <% while (count != 5) %>
+                    <%= image_tag("ratings-off.png", :title => "#{rating_title[count]}", :size => "15x15", :class => "rating-star") %>
+                    <% count = count + 1 %>
+                  <% end %>
+                </span>
+              </div>
+            </div>
+            
+            <div class = "row">
+              <div class="small-12 large-12 columns">
+                <p><%= review.comment %></p>
+              </div>
+            </div>
+            
+            
+          </div>
+          
+          
+          
         </div>
-       </div>
-       <hr class="divider dashed">
+      <% end %>
+      <hr>
+    <% else %>
+      This user/company got no review yet.
+      <hr>
     <% end %>
-   <% else %>
-    This user/company got no review yet.
-    <hr class="divider dashed">
-   <% end %>
+  </div>
 </div>

@@ -1,31 +1,7 @@
-<div class="wizard-progress-bar">
+<dl class="sub-nav">
+  <dd class="<%= 'active' if step == 'details'%>"><%= link_to "Details", edit_user_account_path(current_user) %></dd>
+  <dd class="<%= 'active' if step == 'experience'%>"><%= link_to "Experience", user_experience_path(current_user) %></dd>
+  <dd class="<%= 'active' if step == 'ratings'%>"><%= link_to "Rating", user_account_reviews_path(current_user) %></dd>
+	<dd class="<%= 'active' if step == 'map'%>"><%= link_to "Map", user_map_path(current_user) %></dd>
+</dl>
 
-	<div class="step <%= 'active' if step == 'details'%>">
-	  <%= link_to edit_user_account_path(current_user) do %>
-	  <%= image_tag('progress-icon-01a.png', :size => '20x20')%>
-		<p>Details</p>
-		<% end %>
-	</div>
-
-	<div class="step <%= 'active' if step == 'experience'%>">
-	  <%= link_to user_experience_path(current_user) do %>
-	  <%= image_tag('progress-icon-02.png', :size => '20x20')%>
-		<p>experience</p>
-		<% end %>
-	</div>
-
-	<div class="step <%= 'active' if step == 'ratings'%>">
-		<%= link_to user_account_reviews_path(current_user) do %>
-		<%= image_tag('progress-icon-03.png', :size => '20x20') %>
-		<p>ratings</p>
-		<% end %>
-	</div>
-
-	<div class="step <%= 'active' if step == 'map'%>">
-		<%= link_to user_map_path(current_user) do %>
-		<%= image_tag('progress-icon-04.png', :size => '20x20') %> 
-		<p>map</p>
-		<% end %>
-	</div>
-
-</div>	

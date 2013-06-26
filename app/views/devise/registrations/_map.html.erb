@@ -1,0 +1,66 @@
+
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBKCYyYFzM8EnWRKrX62dXCoaY4qjJNN0U&sensor=true">
+</script>
+
+<script type="text/javascript">
+  function initialize(latitude,longitude) {
+    geocoder = new google.maps.Geocoder();
+    var myLatlng = new google.maps.LatLng(latitude,longitude);
+    var myCoordsLenght = 6;
+    var mapOptions = {
+      center: new google.maps.LatLng(latitude,longitude),
+      zoom: 15,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    var map = new google.maps.Map(document.getElementById("map_canvas"),mapOptions);
+    var marker = new google.maps.Marker({
+        position: myLatlng,
+        map: map,
+        draggable: true,
+        title:"Is your location here?"
+    });
+    
+    google.maps.event.addListener(marker, 'dragend', function(evt){
+      var latlng = new google.maps.LatLng(evt.latLng.lat(), evt.latLng.lng());
+      $('#user_coordinates_latitude').val(evt.latLng.lat().toFixed(myCoordsLenght));
+      $('#user_coordinates_longitude').val(evt.latLng.lng().toFixed(myCoordsLenght));
+      initialize(evt.latLng.lat().toFixed(myCoordsLenght), evt.latLng.lng().toFixed(myCoordsLenght));
+      
+      geocoder.geocode({'latLng': latlng}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+          if (results[0]) {
+            $('#user_address').val(results[0].formatted_address);
+          }
+        } else {
+          alert("Geocoder failed due to: " + status);
+        }
+      });
+      
+    });
+    map.setCenter(marker.position);
+    marker.setMap(map);
+  }
+
+  function showPosition(position)
+    {
+    $('#user_coordinates_latitude').val(position.coords.latitude);
+    $('#user_coordinates_longitude').val(position.coords.longitude);
+    initialize(position.coords.latitude, position.coords.longitude);
+    }
+  
+  $(function ()
+      {
+       showPosition({coords:{longitude: <%= current_user.coordinates_longitude  %>,latitude: <%= current_user.coordinates_latitude %> }}); 
+      if (navigator.geolocation)
+        {
+        navigator.geolocation.getCurrentPosition(showPosition);
+        }
+      else{x.innerHTML="Geolocation is not supported by this browser.";}
+      
+      }
+    )
+</script>
+
+<div class="wizard-gmap">
+  <div id="map_canvas" style="width:100%; height:500px;"></div>
+</div>

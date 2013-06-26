@@ -1,19 +1,21 @@
-<%= render :partial => "shared/left_navigator", :locals => {:current_link => "company"} %>
-<div class="content-section">
-	<h1 class="content-title tadd"> <i>&nbsp;</i> Add Company</h1>
-	<hr class="divider">
-	<div class="company-details">
-	  <%= simple_form_for(@company, :url => user_account_companies_path(current_user)) do |f| %>
-	    <%= render :partial => 'form', :locals => {:f => f} %>
-	    <hr style="height:20px;">
-      <%= button_tag(type: 'submit', class: "btn save") do %>
-        <span>save</span>
-      <% end %>
-      <%= link_to :back, :class => "btn back" do%>
-        <span>back</span>
-      <% end %>
-	  <% end %>
-	</div>
-	<%= render 'map' %>
+<div class="row">
+  <div class="small-12 large-12 columns">
+	  <h2>Add Company</h2>
+	  <hr>
+  </div>
+</div>
+
+<div class="row">
+  <div class="small-6 large-6 columns">
+    <%= simple_form_for(@company, :url => user_account_companies_path(current_user)) do |f| %>
+      <%= render :partial => 'form', :locals => {:f => f} %>
+      <hr>
+      <%= button_tag 'Save', class: "button small"%>
+      <%= link_to "Back", :back, :class => "button secondary small"%>
+    <% end %>
+  </div>
+  <div class="small-6 large-6 columns">
+    <%= render 'map' %>
+  </div>
 </div>
 

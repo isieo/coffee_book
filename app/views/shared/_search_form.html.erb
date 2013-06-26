@@ -1,4 +1,10 @@
 <%= form_tag search_path, :method => "get" do |f| %>
-  <%= text_field_tag :search,"#{params[:search]}",  :class => 'searchfield', :placeholder => 'Search...' %>
-  <%= image_submit_tag("search-icon.png", :class => "submit")%>
+  <div class="row collapse">
+    <div class="small-8 columns">
+      <%= text_field_tag :search,"#{params[:search]}",  :class => 'searchfield', :placeholder => 'Search...' %>
+    </div>
+    <div class="small-4 columns">
+      <%= submit_tag("Search", :class => "alert button")%>
+    </div>
+  </div>
 <% end %>

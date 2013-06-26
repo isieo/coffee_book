@@ -4,6 +4,7 @@ class Company
   include Geocoder::Model::Mongoid
  
   field :name, :type => String
+  validates :name, presence: true
   field :coordinates
   field :coordinates_latitude, :type => Float
   field :coordinates_longitude, :type => Float
@@ -13,7 +14,7 @@ class Company
   field :country, :type => String
   field :contact_mobile, :type => String
   field :contact_office, :type => String
-  field :cover_image_uid, :type => String
+  field :image, :type => String
   
   before_validation :initialize_coordinates
   after_validation :geocode, :reverse_geocode, :if => (:address_changed? || :coordinates_latitude_changed? || :coordinates_longitude_changed?)
@@ -26,10 +27,10 @@ class Company
   has_and_belongs_to_many :admins,  class_name: "User"
   has_and_belongs_to_many :members, class_name: "User"
   
-  image_accessor :cover_image
-  
   validates_presence_of :name, :address, :contact_mobile, :contact_office
   before_validation :initialize_coordinates
+  
+  mount_uploader :image, PictureUploader
   
   geocoded_by :address do |obj,results|
     if geo = results.first

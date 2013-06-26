@@ -1,6 +1,7 @@
-<%= render :partial => "shared/left_navigator", :locals => {:current_link => "guide"} %>
-<div class="content-section">
-  Would you like to <%= link_to 'search for jobs?', jobs_path, :class => "btn company" %>
-  or would you like to <%= link_to 'add jobs?', new_user_account_company_path(current_user), :class => "btn company" if !current_user.nil?%> </br>
-  *Please take notice that you need to create company before creating job.*
+<div class="row">
+  <div class="small-12 large-12 columns">
+    <p>Would you like to <%= link_to 'search for jobs?', jobs_path, :class => "btn company" %>
+    or would you like to <%= link_to 'add jobs?', new_user_account_company_path(current_user), :class => "btn company" if !current_user.nil?%> </br>
+    *Please take notice that you need to create company before creating job.*</p>
+  </div>
 </div>

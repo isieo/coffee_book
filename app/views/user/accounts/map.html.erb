@@ -1,4 +1,48 @@
-<%= render :partial => "shared/left_navigator", :locals => {:current_link => "map"} %>
+<div class="row">
+  <div class="small-12 large-12 columns">
+    
+	  <div class="row">
+		  <div class="small-9 large-9 columns">
+			  <div id="map_canvas" class="shadow-border" style="width:100%; height:372px;"></div>
+		  </div>	
+		  <div class="small-3 large-3 columns">
+        <h3><%= current_user.city%></h3>
+			  <p><%= (current_user.address.nil? ? "Address Not Available, please update your details." : current_user.address) %></p>
+		  </div>
+		  <hr>			
+	  </div>
+	  
+	  <div class="row">
+		  <div class="small-12 large-12 columns">
+	      <h3>Near By</h3>
+	      <div>
+		      <table class="nearby">
+			      <tr>
+				      <th>Title</th>
+				      <th>Pay</th>
+				      <th>Distance</th>
+				      <th>Start Date</th>
+				      <th>How Many Days</th>
+				      <th>Details</th>
+			      </tr>
+			      <% Job.near(current_user).each do |job| %>
+              <tr>
+                <td><%= job.title %></td>
+                <td><%= number_to_currency(job.pay, :format => "RM %n") %>/<%= job.pay_per %></td>
+                <td><%= '%.2f' % current_user.distance_to(job, :km)%> KM</td>
+                <td><%= job.date.strftime('%d-%m-%Y') if job.date.present? %></td>
+                <td><%= job.day_amount %> Days</td>
+                <td class='details-more'><%= link_to 'See More', job%></td>
+              </tr>
+            <% end %>
+		      </table>
+	      </div>
+		  </div>
+		</div>
+
+  </div>
+</div>
+
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBKCYyYFzM8EnWRKrX62dXCoaY4qjJNN0U&sensor=true">
 </script>
 <script type="text/javascript">
@@ -30,49 +74,4 @@
         initialize();
     }
   )
-  
-  
 </script>
-<div class="content-section">
-  <%= render :partial => "user/accounts/account_menu", :locals =>{ :step => 'map'} %>
-	<div class="map-section clear">
-		<div class="map-details"> 
-			<div id="map_canvas" class="shadow-border" style="width:372px; height:372px;"></div>
-		</div>	
-		<div class="map-address"> 
-		  <%= image_tag('direction-icon.png', :size => '40x40', :class => "direction-icon")%>
-			<h1 class="address-place"><%= current_user.city%></h1>
-			<p class="address-road"><%= (current_user.address.nil? ? "Address Not Available, please update your details." : current_user.address) %></p>
-			<hr class="divider">
-			<p class="contacts cemail"><i>&nbsp;</i> <%= current_user.email%> </p>
-			<p class="contacts cphone"><i>&nbsp;</i> <%= current_user.contact_home%> </p>
-			<p class="contacts cperson"><i>&nbsp;</i> <%= current_user.contact_mobile%> </p>
-		</div>				
-	</div>
-	<hr style="height:20px">
-	<h1 class="content-title tnearby"> <i>&nbsp;</i> Near By</h1>
-	<div>
-		<table class="nearby">
-			<tr>
-				<th>Title</th>
-				<th>Address</th>
-				<th>Pay</th>
-				<th>Start Date</th>
-				<th>How Many Days</th>
-				<th>Details</th>
-			</tr>
-      <% i = 1 %>
-			<% @jobs.each do |job| %>
-        <tr class = '<%= i%2 == 1 ? "_odd" : "_even"%>'>
-          <td><%= job.title %></td>
-          <td><%= job.address.truncate(30) %></td>
-          <td><%= number_to_currency(job.pay, :format => "RM %n") %>/<%= job.pay_per %></td>
-          <td><%= job.date.strftime('%d-%m-%Y') if job.date.present? %></td>
-          <td><%= job.day_amount %> Days</td>
-          <td class='details-more'><%= link_to 'See More »', job%></td>
-        </tr>
-        <% i =  i + 1 %> 
-      <% end %>
-		</table>
-	</div>
-</div>

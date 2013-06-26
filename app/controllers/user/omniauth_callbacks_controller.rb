@@ -1,22 +1,17 @@
 class User::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   before_filter :load_mock
-  def passthru
-    session[:return_to] = params[:redirect_uri]
-    render :file => "#{Rails.root}/public/404.html", :status => 404, :layout => false
-  end
-  
-  def facebook
-    # You need to implement the method below in your model
-    @user = User.find_for_facebook_oauth(request.env["omniauth.auth"], current_user)
-    if @user.persisted?
-      flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => "Facebook"
-      sign_in_and_redirect @user, :event => :authentication
+  def all
+    user = User.from_omniauth(request.env["omniauth.auth"])
+    if user.persisted?
+      flash.notice = "Signed in!"
+      sign_in_and_redirect user
     else
-      session["devise.facebook_data"] = request.env["omniauth.auth"]
-      flash[:notice] = "facebook login error"
-      redirect_to root_path
+      session["devise.user_attributes"] = user.attributes
+      flash[:alert] = user.errors.full_messages.to_sentence
+      redirect_to new_user_registration_url
     end
   end
+  alias_method :facebook, :all
   
   def load_mock
     return if !Rails.env.test?

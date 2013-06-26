@@ -1,0 +1,49 @@
+<div class="row">
+  <div class="large-3 columns">
+    <h1><%= link_to image_tag("8dvice.png", :size => "100x45", :alt => "8vice"), root_path%></h1>
+    <%#= render :partial => "shared/search_form"%>
+  </div>
+  
+  <div class="large-9 columns">
+
+    <ul class="right button-group">
+      <% if !user_signed_in? %>
+        <li><%= link_to "Login", user_session_path, :class => "small button" %></li>
+        <li><%= link_to "Sign Up", new_user_registration_path, :class => "small button", id: "sign-up" %></li>
+          
+      <% else %>
+        
+        <li><%= link_to "Browse Job", jobs_path, class: "button medium" %></li>
+        <li><%= link_to "Company", "#", class: "button dropdown medium", :"data-dropdown" => "company_navi" %></li>
+        <li><%= link_to "My Applications", application_path, class: "button medium" %></li>
+        <li><%= link_to current_user.name.truncate(10), "#", class: "button medium dropdown", :"data-dropdown" => "user_navi"%></li>
+        
+        <% if current_user.image? %>
+          <li><%= image_tag(current_user.image_url(:top_bar), class: "th hide-for-small") %></li>
+        <% elsif !current_user.fb_profile_pic.nil? %>
+          <li><%= image_tag (current_user.fb_profile_pic), :size => "50x50", :class => "th hide-for-small" %></li>
+        <% else %>
+          <li><%= image_tag("default-profile-photo.png", size: "50x50", class: "th hide-for-small") %></li>
+        <% end %>
+        
+        <ul id="user_navi" class="f-dropdown">
+          <li><%= link_to "View My Profile", user_accounts_path(current_user)%></li>
+          <li><%= link_to "Edit my details", "users/edit"%></li>
+          <li><%= link_to "Jobs near me", user_map_path(current_user)%></li>
+          <li><%= link_to "Logout", destroy_user_session_path%></li>
+        </ul>
+        
+        <ul id="company_navi" class="f-dropdown">
+          <li><%= link_to "Browse Company", companies_path %></li>
+          <li><%= link_to "My Companies", user_account_companies_path(current_user) %></li>
+        </ul>
+        
+      <% end %>
+    </ul>
+
+
+    
+  </div>
+</div>
+
+

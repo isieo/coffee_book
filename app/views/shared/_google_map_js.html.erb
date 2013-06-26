@@ -49,13 +49,13 @@
 
         google.maps.event.addListener(marker, 'click', (function(marker, i) {
           return function() {
-            var contentString = '<h3>'+job[i][3]+'</h3>' + '<b>Pay : </b> RM' + job[i][4] + "/" + job[i][5]+ "</br><b>Date : </b>" + job[i][6] ;
+            var contentString = '<h4>'+job[i][3]+'</h4>' + '<b>Pay : </b> RM' + job[i][4] + "/" + job[i][5]+ "</br><b>Date : </b>" + job[i][6] ;
             infowindow.setContent(contentString);
             infowindow.open(map, marker);
           }
         })(marker, i));
         
-        var contentString = '<h3>'+job[i][3]+'</h3>' + '<b>Pay : </b> RM' + job[i][4] +  "/" + job[i][5] + "</br><b>Date : </b>" + job[i][6] ;
+        var contentString = '<h4>'+job[i][3]+'</h4>' + '<b>Pay : </b> RM' + job[i][4] +  "/" + job[i][5] + "</br><b>Date : </b>" + job[i][6] ;
         infowindow.setContent(contentString);
         infowindow.open(map, marker);
       }

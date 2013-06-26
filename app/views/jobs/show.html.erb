@@ -1,69 +1,76 @@
-<%= render :partial => "shared/left_navigator", :locals => {:current_link => "jobs"} %>
-<div class="content-section">
-	<h1 class="content-title tjob"> <i>&nbsp;</i> <%= @job.title %></h1>
-	<hr class="divider">
-	<hr style="height:20px">
-  <div>
-	  <table class="joblisting">
-      <tr>
-        <th>Position:</th><td><%= @job.position %></td>
-      </tr>
-      <tr>
-        <th>Address:</th><td><%= @job.address %></td>
-      </tr>
-      <tr>
-        <th>Date:</th><td><%= @job.date %></td>
-      </tr>
-      <tr>
-        <th>Job Duration:</th><td><%= @job.day_amount %></td>
-      </tr>
-      <tr>
-        <th>Pay</th><td><%= number_to_currency(@job.pay, :format => "RM %n") %>/<%= @job.pay_per %></td>
-      </tr>
-      <tr>
-        <th>Job Requirements:</th><td><%= @job.requirements %></td>
-      </tr>
-      <tr>
-        <th>Who is working here:</th>
-        <td>
-          <% @job.users.each do |u|%>
-            <%=link_to u.name, user_accounts_path(u) %>
-          <% end %>
-        </td>
-      </tr>
-      
-      <tr>
-        <th>Company Link:</th>
-        <td><%= link_to 'Company Link', @job.company %></td>
-      </tr>
-      
-      <tr>
-        <th></th>
-        <% if !current_user.nil?%>
-          <td><%= link_to 'Apply', new_job_job_applications_path(@job)%></td>
-        <% else %>
-          <td>Please register or sign-in to apply </td>
-        <% end %>
-      </tr>
-      
-	  </table>
-	</div>
-	<%= render :partial => "shared/reviews", :locals =>{ :reviews => @reviews} %>
-	<div class="pagination fright">
-		<%= paginate @reviews %>
-	</div>
-	<% if current_user.nil? %>
-    <%- if devise_mapping.omniauthable? %>
-      <%- resource_class.omniauth_providers.each do |provider| %>
-       Please <%= link_to "login", omniauth_authorize_path(resource_name, provider) %> to add comment
-      <% end -%>
-    <% end -%>
-	<% else %>
-	  <%= render :partial => "shared/add_comment_form", :locals =>{ :post_to => @job.company} %>
-	<% end %>
+<div class="row">
+  <div class="small-12 large-12 columns">
+  
+    <div class = "row">
+      <div class="content-section small-12 large-12 columns">
+	      <h2><%= @job.title %></h2>
+	      <hr>
+        <table class="joblisting">
+          <tr>
+            <th>Position:</th><td><%= @job.position %></td>
+          </tr>
+          <tr>
+            <th>Address:</th><td><%= @job.address %></td>
+          </tr>
+          <tr>
+            <th>Date:</th><td><%= @job.date %></td>
+          </tr>
+          <tr>
+            <th>Job Duration:</th><td><%= @job.day_amount %></td>
+          </tr>
+          <tr>
+            <th>Pay</th><td><%= number_to_currency(@job.pay, :format => "RM %n") %>/<%= @job.pay_per %></td>
+          </tr>
+          <tr>
+            <th>Job Requirements:</th><td><%= @job.requirements %></td>
+          </tr>
+          <tr>
+            <th>Who is working here:</th>
+            <td>
+              <% @job.users.each do |u|%>
+                <%=link_to u.name, user_accounts_path(u) %>
+              <% end %>
+            </td>
+          </tr>
+          
+          <tr>
+            <th>Company Link:</th>
+            <td><%= link_to 'Company Link', @job.company %></td>
+          </tr>
+          
+          <tr>
+            <th></th>
+            <% if !current_user.nil?%>
+              <td><%= link_to 'Apply', new_job_job_applications_path(@job)%></td>
+            <% else %>
+              <td>Please register or sign-in to apply </td>
+            <% end %>
+          </tr>
+          
+        </table>
+      </div>
+    </div>
+    
+    <div class = "row">
+      <div class="small-12 large-12 columns">
+	      <%= render :partial => "shared/reviews", :locals =>{ :reviews => @reviews} %>
+	      <div class="pagination fright">
+		      <%= paginate @reviews %>
+	      </div>
+	      <% if current_user.nil? %>
+          <%- if devise_mapping.omniauthable? %>
+            <%- resource_class.omniauth_providers.each do |provider| %>
+              Please <%= link_to "login", omniauth_authorize_path(resource_name, provider) %> to add comment
+            <% end -%>
+          <% end -%>
+	      <% else %>
+	        <%= render :partial => "shared/add_comment_form", :locals =>{ :post_to => @job.company} %>
+	      <% end %>
+	    </div>
+	  </div>
 	
+  </div>
 </div>
-
 
 
 

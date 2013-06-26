@@ -2,27 +2,27 @@ module LoginMacros
   def normal_signup
     visit root_path
     click_link "Login"
-    within('.pro-details') do
-      fill_in "Email", :with => "test@example.dev"
-      fill_in "Username", :with => "testusername"
-      fill_in "Name", :with => "testname"
-      fill_in "user_password", :with => "password"
-      fill_in "user_password_confirmation", :with => "password"
-    end
+    click_link "Sign up"
+    fill_in "Email", :with => "test@example.dev"
+    fill_in "Username", :with => "testusername"
+    fill_in "Name", :with => "testname"
+    fill_in "user_password", :with => "password"
+    fill_in "user_password_confirmation", :with => "password"
     click_on "Sign up"
-    fill_in "Address", :with => "Tesco Klang"
-    click_button"save"
+    fill_in "user_current_password", :with => "password"
+    fill_in "Address", :with => "Klang"
+    click_button "Save"
+    page.should have_content("testname")
   end
 
   def login
     visit root_path
-    click_link "facebook"
+    click_link "Login"
+    click_link "Sign in with Facebook"
   end
   
   def login_first_time
     login
-    fill_in "Address", :with => "Tesco Klang"
-    click_button 'save'
   end
 end
 

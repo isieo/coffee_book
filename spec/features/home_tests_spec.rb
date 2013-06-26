@@ -1,11 +1,11 @@
 require 'spec_helper'
 #encoding: utf-8
 
-describe "Home and non-account user, " do
+describe "[User with no account] " do
   #home
   it "home page is accessible" do
     visit root_path
-    page.should have_content("Job")
+    page.should have_content("Login")
   end
   it "guide page is accessible" do
     visit guide_path
@@ -45,6 +45,5 @@ describe "Home and non-account user, " do
     page.should have_content("mock test")
   end
 end
-
 
 
