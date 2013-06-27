@@ -8,10 +8,8 @@ module LoginMacros
     fill_in "Name", :with => "testname"
     fill_in "user_password", :with => "password"
     fill_in "user_password_confirmation", :with => "password"
+    fill_in "Location", :with => "Klang"
     click_on "Sign up"
-    fill_in "user_current_password", :with => "password"
-    fill_in "Address", :with => "Klang"
-    click_button "Save"
     page.should have_content("testname")
   end
 

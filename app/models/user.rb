@@ -51,6 +51,7 @@ class User
   validates :name, presence: true
   validates :username, :presence => true, :uniqueness => true
   field :address, :type => String
+  validates :address, :presence => true
   field :coordinates
   field :coordinates_latitude, :type => Float
   field :coordinates_longitude, :type => Float

@@ -81,6 +81,19 @@
         <div class="small-12">
           <div class="row">
             <div class="small-3 columns">
+              <%= f.label :address, class: 'right inline', label: "Location" %>
+            </div>
+            <div class="small-9 columns">
+              <%= f.input_field :address, :placeholder => "Klang, Petaling Jaya, Kuala Lumpur"%>
+            </div>
+          </div>
+        </div>
+      </div>
+            
+      <div class="row">
+        <div class="small-12">
+          <div class="row">
+            <div class="small-3 columns">
               <%= f.label :gender, class: 'right inline' %>
             </div>
             <div class="small-9 columns">
