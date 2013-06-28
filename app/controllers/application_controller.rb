@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   
   def check_user_address
-    if !current_user.nil?
+    if user_signed_in?
       if current_user.address.blank?
         flash[:notice] = "We need your address to find jobs near you!"
         redirect_to "/users/edit"
