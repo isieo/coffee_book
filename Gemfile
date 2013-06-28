@@ -37,7 +37,6 @@ gem 'capistrano'
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
 gem 'mongoid'#, '2.4.10'
-gem 'bson_ext'
 gem 'mongoid_search'
 gem "devise"
 gem 'omniauth-facebook'
