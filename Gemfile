@@ -51,7 +51,7 @@ gem 'rmagick'
 gem 'kaminari'
 gem 'ransack'
 
-gem "geocoder", :git => 'git://github.com/SailorMercury/geocoder.git'
+gem "geocoder"#, :git => 'git://github.com/SailorMercury/geocoder.git'
 
 gem "rspec-rails", :group => [:test, :development]
 group :test do
