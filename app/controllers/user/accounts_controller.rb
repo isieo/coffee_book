@@ -26,7 +26,7 @@ class User::AccountsController < ApplicationController
     end
   end
   
-  def update
+  def update_not_used
     if params[:user][:password].blank?
       # Bypass to enter current password and password is null during update profile
       params[:user].delete(:password)

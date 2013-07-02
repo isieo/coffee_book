@@ -7,10 +7,10 @@
         <div class="row">
         
           <div class="small-2 large-2 columns">
-            <% if review.poster && current_user.image? %>
+            <% if review.poster && review.poster.image? %>
               <%= image_tag(current_user.image_url(:comment_picture), class: "th") %>
-            <% elsif review.poster && !current_user.fb_profile_pic.nil? %>
-              <%= image_tag (current_user.fb_profile_pic), :size => "40x40", :class => "th" %>
+            <% elsif review.poster && !review.poster.fb_profile_pic.nil? %>
+              <%= image_tag (review.poster.fb_profile_pic), :size => "40x40", :class => "th" %>
             <% else %>
               <%= image_tag("default-profile-photo.png", size: "40x40", class: "th") %>
             <% end %>

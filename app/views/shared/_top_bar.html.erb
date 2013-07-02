@@ -28,7 +28,7 @@
         
         <ul id="user_navi" class="f-dropdown">
           <li><%= link_to "View My Profile", user_accounts_path(current_user)%></li>
-          <li><%= link_to "Edit my details", "users/edit"%></li>
+          <li><%= link_to "Edit my details", edit_user_registration_path %></li>
           <li><%= link_to "Jobs near me", user_map_path(current_user)%></li>
           <li><%= link_to "Logout", destroy_user_session_path%></li>
         </ul>
