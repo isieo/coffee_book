@@ -1,20 +1,13 @@
-<%= render :partial => "shared/left_navigator", :locals => {:current_link => "application"} %>
-<div class="content-section">
-	<h1 class="content-title tjob"> <i>&nbsp;</i> Rejecting <%= @application.username %>'s application</h1>
-	<hr class="divider">
-	<hr style="height:20px">	
-	<div class="company-details">
+<div class="row">
+  <div class="small-12 large-12 columns">
+	  <h2> Rejecting <%= @application.username %>'s application</h2>
+	  <hr>
     <%= simple_form_for(@application, :url => job_job_applications_path, :html => { :method => :put }) do |f| %>
       <%= f.input :reject_reason, :as => :text, :input_html => { :class => 'input-details' }%>
       <%= f.input :status, :as => :hidden, :input_html => { :value => "rejected"  }%>
-      <%= button_tag(type: 'submit', class: "btn cancel") do %>
-        <span>Reject</span>
-      <% end %>
-      <%= link_to :back, :class => "btn back" do%>
-        <span>Back</span>
-      <% end %>
+      <%= f.submit 'Reject', class: "button"%>
+      <%= link_to "Back", :back, class: "button secondary"%>
     <% end %>
   </div>
-
-</div>	
+</div>
 

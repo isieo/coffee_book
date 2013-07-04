@@ -41,7 +41,7 @@ class JobApplicationsController < ApplicationController
       application.status = "approved"
       user = application.user
       company = application.company
-      user.member_of << c
+      user.member_of << company
       company.members << user
       user.jobs << application.job
       user.save

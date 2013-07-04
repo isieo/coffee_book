@@ -1,27 +1,13 @@
 <div class="row">
-  <%= render :partial => "shared/left_navigator", :locals => {:current_link => "application"} %>
-  <div class="content-section small-9 large-9 columns">
-    <div class="content-section">
-	    <h2><%= @application.username %>'s application</h2>
-	    <hr class="divider">
-	    <hr style="height:20px">
-	    <%= @application.username %> said :
-      <div>
-        <p><%= @application.applicant_description %></p>
-	    </div>
-	
-	    <div class="company-details">
-        <%= simple_form_for(@application, :url => job_job_applications_path, :html => { :method => :put }) do |f| %>
-          <%= f.input :status, :as => :hidden, :input_html => { :value => "approved"  }%>
-          <%= button_tag(type: 'submit', class: "btn save") do %>
-            <span>Approve</span>
-          <% end %>
-          <%= link_to edit_job_job_applications_path(@application), :class => "btn cancel" do%>
-            <span>Reject</span>
-          <% end %>
-        <% end %>
-      </div>
-
-    </div>
+  <div class="small-12 large-12 columns">
+    <h2><%= @application.username %>'s application</h2>
+    <hr>
+    <%= @application.username %> said :
+    <p><%= @application.applicant_description %></p>
+    <%= simple_form_for(@application, :url => job_job_applications_path, :html => { :method => :put }) do |f| %>
+      <%= f.input :status, :as => :hidden, :input_html => { :value => "approved"  }%>
+      <%= f.submit 'Approve', class: "button"%>
+      <%= link_to "Reject", edit_job_job_applications_path(@application), :class => "button alert"%>
+    <% end %>
   </div>
 </div>

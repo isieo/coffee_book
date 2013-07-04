@@ -9,7 +9,7 @@
 			    <tr>
 				    <th>Position</th>
 				    <th>Address</th>
-				    <th>Salary Per Day</th>
+				    <th>Pay Per Day</th>
 				    <th>Start Date</th>
 				    <th>Work how many days?</th>
 				    <th>Details</th>
@@ -20,10 +20,10 @@
               <td><%= application.job.title %></td>
               <td><%= application.job.address.truncate(30) %></td>
               <td>
-                  <% if application.job.salary.blank? %>
+                  <% if application.job.pay.blank? %>
                     N/A
                   <% else %>
-                    <%= number_to_currency(application.job.salary, :format => "RM %n") %>
+                    <%= number_to_currency(application.job.pay, :format => "RM %n") %>
                   <% end %>
               </td>
               <td><%= application.job.date.strftime('%d-%m-%Y') if application.job.date.present? %></td>
@@ -43,7 +43,7 @@
 			    <tr>
 				    <th>Title</th>
 				    <th>Address</th>
-				    <th>Salary Per Day</th>
+				    <th>Pay Per Day</th>
 				    <th>Start Date</th>
 				    <th>Work how many days?</th>
 				    <th>Details</th>
@@ -53,10 +53,10 @@
               <td><%= job.title %></td>
               <td><%= job.address.truncate(30) %></td>
               <td>
-                  <% if job.salary == 0 || job.salary.nil? %>
+                  <% if job.pay == 0 || job.pay.nil? %>
                     N/A
                   <% else %>
-                    <%= number_to_currency(job.salary, :format => "RM %n") %>
+                    <%= number_to_currency(job.pay, :format => "RM %n") %>
                   <% end %>
               </td>
               <td><%= job.date.strftime('%d-%m-%Y') if job.date.present? %></td>
