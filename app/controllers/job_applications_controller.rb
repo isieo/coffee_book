@@ -22,6 +22,7 @@ class JobApplicationsController < ApplicationController
       Delayed::Job.enqueue NotifyJob.new(admin.id, current_user.id, @job.id)
     end
     flash[:notice] = "Job applied successfully, please wait for approval or contact"
+    UserMailer.job_application_notification(@application).deliver
     redirect_to application_path
   end
   
@@ -36,6 +37,7 @@ class JobApplicationsController < ApplicationController
       application.reject_reason = params[:job_application][:reject_reason]
       application.save
       flash[:notice] = "Job application rejected successfully"
+      UserMailer.job_rejected_notification(application).deliver
       redirect_to user_account_company_path(current_user, application.company)
     elsif params[:job_application][:status] == "approved"
       application.status = "approved"
@@ -47,7 +49,8 @@ class JobApplicationsController < ApplicationController
       user.save
       company.save
       application.save
-      flash[:notice] = "Job application approved successfully"
+      flash[:notice] = "job_approved_notification"
+      UserMailer.job_application_notification(application).deliver
       redirect_to user_account_company_path(current_user, application.company)
     end
 

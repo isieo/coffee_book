@@ -9,6 +9,7 @@
           <!-- <li><%#= link_to "Add Member", new_member_user_account_company_path(current_user, @company), :class => "small button" if @user.is_company_admin?(@company._id) %></li> -->
           <li><%= link_to "View all job by this company", user_account_company_jobs_path(@user, @company), :class => "small button" %></li>
           <li><%= link_to "New Job", new_user_account_company_job_path(@user, @company), :class => "small button" %></li>
+          <li><%= link_to "Find Users", users_path, :class => "small button" %></li>
           <li><%= link_to "Delete", user_account_company_path(current_user, @company), :confirm => "Are you sure?", :method=>:delete, :class => "small button alert" if current_user.is_company_admin?(@company._id) %></li>
         <ul>
       </div>
@@ -90,7 +91,7 @@
                   <td><%= job.title %></td>
                   <td><%= job.address %></td>
                   <td><%= number_to_currency(job.pay, :format => "RM %n") %>/<%= job.pay_per %></td>
-                  <td><%= job.date.to_date %></td>
+                  <td><%= job.date.to_date if !job.date.nil? %></td>
                   <td><%= job.day_amount %> Days</td>
                   <td class='details-more'><%= link_to "View", user_account_company_job_path(@user, @company, job)%></td>
                   <td class='details-more'><%= link_to "Edit", edit_user_account_company_job_path(@user, @company, job)%></td>
