@@ -52,7 +52,7 @@
               <td><%= job.title %></td>
               <td><%= job.address.truncate(50) %></td>
               <td><%= number_to_currency(job.pay, :format => "RM %n") %>/<%= job.pay_per %></td>
-              <td><%= job.date.to_date %></td>
+              <td><%= job.date.to_date if !job.date.nil? %></td>
               <td><%= job.day_amount %> Days</td>
               <td class='details-more'><%= link_to 'See More', job %></td>
             </tr>
