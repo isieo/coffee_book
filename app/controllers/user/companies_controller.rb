@@ -64,9 +64,14 @@ class User::CompaniesController < ApplicationController
       @company.name = params[:company][:name]
       @company.contact_office = params[:company][:contact_office]
       @company.contact_mobile = params[:company][:contact_mobile]
-      @company.address = params[:company][:address] if @company.address != params[:company][:address]
-      @company.coordinates_latitude = params[:company][:coordinates_latitude] if @company.coordinates_latitude != params[:company][:coordinates_latitude] 
-      @company.coordinates_longitude = params[:company][:coordinates_longitude] if @company.coordinates_longitude != params[:company][:coordinates_longitude] 
+      #@company.coordinates_latitude = params[:company][:coordinates_latitude]
+      #@company.coordinates_longitude = params[:company][:coordinates_longitude]
+      
+      if @company.address != params[:company][:address]
+        @company.address = params[:company][:address]
+        @company.coordinates_latitude = nil
+        @company.coordinates_longitude = nil
+      end
       @company.image = params[:company][:image] if params[:company][:image]
       @company.save
       flash[:notice] = "Company updated successfully."
