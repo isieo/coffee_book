@@ -9,7 +9,7 @@ class UserMailer < ActionMailer::Base
   def job_application_notification(application)
     @application = application
 
-    mail to: application.company.admins.first.email, subject: "Somone applied to your job"
+    mail to: application.company.admins.first.email, subject: "8vise : You have a new part time job applicant!"
   end
   
   def job_approved_notification(application)

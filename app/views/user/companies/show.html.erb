@@ -10,12 +10,12 @@
           <li><%= link_to "View all job by this company", user_account_company_jobs_path(@user, @company), :class => "small button" %></li>
           <li><%= link_to "New Job", new_user_account_company_job_path(@user, @company), :class => "small button" %></li>
           <li><%= link_to "Find Users", users_path, :class => "small button" %></li>
-          <li><%= link_to "Delete", user_account_company_path(current_user, @company), :confirm => "Are you sure?", :method=>:delete, :class => "small button alert" if current_user.is_company_admin?(@company._id) %></li>
+          <li><%#= link_to "Delete", user_account_company_path(current_user, @company), :confirm => "Are you sure?", :method=>:delete, :class => "small button alert" if current_user.is_company_admin?(@company._id) %></li>
         <ul>
       </div>
     </div>
     <div class = "row">
-      <div class="small-12 large-12 columns">
+      <div class="small-7 large-7 columns">
         <table>
           <tr>
             <th>Address</th><td><%= @company.address %></td>
@@ -43,6 +43,9 @@
             </td>
           </tr>
         </table>
+      </div>
+      <div class="small-5 large-5 columns">
+        <%= image_tag "http://maps.google.com/maps/api/staticmap?size=450x300&sensor=false&zoom=16&markers=#{@company.coordinates_latitude}%2C#{@company.coordinates_longitude}" %>
       </div>
     </div>
 
@@ -89,7 +92,7 @@
             <% @company.jobs.each do |job|%>
                 <tr>
                   <td><%= job.title %></td>
-                  <td><%= job.address %></td>
+                  <td><%= job.address.truncate(35) %></td>
                   <td><%= number_to_currency(job.pay, :format => "RM %n") %>/<%= job.pay_per %></td>
                   <td><%= job.date.to_date if !job.date.nil? %></td>
                   <td><%= job.day_amount %> Days</td>
@@ -125,13 +128,6 @@
         <% else %>
           There is currently no job applicant for this company
         <% end %>
-      </div>
-    </div>
-    
-    <div class = "row">
-      <div class="small-12 large-12 columns">
-        <h3>Map</h3>
-        <%= image_tag "http://maps.google.com/maps/api/staticmap?size=450x300&sensor=false&zoom=16&markers=#{@company.coordinates_latitude}%2C#{@company.coordinates_longitude}" %>
       </div>
     </div>
     

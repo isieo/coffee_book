@@ -1,4 +1,22 @@
+
 <div class="row">
+  <div class="small-12">
+    <div class="row">
+      <% if @job.errors.any? %>
+        <% @coordinates_longitude = @company.coordinates_longitude %>
+        <% @coordinates_latitude = @company.coordinates_latitude %>
+        <div id="error_explanation" data-alert class="alert-box panel alert">
+          <h4><%= pluralize(@job.errors.count, "error") %> prohibited this product from being saved:</h4>
+
+          <ul>
+          <% @job.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+    </div>
+  </div>
   <div class="small-12">
     <div class="row">
       <div class="small-3 columns">
@@ -83,7 +101,7 @@
   <div class="small-12">
     <div class="row">
       <div class="small-3 columns">
-        <%= f.label :date, class: 'right inline' %>
+        <%= f.label :date, class: 'right inline', label: "Start Date" %>
       </div>
       <div class="small-9 columns">
         <%= f.input_field :date, :placeholder => "2020-12-31", id: 'dpd1'%>
@@ -96,7 +114,7 @@
   <div class="small-12">
     <div class="row">
       <div class="small-3 columns">
-        <%= f.label :day_amount, class: 'right inline' %>
+        <%= f.label :day_amount, class: 'right inline', label: "Number of working days" %>
       </div>
       <div class="small-9 columns">
         <%= f.input_field :day_amount, :placeholder => "3"%>

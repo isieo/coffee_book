@@ -47,16 +47,16 @@ class Job
     end
   end
   
-  reverse_geocoded_by :coordinates do |obj,results|
-    if geo = results.first
-      obj.address = geo.address
-      obj.city = geo.city
-      obj.state = geo.state
-      obj.country = geo.country
-      obj.coordinates_latitude = geo.coordinates[0]
-      obj.coordinates_longitude = geo.coordinates[1]
-    end
-  end
+  #reverse_geocoded_by :coordinates do |obj,results|
+  #  if geo = results.first
+  #    obj.address = geo.address
+  #    obj.city = geo.city
+  #    obj.state = geo.state
+  #    obj.country = geo.country
+  #    obj.coordinates_latitude = geo.coordinates[0]
+  #    obj.coordinates_longitude = geo.coordinates[1]
+  #  end
+  #end
   
   def summary
     "#{title}, salary RM#{'%.2f' % salary} "

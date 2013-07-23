@@ -51,7 +51,7 @@
        showPosition({coords:{longitude: <%= @coordinates_longitude  %>,latitude: <%= @coordinates_latitude %> }}); 
       if (navigator.geolocation)
         {
-        navigator.geolocation.getCurrentPosition(showPosition);
+
         }
       else{x.innerHTML="Geolocation is not supported by this browser.";}
       }

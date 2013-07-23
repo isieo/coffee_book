@@ -21,11 +21,11 @@ class Company
 
   attr_accessor :image, :group_user
   
-  has_many :jobs
-  has_many :job_applications
+  has_many :jobs, dependent: :destroy
+  has_many :job_applications, dependent: :destroy
   embeds_many :reviews
-  has_and_belongs_to_many :admins,  class_name: "User"
-  has_and_belongs_to_many :members, class_name: "User"
+  has_and_belongs_to_many :admins,  class_name: "User", inverse_of: nil
+  has_and_belongs_to_many :members, class_name: "User", inverse_of: nil
   
   validates_presence_of :name, :address, :contact_mobile, :contact_office
   before_validation :initialize_coordinates

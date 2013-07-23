@@ -1,8 +1,8 @@
 <div class="row">
   <div class="small-12 large-12 columns">
-    <h2><%= @application.username %>'s application</h2>
+    <h2><%= link_to @application.username, user_accounts_path(@application.user) %>'s application</h2>
     <hr>
-    <%= @application.username %> said :
+    <%= link_to @application.username, user_accounts_path(@application.user) %> said :
     <p><%= @application.applicant_description %></p>
     <%= simple_form_for(@application, :url => job_job_applications_path, :html => { :method => :put }) do |f| %>
       <%= f.input :status, :as => :hidden, :input_html => { :value => "approved"  }%>

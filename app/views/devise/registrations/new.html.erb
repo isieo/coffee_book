@@ -110,7 +110,13 @@
               <%= f.label :dob, class: 'right inline', label: "Date of birth" %>
             </div>
             <div class="small-9 columns">
-              <%= f.input :dob, :label => "Date of Birth", :as => :date, :start_year => Date.today.year - 90, :end_year => Date.today.year - 12, :order => [:day, :month, :year], :prompt => {:day => 'Day', :month => 'Month', :year => 'Year'}, label: false %>
+              <%= f.input :dob, :label => "Date of Birth", 
+              :as => :date, 
+              :start_year => Date.today.year - 16, 
+              :end_year => Date.today.year - 90, 
+              :order => [:day, :month, :year], 
+              :prompt => {:day => 'Day', :month => 'Month', :year => 'Year'}, 
+              label: false %>
             </div>
           </div>
         </div>
