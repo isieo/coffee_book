@@ -1,9 +1,7 @@
-<%= @application.user.name %> has applied to your job!
+Dear	<%= @application.company.admins.first.name %>,</br></br>
 
-Dear	sir/ma’am,
-
-  You	have	a	new	job	applicant!
-  Please	click	<%= link_to "here", job_job_applications_path(@application)%>	to log	in	and	approve.	
+  You	have	a	new	job	applicant!</br>
+  Please	click	<%= link_to "here", job_job_applications_url(@application)%>	to log	in	and	approve.</br></br>
   
-Yours	sincerely,
+Yours	sincerely,</br>
 the	8vice	team.

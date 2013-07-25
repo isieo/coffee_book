@@ -15,12 +15,12 @@ class UserMailer < ActionMailer::Base
   def job_approved_notification(application)
     @application = application
 
-    mail to: application.user.email, subject: "Your job application has been approved!"
+    mail to: application.user.email, subject: "8vise : Your job application has been approved"
   end
   
   def job_rejected_notification(application)
     @application = application
 
-    mail to: application.user.email, subject: "Your job application has been rejected!"
+    mail to: application.user.email, subject: "8vise : Your job application has been rejected"
   end
 end

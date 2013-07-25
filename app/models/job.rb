@@ -10,6 +10,7 @@ class Job
   field :pay, :type => BigDecimal
   field :pay_per, :type => String
   field :date, :type => Date
+  validates :date, presence: true
   field :day_amount, :type => Integer
   field :time, :type => Integer
   field :requirements, :type => String

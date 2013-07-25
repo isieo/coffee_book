@@ -50,7 +50,7 @@ class JobApplicationsController < ApplicationController
       company.save
       application.save
       flash[:notice] = "job_approved_notification"
-      UserMailer.job_application_notification(application).deliver
+      UserMailer.job_approved_notification(application).deliver
       redirect_to user_account_company_path(current_user, application.company)
     end
 
