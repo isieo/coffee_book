@@ -4,4 +4,8 @@
 
 <p>Click the link below to unlock your account:</p>
 
-<p><%= link_to 'Unlock my account', unlock_url(@resource, :unlock_token => @resource.unlock_token, :host => request.host), :host => request.host  %></p>
+<p><%= link_to 'Unlock my account', unlock_url(@resource, :unlock_token => @resource.unlock_token, 
+:host => CoffeeBook::Application.config.domain), 
+:host => CoffeeBook::Application.config.domain %></p>
+
+

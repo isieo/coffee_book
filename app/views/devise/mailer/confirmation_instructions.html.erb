@@ -2,6 +2,9 @@
 
 <p>You can confirm your account email through the link below:</p>
 
-<p><%= link_to 'Confirm my account', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token, :host => request.host), :host => request.host %></p>
+<p><%= link_to 'Confirm my account', confirmation_url(@resource, 
+:confirmation_token => @resource.confirmation_token, 
+:host => CoffeeBook::Application.config.domain), 
+:host => CoffeeBook::Application.config.domain %></p>
 
 
